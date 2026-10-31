@@ -111,12 +111,17 @@
     margin-top:16px;max-width:44ch;font-size:15px;line-height:1.7;
     color:var(--ink-soft);font-weight:600;text-wrap:pretty;
   }
-  .unit-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .unit-pills{display:flex;flex-wrap:wrap;gap:8px}
   .unit-pill{
     display:inline-flex;align-items:center;gap:6px;
     font-size:12px;font-weight:800;padding:6px 12px;border-radius:99px;
     border:2px solid var(--ink);background:var(--paper2);box-shadow:0 2px 0 var(--ink);
+    cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s,color .15s;
   }
+  .unit-pill:hover{background:#FFF6E3;transform:translateY(-1px)}
+  .unit-pill:active{transform:translateY(2px);box-shadow:0 0 0 var(--ink)}
+  .unit-pill.active{background:var(--ink);color:var(--paper);box-shadow:0 2px 0 rgba(31,42,40,.4)}
+  .unit-pill.active .dot{border-color:var(--paper)}
   .unit-pill b{font-family:var(--display);font-weight:600}
   .unit-pill .dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink)}
   .hero-art{flex:0 1 300px;min-width:230px;max-width:340px;margin-left:auto}
@@ -128,7 +133,7 @@
 
   /* ---------- game cards ---------- */
   .section-label{
-    display:flex;align-items:baseline;gap:12px;margin:0 0 14px;
+    display:flex;align-items:baseline;gap:12px;margin:0 0 14px;flex-wrap:wrap;
   }
   .section-label h3{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.01em}
   .section-label span{font-size:12px;font-weight:800;color:var(--ink-soft)}
@@ -199,6 +204,7 @@
   .game-head .back:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
   .game-head h2{font-family:var(--display);font-size:clamp(22px,3.4vw,28px);font-weight:600;letter-spacing:-.01em;line-height:1.1}
   .game-head p{font-size:12px;font-weight:700;color:var(--ink-soft);margin-top:3px}
+  .game-unit-tag{display:inline-block;margin-right:7px;padding:1px 7px;border:1.5px solid rgba(31,42,40,.2);border-radius:99px;background:var(--paper);font-size:10px;letter-spacing:.04em;color:var(--ink)}
   .gh-stars{margin-left:auto;font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink-soft);white-space:nowrap}
   .game-stats{display:flex;gap:18px;margin:16px 0 14px;font-size:13px;font-weight:800;color:var(--ink-soft);flex-wrap:wrap}
   .game-stats b{font-family:var(--display);font-size:17px;color:var(--ink);font-weight:600}
@@ -316,6 +322,7 @@
   .chip:hover{background:#FFF6E3}
   .chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
   .chip.active{background:var(--ink);color:var(--paper);box-shadow:0 3px 0 rgba(31,42,40,.45)}
+  .book-empty{padding:16px 18px;border:2px dashed rgba(31,42,40,.28);border-radius:15px;color:var(--ink-soft);font-size:13px;font-weight:700;background:rgba(255,253,248,.65)}
   .book-section{margin-bottom:28px;animation:screenIn .3s}
   .book-section h3{
     display:flex;align-items:center;gap:9px;font-family:var(--display);
@@ -432,10 +439,24 @@
   .hub-nav a[aria-current="page"]{background:var(--sun);border-color:var(--ink)}
   .hub-nav .hub-home{background:var(--paper2);border-color:var(--ink);box-shadow:0 2px 0 var(--ink)}
   .hub-nav .hub-sep{opacity:.35;font-size:11px}
+  .unit-bar{
+    padding:9px clamp(12px,4vw,38px);
+    border-bottom:2px solid rgba(31,42,40,.12);
+    background:rgba(255,253,248,.92);
+  }
+  .unit-bar-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .unit-bar-copy{display:flex;flex-direction:column;min-width:112px;line-height:1.2}
+  .unit-bar-copy b{font-family:var(--display);font-size:13px;font-weight:600}
+  .unit-bar-copy span{font-size:10px;font-weight:800;color:var(--ink-soft);margin-top:2px}
+  .unit-bar .unit-pills{flex:1}
   @media(max-width:520px){
     .hub-nav{gap:3px;padding:5px 8px;font-size:11px}
     .hub-nav a{min-height:34px;padding:0 8px}
     .hub-nav .hub-sep{display:none}
+    .unit-bar{padding:8px}
+    .unit-bar-copy{min-width:0;flex-direction:row;align-items:center;gap:6px}
+    .unit-bar-copy span{display:none}
+    .unit-pill{padding:5px 9px;font-size:11px}
   }
 </style>
 </head>
@@ -462,6 +483,23 @@
   <a href="../hanzi/index.html">汉字</a>
 </nav>
 
+<section class="unit-bar" aria-label="选择练习范围">
+  <div class="unit-bar-inner">
+    <div class="unit-bar-copy">
+      <b>练习范围</b>
+      <span>可多选 · 至少保留一个</span>
+    </div>
+    <div class="unit-pills">
+      <button type="button" class="unit-pill active" data-unit="unit1" aria-pressed="true"><span class="dot" style="background:#3E6FD1"></span><b>Unit 1</b> 我们的学校</button>
+      <button type="button" class="unit-pill" data-unit="unit2" aria-pressed="false"><span class="dot" style="background:#B5651D"></span><b>Unit 2</b> 我们的教室</button>
+      <button type="button" class="unit-pill" data-unit="unit3" aria-pressed="false"><span class="dot" style="background:#7C6BC4"></span><b>Unit 3</b> 我们的星期</button>
+      <button type="button" class="unit-pill" data-unit="unit4" aria-pressed="false"><span class="dot" style="background:#2E8B7A"></span><b>Unit 4</b> 我们的学科</button>
+      <button type="button" class="unit-pill" data-unit="unit5" aria-pressed="false"><span class="dot" style="background:#D9557A"></span><b>Unit 5</b> 我们的周末</button>
+      <button type="button" class="unit-pill" data-unit="extra" aria-pressed="false"><span class="dot" style="background:#6B7FD7"></span><b>拓展</b> 主题词库</button>
+    </div>
+  </div>
+</section>
+
 <main>
   <!-- HOME -->
   <section class="screen active" id="screen-home">
@@ -470,14 +508,7 @@
         <div class="hero-copy">
           <div class="eyebrow">边玩边记 · 每天十分钟</div>
           <h2>把单词<br>变成<span class="hl">好朋友</span></h2>
-          <p>学校、教室、星期、学科、周末，整本书五个单元都在这儿。翻开卡片、听一听、选一选，把单词和句子一个一个记牢。</p>
-          <div class="unit-pills">
-            <span class="unit-pill"><span class="dot" style="background:#3E6FD1"></span><b>Unit 1</b> 我们的学校</span>
-            <span class="unit-pill"><span class="dot" style="background:#B5651D"></span><b>Unit 2</b> 我们的教室</span>
-            <span class="unit-pill"><span class="dot" style="background:#7C6BC4"></span><b>Unit 3</b> 我们的星期</span>
-            <span class="unit-pill"><span class="dot" style="background:#2E8B7A"></span><b>Unit 4</b> 我们的学科</span>
-            <span class="unit-pill"><span class="dot" style="background:#D9557A"></span><b>Unit 5</b> 我们的周末</span>
-          </div>
+          <p>在上方选择练习范围，可以同时选多个单元。翻开卡片、听一听、选一选，当前范围里的词和句子都会一起加入练习。</p>
         </div>
         <div class="hero-art" aria-hidden="true">
           <svg class="hero-svg" viewBox="0 0 300 210">
@@ -516,7 +547,7 @@
 
       <div class="section-label">
         <h3>今天想玩什么？</h3>
-        <span>四个小游戏，一起收集 12 颗星</span>
+        <span id="home-unit-summary">当前：Unit 1 · 我们的学校</span>
       </div>
 
       <div class="game-grid">
@@ -585,7 +616,7 @@
         <span class="book-ico">📖</span>
         <span>
           <h4>单词宝库</h4>
-          <p>全部单词 + 重点句型，点一下就能听读音。</p>
+          <p><span id="book-summary">当前单元单词 + 重点句型</span>，点一下就能听读音。</p>
         </span>
         <span class="arrow">→</span>
       </button>
@@ -662,6 +693,19 @@ const CATS = {
   food:        {name:'食物与饮品', color:'#C46A3A'},
   body:        {name:'身体部位',   color:'#D96C8A'},
   schoolthings:{name:'学习用品',   color:'#6B7FD7'}
+};
+
+const UNITS = {
+  unit1: {label:'Unit 1', name:'我们的学校', color:'#3E6FD1', cats:['school'], sentencePrefix:'Unit 1'},
+  unit2: {label:'Unit 2', name:'我们的教室', color:'#B5651D', cats:['classroom'], sentencePrefix:'Unit 2'},
+  unit3: {label:'Unit 3', name:'我们的星期', color:'#7C6BC4', cats:['weekdays','sports'], sentencePrefix:'Unit 3'},
+  unit4: {label:'Unit 4', name:'我们的学科', color:'#2E8B7A', cats:['subjects'], sentencePrefix:'Unit 4'},
+  unit5: {label:'Unit 5', name:'我们的周末', color:'#D9557A', cats:['weekend'], sentencePrefix:'Unit 5'},
+  extra: {
+    label:'拓展', name:'主题词库', color:'#6B7FD7',
+    cats:['toys','shapes','colours','food','body','schoolthings'],
+    sentencePrefixes:['Fun story','Amazing Tianjin']
+  }
 };
 
 const WORDS = [
@@ -840,6 +884,69 @@ const SENTENCES = [
     {en:'Xiangsheng is fun.',                                       zh:'相声很有趣。'}
   ]}
 ];
+
+let selectedUnitIds = ['unit1'];
+try {
+  const storedUnits = JSON.parse(localStorage.getItem('wp_units') || 'null');
+  if (Array.isArray(storedUnits)) {
+    selectedUnitIds = storedUnits.filter(id => UNITS[id]);
+  } else {
+    const storedUnit = localStorage.getItem('wp_unit');
+    if (storedUnit && UNITS[storedUnit]) selectedUnitIds = [storedUnit];
+  }
+} catch (e) { /* 使用默认单元 */ }
+selectedUnitIds = Object.keys(UNITS).filter(id => selectedUnitIds.includes(id));
+if (!selectedUnitIds.length) selectedUnitIds = ['unit1'];
+let bookCat = 'all';
+
+function selectedUnits() {
+  return selectedUnitIds.map(id => UNITS[id]).filter(Boolean);
+}
+function selectedCats() {
+  return [...new Set(selectedUnits().flatMap(unit => unit.cats))];
+}
+function unitDisplay() {
+  const units = selectedUnits();
+  if (units.length === 1) return `${units[0].label} · ${units[0].name}`;
+  if (units.length === 2) return `${units[0].label} + ${units[1].label}`;
+  return `已选 ${units.length} 个范围`;
+}
+function unitDisplayLong() {
+  return selectedUnits().map(unit => `${unit.label} · ${unit.name}`).join(' + ');
+}
+function unitWords() {
+  const cats = new Set(selectedCats());
+  return WORDS.filter(w => cats.has(w.cat));
+}
+function unitSentences() {
+  const units = selectedUnits();
+  return SENTENCES.filter(group => units.some(unit => {
+    if (unit.sentencePrefix) return group.unit.startsWith(unit.sentencePrefix + ' ');
+    return (unit.sentencePrefixes || []).some(prefix => group.unit.startsWith(prefix));
+  }));
+}
+function refreshCurrentView() {
+  const id = (document.querySelector('.screen.active')?.id || 'screen-home').replace('screen-', '');
+  if (id === 'memory') startMemory();
+  else if (id === 'quiz') startQuiz();
+  else if (id === 'listen') startListen();
+  else if (id === 'odd') startOdd();
+  else if (id === 'book') renderBook();
+  else renderHome();
+}
+function toggleUnit(id) {
+  if (!UNITS[id]) return;
+  const active = selectedUnitIds.includes(id);
+  if (active && selectedUnitIds.length === 1) return;
+  selectedUnitIds = active
+    ? selectedUnitIds.filter(unitId => unitId !== id)
+    : [...selectedUnitIds, id];
+  selectedUnitIds = Object.keys(UNITS).filter(unitId => selectedUnitIds.includes(unitId));
+  bookCat = 'all';
+  try { localStorage.setItem('wp_units', JSON.stringify(selectedUnitIds)); } catch (e) { /* 忽略存储失败 */ }
+  paintUnitPicker();
+  refreshCurrentView();
+}
 
 /* =========================================================
    工具
@@ -1049,7 +1156,7 @@ function gameHead(title, sub) {
       <button class="back" data-back aria-label="返回首页">←</button>
       <div>
         <h2>${title}</h2>
-        <p>${sub}</p>
+        <p><span class="game-unit-tag">${unitDisplay()}</span>${sub}</p>
       </div>
       <div class="gh-stars">★ ${totalStars()}</div>
     </div>`;
@@ -1062,7 +1169,31 @@ function bindBack(root) {
 /* =========================================================
    首页
    ========================================================= */
+function paintUnitPicker() {
+  $$('[data-unit]').forEach(btn => {
+    const active = selectedUnitIds.includes(btn.dataset.unit);
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  const wordCount = unitWords().length;
+  const sentenceCount = unitSentences().reduce((sum, group) => sum + group.items.length, 0);
+  const rangeLabel = selectedUnitIds.length <= 2 ? unitDisplayLong() : `已选 ${selectedUnitIds.length} 个范围`;
+  const summary = $('#home-unit-summary');
+  if (summary) {
+    summary.textContent = selectedUnitIds.length === 1
+      ? `当前：${rangeLabel} · ${wordCount} 个单词`
+      : selectedUnitIds.length === 2
+        ? `已选 2 个范围：${rangeLabel} · ${wordCount} 个单词`
+        : `${rangeLabel} · ${wordCount} 个单词`;
+  }
+  const bookSummary = $('#book-summary');
+  if (bookSummary) {
+    bookSummary.textContent = `${rangeLabel}：${wordCount} 个单词${sentenceCount ? ` · ${sentenceCount} 个句子` : ''}`;
+  }
+}
+
 function renderHome() {
+  paintUnitPicker();
   updateTotalStars();
   $$('[data-best]').forEach(el => {
     el.innerHTML = starRow(saved[el.dataset.best] || 0);
@@ -1075,13 +1206,14 @@ function renderHome() {
 let mem = null;
 
 function startMemory() {
-  const picks = sample(WORDS, 6);
+  const pool = unitWords();
+  const picks = sample(pool, Math.min(6, pool.length));
   const cards = [];
   picks.forEach((w, i) => {
     cards.push({ pair: i, type: 'en', w });
     cards.push({ pair: i, type: 'zh', w });
   });
-  mem = { cards: shuffle(cards), first: null, second: null, lock: false, moves: 0, matched: 0, pairs: 6 };
+  mem = { cards: shuffle(cards), first: null, second: null, lock: false, moves: 0, matched: 0, pairs: picks.length };
   renderMemory();
   go('memory');
 }
@@ -1092,7 +1224,7 @@ function renderMemory() {
     ${gameHead('翻翻卡', '翻开两张，把英文和中文配成一对')}
     <div class="game-stats">
       <span>步数 <b id="mem-moves">0</b></span>
-      <span>配对 <b id="mem-matched">0</b> / 6</span>
+      <span>配对 <b id="mem-matched">0</b> / ${mem.pairs}</span>
     </div>
     <div class="mem-grid" id="mem-grid">
       ${mem.cards.map((c, i) => `
@@ -1161,7 +1293,7 @@ function memoryWin() {
     badge: stars === 3 ? '🎉' : '💪',
     title: stars === 3 ? '记得真牢！' : '全部配对成功',
     stars,
-    text: `一共用了 ${moves} 步，配对 6 组。${stars === 3 ? '几乎是完美记忆！' : '再玩一次，试试更少的步数。'}`,
+    text: `一共用了 ${moves} 步，配对 ${mem.pairs} 组。${stars === 3 ? '几乎是完美记忆！' : '再玩一次，试试更少的步数。'}`,
     again: startMemory
   });
 }
@@ -1172,10 +1304,11 @@ function memoryWin() {
 let quiz = null;
 
 function startQuiz() {
-  const picked = sample(WORDS, 10);
+  const pool = unitWords();
+  const picked = sample(pool, Math.min(10, pool.length));
   const qs = picked.map((w, idx) => {
     const type = idx % 2 === 0 ? 'en' : 'zh'; // en：看图片选英文；zh：看英文选中文
-    const same = WORDS.filter(x => x.cat === w.cat && x.en !== w.en);
+    const same = pool.filter(x => x.cat === w.cat && x.en !== w.en);
     let ds = sample(same, 3);
     if (ds.length < 3) {
       const rest = WORDS.filter(x => x.cat !== w.cat && x.en !== w.en && !ds.some(d => d.en === x.en));
@@ -1253,13 +1386,14 @@ function answerQuiz(btn, q) {
 }
 
 function endQuiz() {
-  const stars = quiz.score >= 9 ? 3 : quiz.score >= 7 ? 2 : 1;
+  const n = quiz.qs.length;
+  const stars = quiz.score >= Math.ceil(n * .9) ? 3 : quiz.score >= Math.ceil(n * .7) ? 2 : 1;
   saveScore('quiz', stars);
   showResult({
     badge: stars === 3 ? '🏆' : '🌟',
     title: stars === 3 ? '太厉害了！' : '完成挑战',
     stars,
-    text: `10 道题答对了 ${quiz.score} 道。${stars === 3 ? '单词记得又快又准！' : '错的题再读一遍，下次一定更棒。'}`,
+    text: `${n} 道题答对了 ${quiz.score} 道。${stars === 3 ? '单词记得又快又准！' : '错的题再读一遍，下次一定更棒。'}`,
     again: startQuiz
   });
 }
@@ -1270,9 +1404,10 @@ function endQuiz() {
 let listen = null;
 
 function startListen() {
-  const picked = sample(WORDS, 8);
+  const pool = unitWords();
+  const picked = sample(pool, Math.min(8, pool.length));
   const qs = picked.map(w => {
-    const same = WORDS.filter(x => x.cat === w.cat && x.en !== w.en);
+    const same = pool.filter(x => x.cat === w.cat && x.en !== w.en);
     let ds = sample(same, 3);
     if (ds.length < 3) {
       const rest = WORDS.filter(x => x.cat !== w.cat && x.en !== w.en && !ds.some(d => d.en === x.en));
@@ -1372,13 +1507,14 @@ function answerListen(btn, q) {
 }
 
 function endListen() {
-  const stars = listen.score >= 8 ? 3 : listen.score >= 6 ? 2 : 1;
+  const n = listen.qs.length;
+  const stars = listen.score >= Math.ceil(n * .9) ? 3 : listen.score >= Math.ceil(n * .7) ? 2 : 1;
   saveScore('listen', stars);
   showResult({
     badge: stars === 3 ? '👂' : '🎧',
     title: stars === 3 ? '耳朵真灵！' : '听力挑战完成',
     stars,
-    text: `8 道题答对了 ${listen.score} 道。${stars === 3 ? '每个单词都听得很准。' : '把没听清的单词再听两遍吧。'}`,
+    text: `${n} 道题答对了 ${listen.score} 道。${stars === 3 ? '每个单词都听得很准。' : '把没听清的单词再听两遍吧。'}`,
     again: startListen
   });
 }
@@ -1389,18 +1525,27 @@ function endListen() {
 let odd = null;
 
 function makeOddRound() {
-  const cats = Object.keys(CATS).filter(c => WORDS.filter(w => w.cat === c).length >= 3);
-  const c1 = sample(cats, 1)[0];
-  const c2 = sample(cats.filter(c => c !== c1), 1)[0];
-  const three = sample(WORDS.filter(w => w.cat === c1), 3);
-  const one = sample(WORDS.filter(w => w.cat === c2), 1)[0];
-  return { items: shuffle([...three, one]), oddWord: one, mainCat: c1, oddCat: c2 };
+  const pool = unitWords();
+  const unitCats = selectedCats().filter(c => pool.filter(w => w.cat === c).length >= 3);
+
+  if (unitCats.length >= 2) {
+    const c1 = sample(unitCats, 1)[0];
+    const c2 = sample(unitCats.filter(c => c !== c1), 1)[0];
+    const three = sample(pool.filter(w => w.cat === c1), 3);
+    const one = sample(pool.filter(w => w.cat === c2), 1)[0];
+    return { mode: 'category', items: shuffle([...three, one]), oddWord: one, mainCat: c1, oddCat: c2 };
+  }
+
+  const three = sample(pool, Math.min(3, pool.length));
+  const outside = WORDS.filter(w => !pool.some(p => p.en === w.en));
+  const one = sample(outside, 1)[0];
+  return { mode: 'unit', items: shuffle([...three, one]), oddWord: one, mainCat: null, oddCat: one.cat };
 }
 
 function startOdd() {
   const rounds = [];
   for (let i = 0; i < 8; i++) rounds.push(makeOddRound());
-  odd = { rounds, i: 0, score: 0, locked: false };
+  odd = { rounds, i: 0, score: 0, locked: false, mode: rounds[0].mode };
   renderOdd();
   go('odd');
 }
@@ -1411,7 +1556,7 @@ function renderOdd() {
   const n = odd.rounds.length;
 
   root.innerHTML = `
-    ${gameHead('分类高手', '找出不属于同一类的那个单词')}
+    ${gameHead('分类高手', odd.mode === 'unit' ? '找出不在当前练习范围的那个单词' : '找出不属于同一类的那个单词')}
     <div class="progress sun"><i style="width:${(odd.i / n) * 100}%"></i></div>
     <div class="prog-row">
       <span>第 ${odd.i + 1} / ${n} 题</span>
@@ -1419,7 +1564,7 @@ function renderOdd() {
     </div>
 
     <div class="q-prompt" style="min-height:120px;padding:18px">
-      <span class="q-tag">哪一个不属于同一类？</span>
+      <span class="q-tag">${odd.mode === 'unit' ? '哪一个不在当前练习范围？' : '哪一个不属于同一类？'}</span>
       <div class="q-word" style="font-size:clamp(22px,4vw,30px)">Find the odd one out</div>
     </div>
 
@@ -1456,10 +1601,15 @@ function answerOdd(btn, r) {
 
   const fb = $('#odd-feedback', root);
   if (fb) {
-    fb.innerHTML = `<div class="odd-feedback">
-      <b>${esc(r.oddWord.en)}</b>（${esc(r.oddWord.zh)}）是 <b>${CATS[r.oddCat].name}</b>，
-      另外三个都是 <b>${CATS[r.mainCat].name}</b>。
-    </div>`;
+    fb.innerHTML = r.mode === 'unit'
+      ? `<div class="odd-feedback">
+          <b>${esc(r.oddWord.en)}</b>（${esc(r.oddWord.zh)}）是 <b>${CATS[r.oddCat].name}</b>，
+          不在当前练习范围里；另外三个都来自当前范围。
+        </div>`
+      : `<div class="odd-feedback">
+          <b>${esc(r.oddWord.en)}</b>（${esc(r.oddWord.zh)}）是 <b>${CATS[r.oddCat].name}</b>，
+          另外三个都是 <b>${CATS[r.mainCat].name}</b>。
+        </div>`;
   }
   speak(r.oddWord.en);
 
@@ -1476,12 +1626,14 @@ function answerOdd(btn, r) {
 
 function endOdd() {
   const stars = odd.score >= 8 ? 3 : odd.score >= 6 ? 2 : 1;
+  const successText = odd.mode === 'unit' ? '当前范围的单词分得清清楚楚。' : '单词类别分得清清楚楚。';
+  const retryText = odd.mode === 'unit' ? '先想一想：它在不在当前练习范围里？' : '先想一想：它属于哪一类？';
   saveScore('odd', stars);
   showResult({
     badge: stars === 3 ? '🧠' : '🧩',
     title: stars === 3 ? '分类小达人！' : '挑战完成',
     stars,
-    text: `8 道题答对了 ${odd.score} 道。${stars === 3 ? '单词类别分得清清楚楚。' : '先想一想：它是玩具、形状，还是场所？'}`,
+    text: `8 道题答对了 ${odd.score} 道。${stars === 3 ? successText : retryText}`,
     again: startOdd
   });
 }
@@ -1489,24 +1641,25 @@ function endOdd() {
 /* =========================================================
    单词宝库
    ========================================================= */
-let bookCat = 'all';
-
 function renderBook() {
   stopSay();
   const root = $('#book-root');
-  const cats = Object.keys(CATS);
+  const cats = selectedCats();
+  if (bookCat !== 'all' && !cats.includes(bookCat)) bookCat = 'all';
   const sections = bookCat === 'all' ? cats : [bookCat];
+  const pool = unitWords();
+  const sentences = unitSentences();
 
   root.innerHTML = `
     ${gameHead('单词宝库', '点一下单词或句子，就能听读音')}
-    <div class="book-filter">
+    ${cats.length > 1 ? `<div class="book-filter">
       <button class="chip ${bookCat === 'all' ? 'active' : ''}" data-cat="all">全部</button>
       ${cats.map(c => `
         <button class="chip ${bookCat === c ? 'active' : ''}" data-cat="${c}">${CATS[c].name}</button>`).join('')}
-    </div>
+    </div>` : ''}
 
     ${sections.map(c => {
-      const list = WORDS.filter(w => w.cat === c);
+      const list = pool.filter(w => w.cat === c);
       return `
         <div class="book-section">
           <h3><span class="dot" style="background:${CATS[c].color}"></span>${CATS[c].name}${CATS[c].unit ? `<em class="unit-tag">${CATS[c].unit}</em>` : ''}<small>${list.length} 个单词</small></h3>
@@ -1525,7 +1678,7 @@ function renderBook() {
 
     <div class="book-section" style="margin-top:34px">
       <h3><span class="dot" style="background:var(--orange)"></span>重点句型<small>点一下听整句</small></h3>
-      ${SENTENCES.map(g => `
+      ${sentences.length ? sentences.map(g => `
         <div class="sent-group">
           <h4>${g.unit}</h4>
           ${g.items.map(s => `
@@ -1536,13 +1689,13 @@ function renderBook() {
               </span>
               <span class="play">🔊</span>
             </button>`).join('')}
-        </div>`).join('')}
+        </div>`).join('') : `<div class="book-empty">这个主题暂时没有配置重点句型，先把上面的单词练熟吧。</div>`}
     </div>
   `;
 
   bindBack(root);
 
-  $$('.chip', root).forEach(chip => chip.addEventListener('click', () => {
+  $$('[data-cat]', root).forEach(chip => chip.addEventListener('click', () => {
     bookCat = chip.dataset.cat;
     renderBook();
   }));
@@ -1666,6 +1819,10 @@ soundBtn.addEventListener('click', () => {
 });
 
 $('#brand-home').addEventListener('click', () => go('home'));
+
+$$('[data-unit]').forEach(btn => btn.addEventListener('click', () => {
+  toggleUnit(btn.dataset.unit);
+}));
 
 $$('[data-game]').forEach(card => card.addEventListener('click', () => {
   const g = card.dataset.game;
