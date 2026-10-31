@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>英语小镇 · 句型冒险</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF4E8;
+    --paper2:#FFFDF8;
+    --ink:#1F2A28;
+    --ink-soft:#5C6864;
+    --orange:#E4572E;
+    --teal:#2A9D8F;
+    --sun:#F2B93B;
+    --blue:#3E6FD1;
+    --pink:#E0698E;
+    --green:#3FA34D;
+    --mint:#DDF1EC;
+    --peach:#FFE8D6;
+    --sky:#E7ECFB;
+    --butter:#FBF0C9;
+    --radius:22px;
+    --display:'Fredoka','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, rgba(31,42,40,.085) 1px, transparent 1px);
+    background-size:22px 22px;
+    color:var(--ink);
+    font-family:'Nunito','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;overflow-x:hidden;
+  }
+  button{font-family:inherit;color:inherit}
+  ::selection{background:var(--sun);color:var(--ink)}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+  /* topbar */
+  .topbar{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px clamp(14px,4vw,38px);
+    background:rgba(250,244,232,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:2px solid rgba(31,42,40,.12);
+  }
+  .brand{display:flex;align-items:center;gap:11px;background:none;border:0;cursor:pointer;padding:2px;text-align:left}
+  .brand-mark{
+    width:44px;height:44px;flex:none;display:grid;place-items:center;
+    background:var(--teal);color:var(--paper2);border:2.5px solid var(--ink);border-radius:13px;
+    box-shadow:0 3px 0 var(--ink);transform:rotate(-4deg);
+    font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.04em;
+    transition:transform .2s;
+  }
+  .brand:hover .brand-mark{transform:rotate(3deg) scale(1.04)}
+  .brand-text h1{font-family:var(--display);font-size:17px;font-weight:600;line-height:1.1;letter-spacing:-.01em}
+  .brand-text p{font-size:10.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.08em;margin-top:2px}
+  .top-spacer{flex:1}
+  .star-pill{
+    display:flex;align-items:center;gap:7px;border:2.5px solid var(--ink);border-radius:99px;
+    background:var(--paper2);padding:7px 14px 7px 11px;box-shadow:0 3px 0 var(--ink);
+    font-family:var(--display);font-weight:600;font-size:15px;
+  }
+  .star-pill .glyph{color:var(--sun);font-size:17px}
+  .icon-btn{
+    width:44px;height:44px;flex:none;display:grid;place-items:center;
+    border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);
+    box-shadow:0 3px 0 var(--ink);cursor:pointer;font-size:17px;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .icon-btn:hover{background:#FFF6E3}
+  .icon-btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .icon-btn svg{width:22px;height:22px;display:block}
+
+  .screen{display:none}
+  .screen.active{display:block;animation:screenIn .38s cubic-bezier(.2,.8,.2,1)}
+  @keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .page{max-width:1060px;margin:0 auto;padding:clamp(20px,4vw,38px) clamp(14px,4vw,30px) 90px}
+
+  /* town hero */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .eyebrow::before{content:'';width:22px;height:2px;background:var(--ink);border-radius:2px}
+  .town-hero{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;margin:4px 0 22px}
+  .town-hero h2{font-family:var(--display);font-size:clamp(38px,7vw,62px);line-height:1.02;letter-spacing:-.025em}
+  .town-hero h2 .hl{position:relative;display:inline-block;z-index:0}
+  .town-hero h2 .hl::after{content:'';position:absolute;left:-1%;right:-1%;bottom:7%;height:32%;background:var(--sun);border-radius:6px;z-index:-1;transform:rotate(-1.4deg)}
+  .town-hero p{max-width:46ch;font-size:14.5px;line-height:1.7;color:var(--ink-soft);font-weight:600;margin-top:14px;text-wrap:pretty}
+  .town-progress{
+    margin-left:auto;min-width:210px;border:2.5px solid var(--ink);border-radius:18px;background:var(--paper2);
+    padding:12px 16px;box-shadow:0 4px 0 var(--ink);
+  }
+  .town-progress .row{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--ink-soft);margin-bottom:7px}
+  .town-progress b{font-family:var(--display);font-size:16px;color:var(--ink);font-weight:600}
+  .town-progress .bar{height:10px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;background:var(--paper)}
+  .town-progress .bar i{display:block;height:100%;width:0;background:var(--teal);border-right:2px solid var(--ink);transition:width .5s}
+
+  .town-route{display:flex;align-items:center;gap:10px;margin:6px 0 24px;font-size:24px}
+  .town-route i{flex:1;height:0;border-top:3px dashed rgba(31,42,40,.22)}
+  .town-route span{width:46px;height:46px;display:grid;place-items:center;border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);font-size:23px}
+
+  /* location cards */
+  .town-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,2.4vw,18px)}
+  .loc{
+    border:2.5px solid var(--ink);border-radius:24px;overflow:hidden;background:var(--paper2);
+    box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;
+    transition:transform .18s,box-shadow .18s;
+  }
+  .loc:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--ink)}
+  .loc-head{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2.5px solid var(--ink);background:var(--tint)}
+  .loc-emoji{
+    width:48px;height:48px;flex:none;display:grid;place-items:center;font-size:26px;
+    background:var(--paper2);border:2.5px solid var(--ink);border-radius:13px;
+    box-shadow:0 3px 0 var(--ink);transform:rotate(-3deg);
+  }
+  .loc-head h3{font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+  .loc-head p{font-size:11.5px;font-weight:800;color:var(--ink-soft);margin-top:3px}
+  .loc-badge{margin-left:auto;font-family:var(--display);font-size:13px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+  .loc-body{padding:9px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .act-row{
+    display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:14px;
+    border:2px solid transparent;background:transparent;cursor:pointer;text-align:left;
+    transition:background .15s,border-color .15s,transform .12s;
+  }
+  .act-row:hover{background:#FFF6E3;border-color:rgba(31,42,40,.16)}
+  .act-row:active{transform:scale(.99)}
+  .act-row .ico{
+    width:36px;height:36px;flex:none;display:grid;place-items:center;font-size:19px;
+    background:var(--paper);border:2px solid var(--ink);border-radius:10px;
+  }
+  .act-row .txt{flex:1;min-width:0}
+  .act-row .name{display:block;font-family:var(--display);font-size:15px;font-weight:600;line-height:1.15}
+  .act-row .desc{display:block;font-size:11px;font-weight:700;color:var(--ink-soft);margin-top:2px;line-height:1.35}
+  .act-row .stars{display:inline-flex;gap:2px;font-size:13px;line-height:1;flex:none}
+  .act-row .stars .s{color:#D8D0BF}
+  .act-row .stars .s.on{color:var(--sun)}
+  .act-row .go{font-size:15px;opacity:.35;flex:none}
+
+  .town-foot{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:var(--ink-soft)}
+  .studio-note{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-top:2px dashed rgba(31,42,40,.2);margin-top:5px;padding:14px 8px 6px;text-align:center;font-size:11px;color:var(--ink-soft);font-weight:700;line-height:1.5}
+  .studio-note .big{font-size:36px;line-height:1.2}
+  .studio-note b{font-family:var(--display);font-size:14px;color:var(--ink);font-weight:600}
+  .link-btn{background:none;border:0;font-size:12px;font-weight:800;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .link-btn:hover{color:var(--ink)}
+  .back-link{color:var(--ink);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sun);padding-bottom:1px}
+
+  /* activity shared */
+  .act-body{max-width:820px;margin:0 auto}
+  .act-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .act-head .back{
+    width:46px;height:46px;flex:none;display:grid;place-items:center;
+    border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);
+    box-shadow:0 3px 0 var(--ink);font-size:20px;cursor:pointer;
+    transition:transform .12s,box-shadow .12s;
+  }
+  .act-head .back:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .act-head h2{font-family:var(--display);font-size:clamp(22px,3.4vw,28px);font-weight:600;letter-spacing:-.01em;line-height:1.1}
+  .act-head p{font-size:12px;font-weight:700;color:var(--ink-soft);margin-top:3px}
+  .gh-stars{margin-left:auto;font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink-soft);white-space:nowrap}
+
+  .progress{height:13px;border:2.5px solid var(--ink);border-radius:99px;background:var(--paper2);overflow:hidden;margin:14px 0 6px}
+  .progress i{display:block;height:100%;width:0;background:var(--teal);border-right:2px solid var(--ink);transition:width .35s cubic-bezier(.2,.8,.2,1)}
+  .progress.sun i{background:var(--sun)}
+  .progress.orange i{background:var(--orange)}
+  .progress.blue i{background:var(--blue)}
+  .prog-row{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--ink-soft);margin-bottom:14px}
+
+  .panel{
+    border:2.5px solid var(--ink);border-radius:24px;background:var(--paper2);
+    box-shadow:0 6px 0 var(--ink);padding:clamp(16px,3vw,24px);
+  }
+  .prompt-center{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:150px;justify-content:center}
+  .prompt-tag{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .prompt-word{font-family:var(--display);font-size:clamp(24px,4.6vw,36px);font-weight:600;line-height:1.15;letter-spacing:-.01em;text-wrap:pretty}
+  .prompt-zh{font-size:13px;font-weight:800;color:var(--ink-soft);line-height:1.6}
+
+  .big-speaker{
+    width:104px;height:104px;border-radius:50%;border:3px solid var(--ink);background:var(--sun);
+    box-shadow:0 6px 0 var(--ink);display:grid;place-items:center;cursor:pointer;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .big-speaker svg{width:44px;height:44px}
+  .big-speaker:hover{background:#FFC94D}
+  .big-speaker:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+  .big-speaker.playing{animation:speakerPulse .5s ease}
+  @keyframes speakerPulse{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+  .mini-speaker{
+    display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);border-radius:99px;
+    background:var(--paper2);padding:6px 12px;font-size:12px;font-weight:800;cursor:pointer;
+    box-shadow:0 2px 0 var(--ink);
+  }
+  .mini-speaker:active{transform:translateY(2px);box-shadow:0 0 0 var(--ink)}
+
+  .btn{
+    border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);
+    padding:11px 18px;font-family:var(--display);font-size:15px;font-weight:600;
+    box-shadow:0 4px 0 var(--ink);cursor:pointer;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .btn:hover{background:#FFF6E3}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+  .btn.primary{background:var(--sun)}
+  .btn.primary:hover{background:#FFC94D}
+  .btn.teal{background:var(--teal);color:var(--paper2)}
+  .btn.teal:hover{background:#238A7D}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 4px 0 var(--ink)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+
+  .feedback{
+    max-width:660px;margin:14px auto 0;padding:11px 15px;border:2px solid var(--ink);
+    border-radius:13px;background:var(--butter);font-size:13px;font-weight:800;
+    box-shadow:0 3px 0 var(--ink);line-height:1.55;animation:screenIn .3s;
+  }
+  .feedback.good{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 3px 0 #1E7D6F}
+  .feedback.bad{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 3px 0 #C53F1B}
+
+  /* photo */
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .photo-opt{
+    border:2.5px solid var(--ink);border-radius:18px;background:var(--paper2);
+    box-shadow:0 4px 0 var(--ink);padding:8px;cursor:pointer;position:relative;
+    transition:transform .14s,box-shadow .14s,background .15s;
+  }
+  .photo-opt:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink);background:#FFF9EC}
+  .photo-opt:active{transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+  .photo-frame{
+    height:clamp(104px,17vw,132px);display:grid;place-items:center;
+    background:var(--paper);border:2px solid rgba(31,42,40,.14);border-radius:12px;overflow:hidden;
+  }
+  .photo-frame .ph-emoji{font-size:clamp(48px,9vw,64px);line-height:1}
+  .photo-frame .ph-row{display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap;padding:6px;font-size:clamp(30px,6vw,44px);line-height:1;letter-spacing:2px}
+  .photo-frame .ph-row .shape-svg{width:36px;height:36px}
+  .photo-frame .ph-single .shape-svg{width:64px;height:64px}
+  .photo-frame .ph-color{width:76px;height:76px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:42px;border:2px solid var(--ink)}
+  .photo-frame .ph-room{width:92px;height:70px;border-radius:12px;background:var(--c);border:2px solid var(--ink);display:grid;place-items:center;font-size:38px}
+  .photo-frame .ph-small{font-size:24px}
+  .photo-opt .tag{
+    position:absolute;left:12px;top:10px;width:22px;height:22px;display:grid;place-items:center;
+    background:var(--paper2);border:2px solid var(--ink);border-radius:50%;
+    font-family:var(--display);font-size:11px;font-weight:600;
+  }
+  .photo-opt.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .photo-opt.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+  .photo-opt.reveal{outline:3px dashed #1E7D6F;outline-offset:2px}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  .photo-flash{position:fixed;inset:0;background:#fff;z-index:90;pointer-events:none;opacity:0}
+  .photo-flash.go{animation:flash .45s ease}
+  @keyframes flash{0%{opacity:.85}100%{opacity:0}}
+
+  /* train */
+  .train-panel{overflow:hidden}
+  .train-line{display:flex;align-items:center;gap:8px;padding:14px 4px 10px;overflow-x:auto;scrollbar-width:thin;justify-content:center}
+  .engine{font-size:40px;line-height:1;flex:none;filter:drop-shadow(0 3px 0 rgba(31,42,40,.18))}
+  .carriage{
+    flex:0 1 auto;min-width:64px;max-width:96px;height:58px;padding:6px 9px;border-radius:10px;
+    border:2.5px dashed rgba(31,42,40,.35);background:var(--paper);
+    display:grid;place-items:center;font-family:var(--display);font-size:14px;font-weight:600;
+    cursor:pointer;transition:background .15s,border-color .15s;line-height:1.12;white-space:normal;word-break:break-word;
+  }
+  .carriage.filled{border-style:solid;border-color:var(--ink);background:var(--butter);box-shadow:0 3px 0 var(--ink)}
+  .carriage:empty::after{content:'?';font-size:18px;color:rgba(31,42,40,.25)}
+  .train-line.drive{animation:drive .9s cubic-bezier(.4,0,.2,1)}
+  @keyframes drive{0%{transform:translateX(0)}30%{transform:translateX(10px)}100%{transform:translateX(0)}}
+  .train-line.shake{animation:shake .36s}
+  .word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+  .wchip{
+    border:2px solid var(--ink);border-radius:11px;background:var(--paper2);
+    padding:8px 12px;font-family:var(--display);font-size:14px;font-weight:600;
+    box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .wchip:hover{background:#FFF6E3}
+  .wchip:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .wchip.used{opacity:.22;pointer-events:none}
+
+  /* shop */
+  .shop-scene{
+    position:relative;border:2.5px solid var(--ink);border-radius:20px;background:var(--peach);
+    padding:18px 16px 14px;margin-bottom:14px;overflow:hidden;
+  }
+  .shop-scene::before{
+    content:'';position:absolute;left:0;right:0;bottom:0;height:42px;
+    background:repeating-linear-gradient(90deg,#E9B98B 0 18px,#F3CEAA 18px 36px);
+    border-top:2px solid var(--ink);
+  }
+  .shopkeeper{font-size:52px;line-height:1;position:relative;z-index:1;flex:none}
+  .shop-row{display:flex;gap:12px;align-items:flex-start;position:relative;z-index:1}
+  .bubble{
+    position:relative;z-index:1;margin:0;background:var(--paper2);
+    border:2.5px solid var(--ink);border-radius:16px;padding:12px 15px;
+    font-family:var(--display);font-size:clamp(16px,2.8vw,20px);font-weight:600;
+    box-shadow:0 3px 0 var(--ink);max-width:520px;line-height:1.35;flex:1;
+  }
+  .bubble.zh{font-family:'Nunito','PingFang SC',sans-serif;font-size:14px;font-weight:800}
+  .bag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:var(--ink-soft);margin:10px 0 14px;flex-wrap:wrap;background:var(--paper2);border:2px solid var(--ink);border-radius:12px;padding:7px 11px;box-shadow:0 3px 0 var(--ink);width:fit-content}
+  .bag .item{width:32px;height:32px;display:grid;place-items:center;background:var(--paper);border:2px solid var(--ink);border-radius:9px;font-size:19px;box-shadow:0 2px 0 var(--ink)}
+  .shop-options{display:flex;flex-direction:column;gap:9px}
+  .shop-opt{
+    border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);
+    padding:13px 15px;font-family:var(--display);font-size:clamp(15px,2.6vw,18px);font-weight:600;
+    box-shadow:0 4px 0 var(--ink);cursor:pointer;text-align:left;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .shop-opt:hover{background:#FFF6E3;transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+  .shop-opt.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .shop-opt.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+
+  /* doctor */
+  .doctor-stage{display:grid;grid-template-columns:1fr;gap:14px}
+  .doctor-pic{display:grid;place-items:center;min-height:140px;background:var(--paper);border:2px solid rgba(31,42,40,.14);border-radius:16px;padding:12px}
+  .doctor-pic .ph-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .doctor-pic .ph-row .shape-svg{width:64px;height:64px}
+  .doctor-pic .ph-single .shape-svg{width:104px;height:104px}
+  .doctor-pic .ph-emoji{font-size:84px}
+  .doctor-pic .ph-room{width:180px;height:130px;border-radius:16px;background:var(--c);border:2px solid var(--ink);display:grid;place-items:center;font-size:64px}
+  .doctor-pic .ph-color{width:110px;height:110px;border-radius:50%;background:var(--c);border:2px solid var(--ink);display:grid;place-items:center;font-size:58px}
+  .sick-card{
+    display:flex;align-items:center;gap:12px;border:2.5px solid var(--ink);border-radius:15px;
+    background:var(--paper2);padding:14px 16px;box-shadow:0 4px 0 var(--ink);cursor:pointer;
+    text-align:left;transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .sick-card:hover{background:#FFF6E3;transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+  .sick-card .lbl{width:28px;height:28px;flex:none;display:grid;place-items:center;border:2px solid var(--ink);border-radius:50%;font-family:var(--display);font-size:13px;font-weight:600;background:var(--paper)}
+  .sick-card .sen{font-family:var(--display);font-size:clamp(15px,2.6vw,19px);font-weight:600;line-height:1.3}
+  .sick-card.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .sick-card.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+
+  /* magician */
+  .tool-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+  .shape-tool{
+    width:54px;height:54px;display:grid;place-items:center;border:2.5px solid var(--ink);
+    border-radius:13px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);cursor:pointer;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .shape-tool svg{width:30px;height:30px}
+  .shape-tool:hover{background:#FFF6E3}
+  .shape-tool.active{background:var(--sun);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+  .canvas-wrap{position:relative;margin-top:10px}
+  #magic-canvas{
+    display:block;width:100%;height:clamp(300px,46vw,380px);background:var(--paper2);
+    border:2.5px solid var(--ink);border-radius:18px;box-shadow:inset 0 0 0 1px rgba(31,42,40,.06);
+    touch-action:none;cursor:crosshair;
+  }
+  .canvas-hint{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:rgba(31,42,40,.25);font-size:13px;font-weight:800;letter-spacing:.05em}
+  .canvas-hint.hide{display:none}
+
+  /* commentator */
+  .count-stage{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .count-pic{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;min-height:100px;align-items:center;padding:8px}
+  .count-pic .shape-svg{width:52px;height:52px}
+  .frame-sentence{
+    font-family:var(--display);font-size:clamp(20px,3.6vw,28px);font-weight:600;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0 4px;
+  }
+  .blank{min-width:74px;padding:2px 10px;border-bottom:3px dashed rgba(31,42,40,.4);text-align:center;color:var(--teal)}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .pick-chip{
+    border:2px solid var(--ink);border-radius:99px;background:var(--paper2);
+    padding:7px 14px;font-family:var(--display);font-size:14px;font-weight:600;
+    box-shadow:0 3px 0 var(--ink);cursor:pointer;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .pick-chip:hover{background:#FFF6E3}
+  .pick-chip:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .pick-chip.active{background:var(--sun);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+
+  /* map */
+  .room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .room-tile{
+    position:relative;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper2);
+    padding:14px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;
+    box-shadow:0 4px 0 var(--ink);cursor:pointer;transition:transform .14s,box-shadow .14s,background .15s;
+    min-height:112px;justify-content:center;
+  }
+  .room-tile:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink);background:#FFF9EC}
+  .room-tile .room-emoji{font-size:34px;line-height:1}
+  .room-tile .room-zh{font-size:12px;font-weight:800;color:var(--ink-soft)}
+  .room-tile .room-en{
+    font-family:var(--display);font-size:12px;font-weight:600;color:#1E7D6F;
+    opacity:0;transform:translateY(4px);transition:.25s;
+  }
+  .room-tile.reveal .room-en{opacity:1;transform:none}
+  .room-tile.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .room-tile.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+
+  /* recording */
+  .rec-stage{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .tour-room{width:120px;height:100px;border:2.5px solid var(--ink);border-radius:18px;background:var(--butter);box-shadow:0 4px 0 var(--ink);display:grid;place-items:center;font-size:56px;line-height:1;margin:2px auto}
+  .rec-sentence{
+    font-family:var(--display);font-size:clamp(22px,4.2vw,32px);font-weight:600;line-height:1.25;
+    text-wrap:pretty;
+  }
+  .say-w{transition:background .12s,color .12s;border-radius:4px;padding:0 1px}
+  .say-w.on{background:var(--sun);color:var(--ink)}
+  .rec-zh{font-size:13px;font-weight:800;color:var(--ink-soft)}
+  .rec-big{
+    width:104px;height:104px;border-radius:50%;border:3px solid var(--ink);
+    background:var(--orange);color:#fff;display:grid;place-items:center;
+    box-shadow:0 6px 0 var(--ink);cursor:pointer;font-size:40px;
+    transition:transform .12s,box-shadow .12s,background .15s;
+  }
+  .rec-big:hover{background:#D34A24}
+  .rec-big:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+  .rec-big.recording{background:#C53F1B;animation:pulseRec 1s infinite}
+  @keyframes pulseRec{0%,100%{box-shadow:0 6px 0 var(--ink),0 0 0 0 rgba(197,63,27,.35)}50%{box-shadow:0 6px 0 var(--ink),0 0 0 16px rgba(197,63,27,0)}}
+  .rec-status{font-size:12px;font-weight:800;color:var(--ink-soft)}
+  .rec-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+  .emotion-badge{
+    display:inline-flex;align-items:center;gap:8px;border:2.5px solid var(--ink);border-radius:99px;
+    background:var(--sun);padding:7px 15px;font-size:13px;font-weight:800;box-shadow:0 3px 0 var(--ink);
+  }
+  .emotion-badge .e{font-size:19px}
+
+  /* result */
+  #overlay{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;background:rgba(31,42,40,.46);backdrop-filter:blur(5px)}
+  #overlay.show{display:grid;animation:fadeIn .25s}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .result{
+    width:min(440px,100%);background:var(--paper2);border:3px solid var(--ink);border-radius:26px;
+    box-shadow:0 12px 0 rgba(31,42,40,.32);padding:clamp(22px,4vw,30px);text-align:center;
+    animation:pop .45s cubic-bezier(.2,.9,.2,1);
+  }
+  .res-badge{font-size:44px;line-height:1;margin-bottom:6px}
+  .result h2{font-family:var(--display);font-size:27px;font-weight:600;letter-spacing:-.01em}
+  .result .stars{font-size:46px;letter-spacing:7px;margin:10px 0 4px;line-height:1;color:var(--sun);text-shadow:0 2px 0 rgba(31,42,40,.25)}
+  .result .stars .off{opacity:.16;text-shadow:none}
+  .result p{font-size:13.5px;font-weight:700;color:var(--ink-soft);margin:8px 0 18px;line-height:1.6}
+  .result .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  @keyframes pop{0%{transform:scale(.88);opacity:0}62%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:120}
+
+  @media(max-width:760px){
+    .town-grid{grid-template-columns:1fr}
+    .town-progress{margin-left:0;width:100%}
+    .room-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:520px){
+    .brand-text p{display:none}
+    .photo-grid{gap:9px}
+    .photo-opt{padding:6px}
+    .photo-frame{height:96px}
+    .photo-frame .ph-row .shape-svg{width:30px;height:30px}
+    .photo-frame .ph-single .shape-svg{width:54px;height:54px}
+    .photo-frame .ph-emoji{font-size:44px}
+    .photo-frame .ph-room{width:76px;height:60px;font-size:32px}
+    .carriage{min-width:44px;max-width:68px;height:52px;font-size:11.5px;padding:4px 5px}
+    .train-line{gap:5px;justify-content:flex-start}
+    .engine{font-size:30px}
+    .tool-row{gap:6px}
+    .shape-tool{width:46px;height:46px}
+    .shape-tool svg{width:26px;height:26px}
+    .room-grid{gap:8px}
+    .room-tile{min-height:100px;padding:10px 6px}
+    .room-tile .room-emoji{font-size:29px}
+    .town-route{font-size:20px;gap:7px}
+    .town-route span{width:38px;height:38px;font-size:19px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  }
+
+  /* learning hub navigation */
+  .hub-nav{
+    display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;
+    padding:6px clamp(12px,4vw,38px);
+    border-bottom:2px solid rgba(31,42,40,.12);
+    background:rgba(255,253,248,.9);
+    font-size:12px;font-weight:800;color:var(--ink-soft);
+  }
+  .hub-nav a{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:36px;padding:0 11px;border:2px solid transparent;border-radius:999px;
+    color:var(--ink);text-decoration:none;white-space:nowrap;
+    transition:background .15s,border-color .15s,transform .15s;
+  }
+  .hub-nav a:hover{background:var(--paper2);border-color:rgba(31,42,40,.24)}
+  .hub-nav a[aria-current="page"]{background:var(--sun);border-color:var(--ink)}
+  .hub-nav .hub-home{background:var(--paper2);border-color:var(--ink);box-shadow:0 2px 0 var(--ink)}
+  .hub-nav .hub-sep{opacity:.35;font-size:11px}
+  @media(max-width:520px){
+    .hub-nav{gap:3px;padding:5px 8px;font-size:11px}
+    .hub-nav a{min-height:34px;padding:0 8px}
+    .hub-nav .hub-sep{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="brand" id="brand-home" aria-label="回到英语小镇">
+    <span class="brand-mark">TOWN</span>
+    <span class="brand-text">
+      <h1>英语小镇</h1>
+      <p>SENTENCE ADVENTURE</p>
+    </span>
+  </button>
+  <div class="top-spacer"></div>
+  <div class="star-pill" title="收集到的星星"><span class="glyph">★</span><span id="total-stars">0</span></div>
+  <button class="icon-btn" id="sound-toggle" aria-label="开关声音"></button>
+</header>
+
+<nav class="hub-nav" aria-label="丞丞学习基地导航">
+  <a class="hub-home" href="../../index.html">⌂ 丞丞学习基地</a>
+  <span class="hub-sep" aria-hidden="true">·</span>
+  <a href="index.html">英语</a>
+  <span class="hub-sep" aria-hidden="true">·</span>
+  <a href="../hanzi/index.html">汉字</a>
+</nav>
+
+<main>
+  <section class="screen active" id="screen-town">
+    <div class="page">
+      <div class="town-hero">
+        <div style="flex:1 1 360px;min-width:0">
+          <div class="eyebrow">用句子去冒险 · Unit 1–3</div>
+          <h2>欢迎来到<br><span class="hl">英语小镇</span></h2>
+          <p>在玩具店买东西，在美术室画形状，带客人参观学校。每一站都要用英语句子完成任务，说对了才能继续往前走。</p>
+        </div>
+        <div class="town-progress">
+          <div class="row"><span>小镇徽章</span><span><b id="badge-count">0</b> / 10</span></div>
+          <div class="bar"><i id="badge-bar"></i></div>
+          <div class="row" style="margin:8px 0 0"><span>收集星星</span><span><b id="town-stars">0</b> / 30</span></div>
+        </div>
+      </div>
+
+      <div class="town-route" aria-hidden="true">
+        <span>🧸</span><i></i><span>🎨</span><i></i><span>🏫</span><i></i><span>🎙️</span>
+      </div>
+
+      <div class="town-grid" id="town-grid"></div>
+
+      <div class="town-foot">
+        <span>小建议：先玩「句子照相馆」听懂句型，再去「句型小火车」自己拼。</span>
+        <span style="display:flex;gap:16px;align-items:center">
+          <a class="back-link" href="index.html">← 回到单词乐园</a>
+          <a class="back-link" href="补充练习.html">补充练习册</a>
+          <button class="link-btn" id="reset-town">清空小镇记录</button>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-activity">
+    <div class="page"><div class="act-body" id="activity-root"></div></div>
+  </section>
+</main>
+
+<div id="overlay" role="dialog" aria-modal="true" aria-label="游戏结果"></div>
+<div class="photo-flash" id="photo-flash"></div>
+<canvas id="confetti"></canvas>
+
+<script src="audio/manifest.js"></script>
+<script>
+/* =========================================================
+   数据
+   ========================================================= */
+const META = {
+  photo1:      {loc:'玩具店',     name:'句子照相馆', desc:'听句子，拍下对的照片'},
+  train1:      {loc:'玩具店',     name:'句型小火车', desc:'把词块装进车厢'},
+  shop:        {loc:'玩具店',     name:'商店对话',   desc:'用英语买到想要的东西'},
+  doctor:      {loc:'形状美术室', name:'句子医生',   desc:'找出没有生病的句子'},
+  magician:    {loc:'形状美术室', name:'形状魔法师', desc:'读句子，画出对应的图形'},
+  commentator: {loc:'形状美术室', name:'小小解说员', desc:'数一数，用 There are 说一说'},
+  map:         {loc:'校园',       name:'听音地图',   desc:'听句子，找到那个地方'},
+  train3:      {loc:'校园',       name:'句型小火车', desc:'把校园句子装进车厢'},
+  tour:        {loc:'校园',       name:'小导游录音', desc:'录一段校园导游介绍'},
+  studio:      {loc:'录音棚',     name:'情绪录音棚', desc:'用不同情绪读句子'}
+};
+
+const LOCATIONS = [
+  {id:'toyshop', name:'玩具店', emoji:'🧸', tint:'#DDF1EC', sub:'Unit 1 · 玩具与购物', acts:['photo1','train1','shop']},
+  {id:'artroom', name:'形状美术室', emoji:'🎨', tint:'#FBF0C9', sub:'Unit 2 · 形状与数量', acts:['doctor','magician','commentator']},
+  {id:'school', name:'校园', emoji:'🏫', tint:'#E7ECFB', sub:'Unit 3 · 校园与介绍', acts:['map','train3','tour']},
+  {id:'studio', name:'录音棚', emoji:'🎙️', tint:'#FFE8D6', sub:'Bonus · 读得好听', acts:['studio']}
+];
+
+const PHOTO = {
+  photo1: [
+    {en:'I have a toy truck.', zh:'我有一辆玩具卡车。', key:'truck'},
+    {en:'Look at my robot.', zh:'看我的机器人。', key:'robot'},
+    {en:'I want a pink doll.', zh:'我想要一个粉色洋娃娃。', key:'pinkdoll'},
+    {en:'Touch your nose, please.', zh:'请摸摸你的鼻子。', key:'nose'},
+    {en:'What about some milk?', zh:'来点牛奶怎么样？', key:'milk'},
+    {en:'How many balls?', zh:'有多少个球？', key:'balls3'},
+    {en:'Do you have a toy jeep?', zh:'你有一辆玩具吉普车吗？', key:'jeep'},
+    {en:'I like toy trains.', zh:'我喜欢玩具火车。', key:'train'}
+  ],
+  photo2: [
+    {en:'It’s a diamond.', zh:'这是一个菱形。', key:'diamond'},
+    {en:'There are two squares.', zh:'有两个正方形。', key:'twoSquares'},
+    {en:'I can draw a heart.', zh:'我会画心形。', key:'heartPencil'},
+    {en:'It’s a circle.', zh:'这是一个圆形。', key:'circle'},
+    {en:'There are three triangles.', zh:'有三个三角形。', key:'threeTriangles'},
+    {en:'What shape is it?', zh:'它是什么形状？', key:'mixedShapes'}
+  ],
+  photo3: [
+    {en:'This is our music room.', zh:'这是我们的音乐教室。', key:'music'},
+    {en:'Welcome to our classroom.', zh:'欢迎来到我们的教室。', key:'classroom'},
+    {en:'We love our library.', zh:'我们喜爱我们的图书馆。', key:'library'},
+    {en:'This is our gym.', zh:'这是我们的体育馆。', key:'gym'},
+    {en:'I like my school.', zh:'我喜欢我的学校。', key:'school'},
+    {en:'This is our art room.', zh:'这是我们的美术教室。', key:'art'}
+  ]
+};
+
+const TRAIN = {
+  train1: [
+    {en:'I have a toy truck.', zh:'我有一辆玩具卡车。', tokens:['I','have','a','toy truck'], extra:['two','is','are']},
+    {en:'I want a pink doll.', zh:'我想要一个粉色洋娃娃。', tokens:['I','want','a','pink doll'], extra:['have','two','is']},
+    {en:'I like toy trains.', zh:'我喜欢玩具火车。', tokens:['I','like','toy trains'], extra:['have','is','are']},
+    {en:'Do you have a toy jeep?', zh:'你有一辆玩具吉普车吗？', tokens:['Do','you','have','a','toy jeep?'], extra:['is','are','want']},
+    {en:'Look at my robot.', zh:'看我的机器人。', tokens:['Look','at','my','robot'], extra:['our','is','a']},
+    {en:'Touch your nose, please.', zh:'请摸摸你的鼻子。', tokens:['Touch','your','nose','please'], extra:['my','is','are']},
+    {en:'How many balls?', zh:'有多少个球？', tokens:['How','many','balls?'], extra:['much','is','are']}
+  ],
+  train3: [
+    {en:'This is our music room.', zh:'这是我们的音乐教室。', tokens:['This','is','our','music room'], extra:['are','my','a']},
+    {en:'Welcome to our classroom.', zh:'欢迎来到我们的教室。', tokens:['Welcome','to','our','classroom'], extra:['is','my','are']},
+    {en:'I like my school.', zh:'我喜欢我的学校。', tokens:['I','like','my','school'], extra:['our','is','are']},
+    {en:'We love our library.', zh:'我们喜爱我们的图书馆。', tokens:['We','love','our','library'], extra:['is','my','are']},
+    {en:'This is our gym.', zh:'这是我们的体育馆。', tokens:['This','is','our','gym'], extra:['are','a','my']},
+    {en:'Welcome to our art room.', zh:'欢迎来到我们的美术教室。', tokens:['Welcome','to','our','art room'], extra:['is','a','my']}
+  ]
+};
+
+const SHOP_SCRIPT = [
+  {who:'shop', text:'Hello! Welcome to my toy shop.', options:[
+    {t:'Hello!', ok:true},
+    {t:'Goodbye!', ok:false, hint:'刚进店要先打招呼，说 Hello! 更合适。'},
+    {t:'Thank you!', ok:false, hint:'这时候先打招呼：Hello!'}
+  ]},
+  {who:'shop', text:'What do you want?', options:[
+    {t:'I want a pink doll.', ok:true},
+    {t:'I have a pink doll.', ok:false, hint:'“我想要”用 I want…'},
+    {t:'I like apples.', ok:false, hint:'这里是玩具店，说想要什么玩具吧。'}
+  ]},
+  {who:'shop', text:'What colour is it?', options:[
+    {t:'It’s pink.', ok:true},
+    {t:'It’s a doll.', ok:false, hint:'问的是颜色，回答 It’s pink.'},
+    {t:'It’s two.', ok:false, hint:'问的是颜色，不是数量。'}
+  ]},
+  {who:'shop', text:'Here you are.', options:[
+    {t:'Thank you!', ok:true},
+    {t:'You’re welcome.', ok:false, hint:'别人给你东西，要说 Thank you!'},
+    {t:'I’m sorry.', ok:false, hint:'拿到东西时说 Thank you! 更合适。'}
+  ]},
+  {who:'kid', text:'你想问店员有没有玩具吉普车，怎么说？', options:[
+    {t:'Do you have a toy jeep?', ok:true},
+    {t:'I have a toy jeep.', ok:false, hint:'问别人有没有，用 Do you have…?'},
+    {t:'How many toy jeep?', ok:false, hint:'先问有没有：Do you have…?'}
+  ]},
+  {who:'shop', text:'Yes, I do. How many?', options:[
+    {t:'Two, please.', ok:true},
+    {t:'It’s pink.', ok:false, hint:'问数量，回答 Two, please.'},
+    {t:'I’m two.', ok:false, hint:'说想要几个：Two, please.'}
+  ]},
+  {who:'shop', text:'What about some milk?', options:[
+    {t:'Yes, please.', ok:true},
+    {t:'No, I’m milk.', ok:false, hint:'接受就说 Yes, please.'},
+    {t:'Thank you, milk.', ok:false, hint:'接受就说 Yes, please.'}
+  ]},
+  {who:'shop', text:'Here you are. Goodbye!', options:[
+    {t:'Goodbye!', ok:true},
+    {t:'Hello!', ok:false, hint:'离开的时候说 Goodbye!'},
+    {t:'What colour is it?', ok:false, hint:'该道别啦：Goodbye!'}
+  ]}
+];
+const SHOP_BAG = {1:'🪆', 5:'🚙', 6:'🥛'};
+
+const DOCTOR = [
+  {scene:'twoSquares', good:'There are two squares.', bad:'There is two squares.', rule:'两个正方形是复数，要用 There are + squares。'},
+  {scene:'diamond', good:'It’s a diamond.', bad:'It’s diamond.', rule:'单数的东西前面要加 a：a diamond。'},
+  {scene:'heartPencil', good:'I can draw a heart.', bad:'I can draws a heart.', rule:'can 后面用动词原形 draw，不加 s。'},
+  {scene:'music', good:'This is our music room.', bad:'This are our music room.', rule:'This 是单数，要用 is。'},
+  {scene:'balls3', good:'How many balls?', bad:'How many ball?', rule:'How many 后面用复数：balls。'},
+  {scene:'twoTriangles', good:'There are two triangles.', bad:'There is two triangles.', rule:'两个三角形是复数，要用 There are。'},
+  {scene:'classroom', good:'Welcome to our classroom.', bad:'Welcome in our classroom.', rule:'“欢迎来到”用 Welcome to…'},
+  {scene:'library', good:'We love our library.', bad:'We loves our library.', rule:'We 后面用动词原形 love，不加 s。'}
+];
+
+const MAGIC = [
+  {text:'Draw one heart.', zh:'画一个心形。', req:{heart:1}},
+  {text:'Draw two squares.', zh:'画两个正方形。', req:{square:2}},
+  {text:'Draw three triangles.', zh:'画三个三角形。', req:{triangle:3}},
+  {text:'Draw one circle and two rectangles.', zh:'画一个圆形和两个长方形。', req:{circle:1, rectangle:2}},
+  {text:'Draw two hearts and one diamond.', zh:'画两个心形和一个菱形。', req:{heart:2, diamond:1}},
+  {text:'Draw four circles.', zh:'画四个圆形。', req:{circle:4}},
+  {text:'Draw one square and three hearts.', zh:'画一个正方形和三个心形。', req:{square:1, heart:3}}
+];
+
+const COMMENT = [
+  {n:2, shape:'square'},
+  {n:3, shape:'triangle'},
+  {n:4, shape:'circle'},
+  {n:2, shape:'rectangle'},
+  {n:3, shape:'heart'},
+  {n:2, shape:'diamond'}
+];
+
+const ROOMS = [
+  {key:'classroom', name:'教室',     en:'classroom', emoji:'🧑‍🏫'},
+  {key:'music',     name:'音乐教室', en:'music room', emoji:'🎵'},
+  {key:'art',       name:'美术教室', en:'art room', emoji:'🎨'},
+  {key:'gym',       name:'体育馆',   en:'gym', emoji:'🏀'},
+  {key:'library',   name:'图书馆',   en:'library', emoji:'📚'},
+  {key:'school',    name:'学校',     en:'school', emoji:'🏫'}
+];
+const MAP_ROUNDS = [
+  {en:'This is our music room.', room:'music'},
+  {en:'Welcome to our classroom.', room:'classroom'},
+  {en:'We love our library.', room:'library'},
+  {en:'This is our gym.', room:'gym'},
+  {en:'This is our art room.', room:'art'},
+  {en:'I like my school.', room:'school'},
+  {en:'This is our classroom.', room:'classroom'},
+  {en:'We love our music room.', room:'music'}
+];
+
+const TOUR = [
+  {room:'library',   en:'This is our library.', zh:'这是我们的图书馆。', emoji:'📚'},
+  {room:'music',     en:'This is our music room.', zh:'这是我们的音乐教室。', emoji:'🎵'},
+  {room:'gym',       en:'This is our gym.', zh:'这是我们的体育馆。', emoji:'🏀'},
+  {room:'classroom', en:'Welcome to our classroom.', zh:'欢迎来到我们的教室。', emoji:'🧑‍🏫'}
+];
+
+const STUDIO = [
+  {en:'I have a toy truck.', emo:'开心', e:'😄', tip:'用开心的声音读一读'},
+  {en:'There are two squares.', emo:'惊讶', e:'😲', tip:'用惊讶的声音读一读'},
+  {en:'Touch your nose, please.', emo:'悄悄话', e:'🤫', tip:'用悄悄话的声音读一读'}
+];
+
+const PLURAL = {square:'squares', triangle:'triangles', circle:'circles', rectangle:'rectangles', heart:'hearts', diamond:'diamonds'};
+const SHAPE_COLOR = {triangle:'#F2B93B', square:'#E4572E', rectangle:'#7FB3E8', diamond:'#2A9D8F', heart:'#E0698E', circle:'#8E6BBF'};
+const SHAPE_ZH = {triangle:'三角形', square:'正方形', rectangle:'长方形', diamond:'菱形', heart:'心形', circle:'圆形'};
+
+/* =========================================================
+   工具
+   ========================================================= */
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const shuffle = arr => {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+const sample = (arr, n) => shuffle(arr).slice(0, n);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function wordSpans(text) {
+  return String(text).split(/(\s+)/).map(part => /^\s+$/.test(part) ? part : `<span class="say-w">${esc(part)}</span>`).join('');
+}
+const norm = s => String(s).toLowerCase().replace(/[.,?!’']/g, '').replace(/\s+/g, ' ').trim();
+
+function shapeSVG(kind, color) {
+  const ink = '#1F2A28';
+  const c = color || SHAPE_COLOR[kind] || '#F2B93B';
+  const common = `fill="${c}" stroke="${ink}" stroke-width="4" stroke-linejoin="round"`;
+  let inner;
+  switch (kind) {
+    case 'triangle':  inner = `<polygon points="32,7 58,55 6,55" ${common}/>`; break;
+    case 'rectangle': inner = `<rect x="7" y="18" width="50" height="28" rx="3" ${common}/>`; break;
+    case 'square':    inner = `<rect x="13" y="13" width="38" height="38" rx="3" ${common}/>`; break;
+    case 'diamond':   inner = `<polygon points="32,5 59,32 32,59 5,32" ${common}/>`; break;
+    case 'heart':     inner = `<path d="M32 56 C10 40 5 25 16 17 C24 11 32 19 32 24 C32 19 40 11 48 17 C59 25 54 40 32 56 Z" ${common}/>`; break;
+    default:          inner = `<circle cx="32" cy="32" r="24" ${common}/>`;
+  }
+  return `<svg class="shape-svg" viewBox="0 0 64 64" aria-hidden="true">${inner}</svg>`;
+}
+
+function sceneHTML(key) {
+  const emoji = v => `<span class="ph-emoji">${v}</span>`;
+  const single = (shape) => `<div class="ph-single">${shapeSVG(shape)}</div>`;
+  const row = (html) => `<div class="ph-row">${html}</div>`;
+  const room = (e, c) => `<div class="ph-room" style="--c:${c}">${e}</div>`;
+  const S = {
+    truck: emoji('🚚'),
+    robot: emoji('🤖'),
+    pinkdoll: `<div class="ph-color" style="--c:#F7B7CE">🪆</div>`,
+    nose: emoji('👃'),
+    milk: emoji('🥛'),
+    balls3: row('⚽⚽⚽'),
+    jeep: emoji('🚙'),
+    train: emoji('🚂'),
+    diamond: single('diamond'),
+    twoSquares: row(shapeSVG('square') + shapeSVG('square')),
+    heartPencil: row(shapeSVG('heart') + '<span class="ph-small">✏️</span>'),
+    circle: single('circle'),
+    threeTriangles: row(shapeSVG('triangle') + shapeSVG('triangle') + shapeSVG('triangle')),
+    mixedShapes: row(shapeSVG('circle') + shapeSVG('triangle') + shapeSVG('square')),
+    twoTriangles: row(shapeSVG('triangle') + shapeSVG('triangle')),
+    music: room('🎵', '#E7ECFB'),
+    classroom: room('🧑‍🏫', '#FFE8D6'),
+    library: room('📚', '#F6E3D3'),
+    gym: room('🏀', '#DDF1EC'),
+    school: room('🏫', '#EFE7F7'),
+    art: room('🎨', '#FBF0C9')
+  };
+  return S[key] || '';
+}
+
+/* =========================================================
+   声音与录音
+   ========================================================= */
+let soundOn = localStorage.getItem('town_sound') !== '0';
+let actx = null;
+let cachedVoice = null;
+let currentAudio = null;
+
+function ac() {
+  if (!actx) {
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return null;
+    actx = new C();
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function tone(freq, start, dur, type='sine', vol=.06) {
+  if (!soundOn) return;
+  const c = ac(); if (!c) return;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  o.connect(g); g.connect(c.destination);
+  const t = c.currentTime + start;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + .012);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.start(t); o.stop(t + dur + .03);
+}
+function sfx(kind) {
+  if (!soundOn) return;
+  if (kind === 'flip') tone(520, 0, .08, 'triangle', .045);
+  if (kind === 'ok')   { tone(660, 0, .12, 'sine', .07); tone(880, .09, .18, 'sine', .055); }
+  if (kind === 'no')   { tone(180, 0, .16, 'sawtooth', .045); tone(140, .11, .2, 'sawtooth', .035); }
+  if (kind === 'win')  { [523, 659, 784, 1047].forEach((f,i) => tone(f, i*.1, .3, 'sine', .055)); }
+  if (kind === 'snap') { tone(900, 0, .05, 'square', .03); tone(1300, .05, .05, 'square', .025); }
+}
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  if (cachedVoice) return cachedVoice;
+  const voices = window.speechSynthesis.getVoices() || [];
+  cachedVoice = voices.find(v => /^en[-_](US|GB)/i.test(v.lang) && /female|samantha|zira|google/i.test(v.name))
+             || voices.find(v => /^en/i.test(v.lang))
+             || null;
+  return cachedVoice;
+}
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => { cachedVoice = null; pickVoice(); };
+}
+function speakTTS(text) {
+  if (!soundOn || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = .82; u.pitch = 1.05;
+    const v = pickVoice(); if (v) u.voice = v;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+let sayAudio = null;
+let sayRAF = null;
+let sayEl = null;
+let sayTimings = null;
+
+function normSay(text) {
+  return String(text).replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+function clearSayHighlight() {
+  if (sayEl) sayEl.querySelectorAll('.say-w.on').forEach(w => w.classList.remove('on'));
+  if (sayRAF) { cancelAnimationFrame(sayRAF); sayRAF = null; }
+  sayEl = null;
+  sayTimings = null;
+}
+function stopSay() {
+  clearSayHighlight();
+  if (sayAudio) {
+    sayAudio.onended = null;
+    sayAudio.onerror = null;
+    try { sayAudio.pause(); } catch (e) {}
+    sayAudio = null;
+  }
+}
+function highlightLoop() {
+  if (!sayAudio || !sayEl || !sayTimings) return;
+  const t = sayAudio.currentTime;
+  const words = sayEl.querySelectorAll('.say-w');
+  let idx = -1;
+  for (let i = 0; i < sayTimings.length; i++) {
+    if (t >= sayTimings[i].s && t < sayTimings[i].e) { idx = i; break; }
+    if (t >= sayTimings[i].e) idx = i;
+  }
+  words.forEach((w, i) => w.classList.toggle('on', i === idx));
+  if (!sayAudio.paused && !sayAudio.ended) sayRAF = requestAnimationFrame(highlightLoop);
+}
+function say(text, voice = 'emma', el = null) {
+  if (!soundOn) return;
+  if (currentAudio) { try { currentAudio.pause(); } catch (e) {} currentAudio = null; }
+  const clips = window.AUDIO_MANIFEST && window.AUDIO_MANIFEST.clips;
+  const clip = clips && clips[voice + '|' + normSay(text)];
+  stopSay();
+  if (!clip) { speakTTS(text); return; }
+  const a = new Audio(clip.file);
+  sayAudio = a;
+  if (el) {
+    sayEl = el;
+    sayTimings = clip.timings || [];
+    if (!sayTimings.length) {
+      const words = el.querySelectorAll('.say-w');
+      const dur = clip.duration || 1;
+      sayTimings = Array.from(words).map((w, i) => ({ s: dur * i / words.length, e: dur * (i + 1) / words.length }));
+    }
+  }
+  a.onplay = () => { if (sayEl) highlightLoop(); };
+  a.onended = () => { clearSayHighlight(); sayAudio = null; };
+  a.onerror = () => { stopSay(); speakTTS(text); };
+  a.play().catch(() => { stopSay(); speakTTS(text); });
+}
+function speak(text) { say(text, 'emma'); }
+const CAN_SPEAK = 'speechSynthesis' in window || !!(window.AUDIO_MANIFEST && window.AUDIO_MANIFEST.clips);
+
+const rec = { stream:null, mr:null, chunks:[], onStop:null };
+function cleanupAudio() {
+  stopSay();
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  if (currentAudio) { try { currentAudio.pause(); } catch(e){} currentAudio = null; }
+  if (rec.mr) {
+    rec.mr.onstop = null;
+    rec.onStop = null;
+    try { if (rec.mr.state === 'recording') rec.mr.stop(); } catch(e){}
+    rec.mr = null;
+  }
+  if (rec.stream) {
+    rec.stream.getTracks().forEach(t => t.stop());
+    rec.stream = null;
+  }
+}
+async function startRecording(onStop, onError) {
+  if (!navigator.mediaDevices || !window.MediaRecorder) { onError('no-support'); return; }
+  try {
+    rec.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    rec.chunks = [];
+    const mr = new MediaRecorder(rec.stream);
+    rec.mr = mr;
+    mr.ondataavailable = e => { if (e.data && e.data.size) rec.chunks.push(e.data); };
+    mr.onstop = () => {
+      const blob = new Blob(rec.chunks, { type: mr.mimeType || 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      if (rec.stream) { rec.stream.getTracks().forEach(t => t.stop()); rec.stream = null; }
+      rec.mr = null;
+      onStop(url);
+    };
+    mr.start();
+  } catch (e) {
+    onError(e && e.name ? e.name : 'error');
+  }
+}
+function stopRecording() {
+  if (rec.mr && rec.mr.state === 'recording') {
+    try { rec.mr.stop(); } catch(e){}
+  }
+}
+function playUrl(url, onEnded) {
+  if (!url) return;
+  stopSay();
+  if (currentAudio) { try { currentAudio.pause(); } catch(e){} }
+  const a = new Audio(url);
+  currentAudio = a;
+  a.onended = () => { if (onEnded) onEnded(); };
+  a.play().catch(() => {});
+}
+function playAll(urls, done) {
+  const list = urls.filter(Boolean);
+  if (!list.length) { if (done) done(); return; }
+  let i = 0;
+  const next = () => {
+    if (i >= list.length) { if (done) done(); return; }
+    playUrl(list[i++], next);
+  };
+  next();
+}
+
+/* =========================================================
+   进度
+   ========================================================= */
+const ACTIVITY_IDS = Object.keys(META);
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem('town_stars') || '{}') || {}; } catch(e) { saved = {}; }
+function totalStars() { return ACTIVITY_IDS.reduce((n,k) => n + (saved[k] || 0), 0); }
+function badgeCount() { return ACTIVITY_IDS.filter(k => (saved[k] || 0) > 0).length; }
+function saveScore(id, stars) {
+  if (!saved[id] || stars > saved[id]) {
+    saved[id] = stars;
+    localStorage.setItem('town_stars', JSON.stringify(saved));
+  }
+  updateTopStars();
+}
+function updateTopStars() { const el = $('#total-stars'); if (el) el.textContent = totalStars(); }
+function starRow(n) { return [0,1,2].map(i => `<span class="s ${i < n ? 'on' : ''}">★</span>`).join(''); }
+
+/* =========================================================
+   导航
+   ========================================================= */
+let session = null;
+
+function goTown() {
+  cleanupAudio();
+  session = null;
+  $$('.screen').forEach(s => s.classList.toggle('active', s.id === 'screen-town'));
+  renderTown();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goActivity() {
+  $$('.screen').forEach(s => s.classList.toggle('active', s.id === 'screen-activity'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function renderTown() {
+  updateTopStars();
+  const grid = $('#town-grid');
+  grid.innerHTML = LOCATIONS.map(loc => {
+    const acts = loc.acts.map(id => {
+      const m = META[id];
+      return `
+        <button class="act-row" data-act="${id}">
+          <span class="ico">${actIcon(id)}</span>
+          <span class="txt">
+            <span class="name">${m.name}</span>
+            <span class="desc">${m.desc}</span>
+          </span>
+          <span class="stars">${starRow(saved[id] || 0)}</span>
+          <span class="go">→</span>
+        </button>`;
+    }).join('');
+    const done = loc.acts.filter(id => (saved[id] || 0) > 0).length;
+    return `
+      <section class="loc">
+        <div class="loc-head" style="--tint:${loc.tint}">
+          <span class="loc-emoji">${loc.emoji}</span>
+          <div>
+            <h3>${loc.name}</h3>
+            <p>${loc.sub}</p>
+          </div>
+          <span class="loc-badge">${done}/${loc.acts.length} ✓</span>
+        </div>
+        <div class="loc-body">${acts}${loc.id === 'studio' ? '<div class="studio-note"><span class="big">🎙️</span><b>录下来，听听自己的声音</b><span>麦克风需要浏览器允许；不录音也能完成。</span></div>' : ''}</div>
+      </section>`;
+  }).join('');
+
+  $$('.act-row', grid).forEach(btn => btn.addEventListener('click', () => startActivity(btn.dataset.act)));
+
+  const b = badgeCount();
+  $('#badge-count').textContent = b;
+  $('#badge-bar').style.width = (b / ACTIVITY_IDS.length * 100) + '%';
+  $('#town-stars').textContent = totalStars();
+}
+
+function actIcon(id) {
+  return {
+    photo1:'📸', train1:'🚂', shop:'🛍️',
+    doctor:'🩺', magician:'🎨', commentator:'🔢',
+    map:'🗺️', train3:'🚂', tour:'🎙️',
+    studio:'🎭'
+  }[id] || '★';
+}
+
+function actHeader(id) {
+  const m = META[id];
+  return `
+    <div class="act-head">
+      <button class="back" id="act-back" aria-label="回到小镇">←</button>
+      <div>
+        <h2>${m.name}</h2>
+        <p>${m.loc} · ${m.desc}</p>
+      </div>
+      <div class="gh-stars">★ ${totalStars()}</div>
+    </div>`;
+}
+function bindBack() {
+  const b = $('#act-back');
+  if (b) b.addEventListener('click', goTown);
+}
+function progressBar(kind, i, n, scoreText) {
+  return `
+    <div class="progress ${kind}"><i style="width:${(i / n) * 100}%"></i></div>
+    <div class="prog-row">
+      <span>第 ${i + 1} / ${n} 题</span>
+      <span>${scoreText}</span>
+    </div>`;
+}
+
+function startActivity(id) {
+  cleanupAudio();
+  const starters = {
+    photo1: () => startPhoto('photo1'),
+    train1: () => startTrain('train1'),
+    shop: startShop,
+    doctor: startDoctor,
+    magician: startMagician,
+    commentator: startCommentator,
+    map: startMap,
+    train3: () => startTrain('train3'),
+    tour: startTour,
+    studio: startStudio
+  };
+  if (starters[id]) starters[id]();
+}
+
+/* =========================================================
+   结果弹层
+   ========================================================= */
+function finishActivity(id, stars, detail, extra) {
+  saveScore(id, stars);
+  const overlay = $('#overlay');
+  overlay.innerHTML = `
+    <div class="result">
+      <div class="res-badge">${stars === 3 ? '🎉' : stars === 2 ? '🌟' : '💪'}</div>
+      <h2>${stars === 3 ? '完成得真棒！' : '完成任务'}</h2>
+      <div class="stars">${[0,1,2].map(i => `<span class="${i < stars ? '' : 'off'}">★</span>`).join('')}</div>
+      <p>${detail}</p>
+      <div class="btns">
+        <button class="btn primary" id="res-again">再玩一次</button>
+        ${extra ? `<button class="btn" id="res-extra">${extra.label}</button>` : ''}
+        <button class="btn" id="res-home">回小镇</button>
+      </div>
+    </div>`;
+  overlay.classList.add('show');
+  $('#res-again').addEventListener('click', () => { overlay.classList.remove('show'); startActivity(id); });
+  $('#res-home').addEventListener('click', () => { overlay.classList.remove('show'); goTown(); });
+  if (extra) {
+    $('#res-extra').addEventListener('click', () => { extra.action(); });
+  }
+  if (stars >= 2) confetti();
+  sfx('win');
+}
+
+/* =========================================================
+   游戏一：句子照相馆
+   ========================================================= */
+function startPhoto(setKey) {
+  session = { type:'photo', key:setKey, pool:PHOTO[setKey], rounds:shuffle(PHOTO[setKey]), i:0, score:0, locked:false };
+  renderPhoto();
+  goActivity();
+}
+function renderPhoto() {
+  stopSay();
+  const s = session;
+  const r = s.rounds[s.i];
+  const others = shuffle(s.pool.filter(x => x.key !== r.key).map(x => x.key)).slice(0, 3);
+  const opts = shuffle([r.key, ...others]);
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('photo1')}
+    ${progressBar('orange', s.i, s.rounds.length, `拍对 ${s.score} 张`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">听句子 · 拍照片</span>
+        <button class="big-speaker" id="photo-speak" aria-label="再听一遍">
+          ${ICON_SPEAKER}
+        </button>
+        <div class="prompt-zh" id="photo-zh">${CAN_SPEAK ? '听一听，哪张照片是这句话？' : '这个浏览器不能朗读，读一读：' + esc(r.en)}</div>
+      </div>
+      <div class="photo-grid">
+        ${opts.map((k, idx) => `
+          <button class="photo-opt" data-key="${k}">
+            <span class="tag">${'ABCD'[idx]}</span>
+            <div class="photo-frame">${sceneHTML(k)}</div>
+          </button>`).join('')}
+      </div>
+      <div id="photo-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#photo-speak').addEventListener('click', () => { if (!soundOn) setSound(true); sfx('flip'); speak(r.en); });
+  $$('.photo-opt', root).forEach(btn => btn.addEventListener('click', () => answerPhoto(btn, r, opts)));
+  setTimeout(() => speak(r.en), 400);
+}
+function answerPhoto(btn, r, opts) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const ok = btn.dataset.key === r.key;
+  if (ok) {
+    s.score++;
+    btn.classList.add('correct');
+    sfx('snap');
+    const flash = $('#photo-flash');
+    flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
+    speak(r.en);
+  } else {
+    btn.classList.add('wrong');
+    sfx('no');
+    const right = $$('.photo-opt').find(b => b.dataset.key === r.key);
+    if (right) right.classList.add('reveal');
+    speak(r.en);
+  }
+  $$('.photo-opt').forEach(b => b.disabled = true);
+  const fb = $('#photo-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(r.en)} · ${esc(r.zh)}</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.rounds.length) endPhoto();
+    else { s.locked = false; renderPhoto(); }
+  }, ok ? 1500 : 2100);
+}
+function endPhoto() {
+  const n = session.rounds.length;
+  const stars = session.score >= n - 1 ? 3 : session.score >= n - 3 ? 2 : 1;
+  finishActivity('photo1', stars, `一共 ${n} 张照片，拍对了 ${session.score} 张。${stars === 3 ? '耳朵和眼睛都很厉害！' : '再听一遍句子，注意关键词。'}`);
+}
+
+/* =========================================================
+   游戏二：句型小火车
+   ========================================================= */
+function startTrain(setKey) {
+  session = { type:'train', key:setKey, rounds:shuffle(TRAIN[setKey]), i:0, mistakes:0, slots:[], bank:[], locked:false };
+  buildTrainRound();
+  goActivity();
+}
+function buildTrainRound() {
+  const r = session.rounds[session.i];
+  session.slots = Array(r.tokens.length).fill(null);
+  session.bank = shuffle([...r.tokens, ...r.extra]).map((t, i) => ({ id:i + '-' + t, text:t, used:false }));
+  session.locked = false;
+  renderTrain();
+}
+function renderTrain() {
+  const s = session;
+  const r = s.rounds[s.i];
+  const id = s.key === 'train1' ? 'train1' : 'train3';
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader(id)}
+    ${progressBar('sun', s.i, s.rounds.length, `试错 ${s.mistakes} 次`)}
+    <div class="panel train-panel">
+      <div class="prompt-center" style="min-height:auto;padding-bottom:4px">
+        <span class="prompt-tag">把词块装进车厢</span>
+        <div class="prompt-zh">${esc(r.zh)}</div>
+      </div>
+      <div class="train-line" id="train-line">
+        <div class="engine">🚂</div>
+        ${s.slots.map((sid, i) => {
+          const item = sid ? s.bank.find(b => b.id === sid) : null;
+          return `<button class="carriage ${item ? 'filled' : ''}" data-slot="${i}">${item ? esc(item.text) : ''}</button>`;
+        }).join('')}
+      </div>
+      <div class="word-bank" id="word-bank">
+        ${s.bank.map(b => `<button class="wchip ${b.used ? 'used' : ''}" data-chip="${b.id}">${esc(b.text)}</button>`).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="train-clear">清空</button>
+        <button class="btn primary" id="train-check">检查句子</button>
+        <button class="mini-speaker" id="train-listen">🔊 听答案</button>
+      </div>
+      <div id="train-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.wchip', root).forEach(btn => btn.addEventListener('click', () => placeChip(btn.dataset.chip)));
+  $$('.carriage', root).forEach(btn => btn.addEventListener('click', () => removeChip(Number(btn.dataset.slot))));
+  $('#train-clear').addEventListener('click', () => {
+    if (s.locked) return;
+    s.slots = Array(r.tokens.length).fill(null);
+    s.bank.forEach(b => b.used = false);
+    renderTrain();
+  });
+  $('#train-check').addEventListener('click', checkTrain);
+  $('#train-listen').addEventListener('click', () => speak(r.en));
+}
+function placeChip(id) {
+  const s = session;
+  if (s.locked) return;
+  const item = s.bank.find(b => b.id === id);
+  if (!item || item.used) return;
+  const idx = s.slots.findIndex(x => x === null);
+  if (idx === -1) return;
+  s.slots[idx] = id;
+  item.used = true;
+  sfx('flip');
+  renderTrain();
+}
+function removeChip(idx) {
+  const s = session;
+  if (s.locked) return;
+  const id = s.slots[idx];
+  if (!id) return;
+  const item = s.bank.find(b => b.id === id);
+  if (item) item.used = false;
+  s.slots[idx] = null;
+  renderTrain();
+}
+function checkTrain() {
+  const s = session;
+  if (s.locked) return;
+  const r = s.rounds[s.i];
+  if (s.slots.some(x => x === null)) {
+    showTrainFeedback('还有空车厢，把所有词块都放进去吧。', 'bad');
+    return;
+  }
+  const made = s.slots.map(id => s.bank.find(b => b.id === id).text).join(' ');
+  if (norm(made) === norm(r.en)) {
+    s.locked = true;
+    const line = $('#train-line');
+    if (line) line.classList.add('drive');
+    sfx('ok');
+    speak(r.en);
+    showTrainFeedback(`太棒了！${r.en}`, 'good');
+    setTimeout(() => {
+      s.i++;
+      if (s.i >= s.rounds.length) endTrain();
+      else buildTrainRound();
+    }, 1900);
+  } else {
+    s.mistakes++;
+    sfx('no');
+    const line = $('#train-line');
+    if (line) { line.classList.add('shake'); setTimeout(() => line.classList.remove('shake'), 400); }
+    showTrainFeedback(`再试一次，第一个词是 “${r.tokens[0]}”。`, 'bad');
+  }
+}
+function showTrainFeedback(text, kind) {
+  const fb = $('#train-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${kind}">${esc(text)}</div>`;
+}
+function endTrain() {
+  const id = session.key === 'train1' ? 'train1' : 'train3';
+  const m = session.mistakes;
+  const stars = m <= 1 ? 3 : m <= 3 ? 2 : 1;
+  finishActivity(id, stars, `${session.rounds.length} 句全部装好了，中间试错了 ${m} 次。${stars === 3 ? '语序记得很牢！' : '注意“谁 + 做什么 + 什么”的顺序。'}`);
+}
+
+/* =========================================================
+   游戏三：商店对话
+   ========================================================= */
+function startShop() {
+  session = { type:'shop', step:0, mistakes:0, bag:[], spoken:-1, locked:false };
+  renderShop();
+  goActivity();
+}
+function renderShop() {
+  stopSay();
+  const s = session;
+  if (s.step >= SHOP_SCRIPT.length) { endShop(); return; }
+  const node = SHOP_SCRIPT[s.step];
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('shop')}
+    ${progressBar('orange', s.step, SHOP_SCRIPT.length, `买到 ${s.bag.length} 件`)}
+    <div class="panel">
+      <div class="shop-scene">
+        <div class="shop-row">
+          <div class="shopkeeper">${node.who === 'shop' ? '🧑‍💼' : '🧒'}</div>
+          <div class="bubble ${node.who === 'kid' ? 'zh' : ''}" id="shop-bubble">${node.who === 'shop' ? wordSpans(node.text) : esc(node.text)}</div>
+        </div>
+      </div>
+      <div class="bag">
+        <span>购物袋</span>
+        ${s.bag.length ? s.bag.map(x => `<span class="item">${x}</span>`).join('') : '<span style="opacity:.5">还是空的</span>'}
+      </div>
+      <div class="shop-options">
+        ${shuffle(node.options).map((o, i) => `
+          <button class="shop-opt" data-ok="${o.ok ? '1' : '0'}" data-hint="${esc(o.hint || '')}">${esc(o.t)}</button>`).join('')}
+      </div>
+      <div id="shop-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.shop-opt', root).forEach(btn => btn.addEventListener('click', () => answerShop(btn, node)));
+  if (node.who === 'shop' && s.spoken !== s.step) {
+    s.spoken = s.step;
+    setTimeout(() => say(node.text, 'guy', $('#shop-bubble')), 350);
+  }
+}
+function answerShop(btn, node) {
+  const s = session;
+  if (s.locked) return;
+  const ok = btn.dataset.ok === '1';
+  if (ok) {
+    s.locked = true;
+    btn.classList.add('correct');
+    sfx('ok');
+    say(btn.textContent.trim(), 'ana');    if (SHOP_BAG[s.step]) s.bag.push(SHOP_BAG[s.step]);
+    setTimeout(() => {
+      s.step++;
+      s.locked = false;
+      if (s.step >= SHOP_SCRIPT.length) endShop();
+      else renderShop();
+    }, 950);
+  } else {
+    s.mistakes++;
+    btn.classList.add('wrong');
+    sfx('no');
+    const fb = $('#shop-feedback');
+    if (fb) fb.innerHTML = `<div class="feedback bad">${esc(btn.dataset.hint || '再想一想。')}</div>`;
+    setTimeout(() => btn.classList.remove('wrong'), 450);
+  }
+}
+function endShop() {
+  const m = session.mistakes;
+  const stars = m <= 1 ? 3 : m <= 3 ? 2 : 1;
+  finishActivity('shop', stars, `你买到了 ${session.bag.length} 件东西，说错了 ${m} 次。${stars === 3 ? '购物英语说得很顺！' : '记住：想要什么用 I want…'}`);
+}
+
+/* =========================================================
+   游戏四：句子医生
+   ========================================================= */
+function startDoctor() {
+  session = { type:'doctor', rounds:shuffle(DOCTOR).slice(0, 6), i:0, score:0, locked:false };
+  renderDoctor();
+  goActivity();
+}
+function renderDoctor() {
+  const s = session;
+  const r = s.rounds[s.i];
+  const opts = shuffle([
+    {text:r.good, ok:true},
+    {text:r.bad, ok:false}
+  ]);
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('doctor')}
+    ${progressBar('teal', s.i, s.rounds.length, `治好 ${s.score} 句`)}
+    <div class="panel">
+      <div class="prompt-center" style="min-height:auto;padding-bottom:10px">
+        <span class="prompt-tag">哪一句没有生病？</span>
+        <div class="prompt-zh">看图，选出语法正确的句子。</div>
+      </div>
+      <div class="doctor-stage">
+        <div class="doctor-pic">${sceneHTML(r.scene)}</div>
+        ${opts.map((o, i) => `
+          <button class="sick-card" data-ok="${o.ok ? '1' : '0'}">
+            <span class="lbl">${'AB'[i]}</span>
+            <span class="sen">${esc(o.text)}</span>
+          </button>`).join('')}
+      </div>
+      <div id="doctor-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.sick-card', root).forEach(btn => btn.addEventListener('click', () => answerDoctor(btn, r)));
+}
+function answerDoctor(btn, r) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const ok = btn.dataset.ok === '1';
+  const cards = $$('.sick-card');
+  if (ok) {
+    s.score++;
+    btn.classList.add('correct');
+    sfx('ok');
+  } else {
+    btn.classList.add('wrong');
+    sfx('no');
+    const right = cards.find(c => c.dataset.ok === '1');
+    if (right) right.classList.add('correct');
+  }
+  cards.forEach(c => c.disabled = true);
+  speak(r.good);
+  const fb = $('#doctor-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(r.rule)}</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.rounds.length) endDoctor();
+    else { s.locked = false; renderDoctor(); }
+  }, ok ? 1700 : 2400);
+}
+function endDoctor() {
+  const n = session.rounds.length;
+  const stars = session.score >= n - 1 ? 3 : session.score >= n - 3 ? 2 : 1;
+  finishActivity('doctor', stars, `6 个句子，一次就选对了 ${session.score} 个。${stars === 3 ? '句子医生真厉害！' : '记住 a、are、复数这些小细节。'}`);
+}
+
+/* =========================================================
+   游戏五：形状魔法师
+   ========================================================= */
+function startMagician() {
+  session = { type:'magician', rounds:shuffle(MAGIC).slice(0, 5), i:0, checks:0, placed:[], tool:'triangle' };
+  goActivity();
+  renderMagician();
+}
+function renderMagician() {
+  stopSay();
+  const s = session;
+  const r = s.rounds[s.i];
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('magician')}
+    ${progressBar('teal', s.i, s.rounds.length, `画对 ${s.i} 幅`)}
+    <div class="panel">
+      <div class="prompt-center" style="min-height:auto;padding-bottom:6px">
+        <span class="prompt-tag">读句子 · 画图形</span>
+        <div class="prompt-word">${esc(r.text)}</div>
+        <div class="prompt-zh">${esc(r.zh)}</div>
+        <button class="mini-speaker" id="magic-listen">🔊 再听一遍</button>
+      </div>
+      <div class="tool-row" id="tool-row">
+        ${['triangle','square','rectangle','diamond','heart','circle'].map(k => `
+          <button class="shape-tool ${s.tool === k ? 'active' : ''}" data-tool="${k}" aria-label="${SHAPE_ZH[k]}">
+            ${shapeSVG(k)}
+          </button>`).join('')}
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="magic-canvas"></canvas>
+        <div class="canvas-hint" id="canvas-hint">选一个形状，然后点画布</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="magic-undo">撤销</button>
+        <button class="btn" id="magic-clear">全部擦掉</button>
+        <button class="btn primary" id="magic-check">画好了</button>
+      </div>
+      <div id="magic-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.shape-tool', root).forEach(btn => btn.addEventListener('click', () => {
+    s.tool = btn.dataset.tool;
+    $$('.shape-tool').forEach(b => b.classList.toggle('active', b === btn));
+  }));
+  $('#magic-listen').addEventListener('click', () => speak(r.text));
+  $('#magic-undo').addEventListener('click', () => { s.placed.pop(); drawMagic(); });
+  $('#magic-clear').addEventListener('click', () => { s.placed = []; drawMagic(); });
+  $('#magic-check').addEventListener('click', checkMagic);
+  setupMagicCanvas();
+  speak(r.text);
+}
+function setupMagicCanvas() {
+  const canvas = $('#magic-canvas');
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.max(1, Math.round(rect.width * dpr));
+  canvas.height = Math.max(1, Math.round(rect.height * dpr));
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  canvas.onclick = e => {
+    if (session.locked) return;
+    const r = canvas.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    session.placed.push({ shape: session.tool, x, y });
+    sfx('flip');
+    drawMagic();
+  };
+  drawMagic();
+}
+function drawMagic() {
+  const canvas = $('#magic-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = canvas.width / dpr, h = canvas.height / dpr;
+  ctx.clearRect(0, 0, w, h);
+  const size = Math.min(w, h) * 0.16;
+  session.placed.forEach(p => drawOneShape(ctx, p.shape, p.x * w, p.y * h, size));
+  const hint = $('#canvas-hint');
+  if (hint) hint.classList.toggle('hide', session.placed.length > 0);
+}
+function drawOneShape(ctx, shape, cx, cy, s) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#1F2A28';
+  ctx.fillStyle = SHAPE_COLOR[shape] || '#F2B93B';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  if (shape === 'triangle') {
+    ctx.moveTo(0, -s * 0.55);
+    ctx.lineTo(s * 0.58, s * 0.45);
+    ctx.lineTo(-s * 0.58, s * 0.45);
+    ctx.closePath();
+  } else if (shape === 'square') {
+    ctx.rect(-s * 0.45, -s * 0.45, s * 0.9, s * 0.9);
+  } else if (shape === 'rectangle') {
+    ctx.rect(-s * 0.62, -s * 0.34, s * 1.24, s * 0.68);
+  } else if (shape === 'diamond') {
+    ctx.moveTo(0, -s * 0.58);
+    ctx.lineTo(s * 0.55, 0);
+    ctx.lineTo(0, s * 0.58);
+    ctx.lineTo(-s * 0.55, 0);
+    ctx.closePath();
+  } else if (shape === 'heart') {
+    ctx.moveTo(0, s * 0.5);
+    ctx.bezierCurveTo(-s * 0.72, -s * 0.02, -s * 0.36, -s * 0.62, 0, -s * 0.22);
+    ctx.bezierCurveTo(s * 0.36, -s * 0.62, s * 0.72, -s * 0.02, 0, s * 0.5);
+    ctx.closePath();
+  } else {
+    ctx.arc(0, 0, s * 0.48, 0, Math.PI * 2);
+  }
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+}
+function checkMagic() {
+  const s = session;
+  if (s.locked) return;
+  const r = s.rounds[s.i];
+  const counts = {};
+  s.placed.forEach(p => { counts[p.shape] = (counts[p.shape] || 0) + 1; });
+  const need = r.req;
+  const keys = Object.keys(need);
+  let ok = keys.every(k => (counts[k] || 0) === need[k]) && Object.keys(counts).every(k => (need[k] || 0) === counts[k]);
+  if (ok) {
+    s.locked = true;
+    sfx('ok');
+    speak(r.text);
+    const fb = $('#magic-feedback');
+    if (fb) fb.innerHTML = `<div class="feedback good">画对了！${esc(r.text)}</div>`;
+    setTimeout(() => {
+      s.i++;
+      s.placed = [];
+      s.locked = false;
+      if (s.i >= s.rounds.length) endMagician();
+      else renderMagician();
+    }, 1700);
+  } else {
+    s.checks++;
+    sfx('no');
+    const parts = [];
+    keys.forEach(k => {
+      const have = counts[k] || 0;
+      if (have !== need[k]) parts.push(`${SHAPE_ZH[k]}需要 ${need[k]} 个，你画了 ${have} 个`);
+    });
+    const extra = Object.keys(counts).filter(k => !need[k]);
+    extra.forEach(k => parts.push(`多了 ${counts[k]} 个${SHAPE_ZH[k]}`));
+    const fb = $('#magic-feedback');
+    if (fb) fb.innerHTML = `<div class="feedback bad">${esc(parts.join('；'))}。可以撤销再补一补。</div>`;
+  }
+}
+function endMagician() {
+  const c = session.checks;
+  const stars = c <= 1 ? 3 : c <= 3 ? 2 : 1;
+  finishActivity('magician', stars, `5 幅画都完成了，中间调整了 ${c} 次。${stars === 3 ? '读句画图一次就对！' : '画之前先数一数数量。'}`);
+}
+
+/* =========================================================
+   游戏六：小小解说员
+   ========================================================= */
+function startCommentator() {
+  session = { type:'commentator', rounds:shuffle(COMMENT).slice(0, 6), i:0, attempts:0, num:null, shape:null };
+  renderCommentator();
+  goActivity();
+}
+function renderCommentator() {
+  const s = session;
+  const r = s.rounds[s.i];
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('commentator')}
+    ${progressBar('sun', s.i, s.rounds.length, `说对 ${s.i} 句`)}
+    <div class="panel">
+      <div class="prompt-center" style="min-height:auto;padding-bottom:4px">
+        <span class="prompt-tag">数一数 · 说一说</span>
+        <div class="count-pic">${Array(r.n).fill(shapeSVG(r.shape)).join('')}</div>
+      </div>
+      <div class="count-stage">
+        <div class="frame-sentence">
+          There are <span class="blank" id="blank-num">?</span>
+          <span class="blank" id="blank-shape">?</span>.
+        </div>
+        <div class="chip-row" id="num-row">
+          ${['one','two','three','four'].map(w => `<button class="pick-chip" data-num="${w}">${w}</button>`).join('')}
+        </div>
+        <div class="chip-row" id="shape-row">
+          ${Object.values(PLURAL).map(w => `<button class="pick-chip" data-shape="${w}">${w}</button>`).join('')}
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="comment-check" disabled>说一说</button>
+          <button class="mini-speaker" id="comment-listen">🔊 听答案</button>
+        </div>
+      </div>
+      <div id="comment-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.pick-chip[data-num]', root).forEach(btn => btn.addEventListener('click', () => {
+    s.num = btn.dataset.num;
+    $$('.pick-chip[data-num]').forEach(b => b.classList.toggle('active', b === btn));
+    updateCommentFrame();
+  }));
+  $$('.pick-chip[data-shape]', root).forEach(btn => btn.addEventListener('click', () => {
+    s.shape = btn.dataset.shape;
+    $$('.pick-chip[data-shape]').forEach(b => b.classList.toggle('active', b === btn));
+    updateCommentFrame();
+  }));
+  $('#comment-check').addEventListener('click', checkComment);
+  $('#comment-listen').addEventListener('click', () => speak(`There are ${numWord(r.n)} ${PLURAL[r.shape]}.`));
+  updateCommentFrame();
+}
+function updateCommentFrame() {
+  const s = session;
+  const n = $('#blank-num'), sh = $('#blank-shape'), btn = $('#comment-check');
+  if (n) n.textContent = s.num || '?';
+  if (sh) sh.textContent = s.shape || '?';
+  if (btn) btn.disabled = !(s.num && s.shape);
+}
+function numWord(n) { return ['','one','two','three','four','five'][n] || String(n); }
+function checkComment() {
+  const s = session;
+  if (s.locked) return;
+  const r = s.rounds[s.i];
+  const ok = s.num === numWord(r.n) && s.shape === PLURAL[r.shape];
+  if (ok) {
+    s.locked = true;
+    sfx('ok');
+    const sentence = `There are ${numWord(r.n)} ${PLURAL[r.shape]}.`;
+    speak(sentence);
+    const fb = $('#comment-feedback');
+    if (fb) fb.innerHTML = `<div class="feedback good">${esc(sentence)}</div>`;
+    setTimeout(() => {
+      s.i++;
+      s.locked = false;
+      s.num = null; s.shape = null;
+      if (s.i >= s.rounds.length) endCommentator();
+      else renderCommentator();
+    }, 1800);
+  } else {
+    s.attempts++;
+    sfx('no');
+    const fb = $('#comment-feedback');
+    if (fb) fb.innerHTML = `<div class="feedback bad">再数一数图上有几个，注意数字后面的名词要加 s。</div>`;
+  }
+}
+function endCommentator() {
+  const a = session.attempts;
+  const stars = a <= 1 ? 3 : a <= 3 ? 2 : 1;
+  finishActivity('commentator', stars, `6 幅图都解说完啦，中间试了 ${a} 次。${stars === 3 ? '数量和复数都说得准！' : '记住：two squares, three triangles。'}`);
+}
+
+/* =========================================================
+   游戏七：听音地图
+   ========================================================= */
+function startMap() {
+  session = { type:'map', rounds:shuffle(MAP_ROUNDS).slice(0, 8), i:0, score:0, locked:false };
+  renderMap();
+  goActivity();
+}
+function renderMap() {
+  stopSay();
+  const s = session;
+  const r = s.rounds[s.i];
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('map')}
+    ${progressBar('blue', s.i, s.rounds.length, `找对 ${s.score} 个`)}
+    <div class="panel">
+      <div class="prompt-center" style="min-height:auto;padding-bottom:6px">
+        <span class="prompt-tag">听一听 · 找到那个地方</span>
+        <button class="big-speaker" id="map-speak" aria-label="再听一遍">${ICON_SPEAKER}</button>
+        <div class="prompt-zh">${CAN_SPEAK ? '他在介绍学校的哪里？' : '这个浏览器不能朗读，读一读：' + esc(r.en)}</div>
+      </div>
+      <div class="room-grid">
+        ${ROOMS.map(room => `
+          <button class="room-tile" data-key="${room.key}">
+            <span class="room-emoji">${room.emoji}</span>
+            <span class="room-zh">${room.name}</span>
+            <span class="room-en">${room.en}</span>
+          </button>`).join('')}
+      </div>
+      <div id="map-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#map-speak').addEventListener('click', () => { if (!soundOn) setSound(true); sfx('flip'); speak(r.en); });
+  $$('.room-tile', root).forEach(btn => btn.addEventListener('click', () => answerMap(btn, r)));
+  setTimeout(() => speak(r.en), 400);
+}
+function answerMap(btn, r) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const ok = btn.dataset.key === r.room;
+  const tiles = $$('.room-tile');
+  if (ok) {
+    s.score++;
+    btn.classList.add('correct');
+    btn.classList.add('reveal');
+    sfx('ok');
+  } else {
+    btn.classList.add('wrong');
+    sfx('no');
+    const right = tiles.find(t => t.dataset.key === r.room);
+    if (right) { right.classList.add('correct'); right.classList.add('reveal'); }
+  }
+  tiles.forEach(t => t.disabled = true);
+  speak(r.en);
+  const room = ROOMS.find(x => x.key === r.room);
+  const fb = $('#map-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(r.en)} · ${esc(room.name)}（${esc(room.en)}）</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.rounds.length) endMap();
+    else { s.locked = false; renderMap(); }
+  }, ok ? 1600 : 2200);
+}
+function endMap() {
+  const n = session.rounds.length;
+  const stars = session.score >= n - 1 ? 3 : session.score >= n - 3 ? 2 : 1;
+  finishActivity('map', stars, `8 个地方，听对了 ${session.score} 个。${stars === 3 ? '校园地点听得很准！' : '注意 music room、art room、gym、library 的区别。'}`);
+}
+
+/* =========================================================
+   游戏八：小导游录音
+   ========================================================= */
+function startTour() {
+  session = { type:'tour', i:0, urls:{}, recorded:0, recording:false, micBlocked:false, spokenStop:-1 };
+  renderTour();
+  goActivity();
+}
+function renderTour() {
+  stopSay();
+  const s = session;
+  if (s.i >= TOUR.length) { endTour(); return; }
+  const stop = TOUR[s.i];
+  const hasUrl = !!s.urls[s.i];
+  const idx = s.i;
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('tour')}
+    ${progressBar('orange', s.i, TOUR.length, `已录 ${s.recorded} 段`)}
+    <div class="panel">
+      <div class="rec-stage">
+        <div class="prompt-tag">第 ${s.i + 1} 站 · 校园导游</div>
+        <div class="tour-room">${stop.emoji}</div>
+        <div class="rec-sentence" id="tour-sentence">${wordSpans(stop.en)}</div>
+        <div class="rec-zh">${esc(stop.zh)}</div>
+        <div class="rec-actions">
+          <button class="mini-speaker" id="tour-listen">🔊 听一遍</button>
+        </div>
+        <button class="rec-big ${s.recording ? 'recording' : ''}" id="tour-rec" aria-label="${s.recording ? '停止录音' : '开始录音'}">
+          ${s.recording ? '■' : '🎤'}
+        </button>
+        <div class="rec-status" id="tour-status">
+          ${s.recording ? '正在录音…读完点一下方块' : hasUrl ? '录好了！可以回放，也可以进入下一站。' : '点麦克风，读一读这句话'}
+        </div>
+        <div class="rec-actions">
+          <button class="btn" id="tour-play" ${hasUrl ? '' : 'disabled'}>▶ 回放</button>
+          <button class="btn primary" id="tour-next">下一站 →</button>
+        </div>
+        <div class="rec-status" style="opacity:.75">录音可以多拿星星；不方便录音也可以直接下一站。</div>
+      </div>
+      <div id="tour-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#tour-listen').addEventListener('click', () => say(stop.en, 'emma', $('#tour-sentence')));
+  $('#tour-rec').addEventListener('click', () => {
+    if (s.recording) { stopRecording(); return; }
+    s.recording = true;
+    renderTour();
+    startRecording(url => {
+      s.recording = false;
+      s.urls[idx] = url;
+      s.recorded = Object.keys(s.urls).length;
+      sfx('ok');
+      renderTour();
+    }, err => {
+      s.recording = false;
+      s.micBlocked = true;
+      renderTour();
+      const fb = $('#tour-feedback');
+      if (fb) fb.innerHTML = `<div class="feedback bad">浏览器没有打开麦克风（${esc(err)}）。跟着读一遍，也可以继续下一站。</div>`;
+    });
+  });
+  $('#tour-play').addEventListener('click', () => { if (s.urls[s.i]) playUrl(s.urls[s.i]); });
+  $('#tour-next').addEventListener('click', () => {
+    if (s.recording) { stopRecording(); }
+    s.i++;
+    if (s.i >= TOUR.length) endTour();
+    else renderTour();
+  });
+  if (s.spokenStop !== s.i) {
+    s.spokenStop = s.i;
+    setTimeout(() => say(stop.en, 'emma', $('#tour-sentence')), 350);
+  }
+}
+function endTour() {
+  const s = session;
+  const urls = TOUR.map((_, i) => s.urls[i]);
+  const stars = s.recorded >= 4 ? 3 : s.recorded >= 2 ? 2 : 1;
+  finishActivity('tour', stars,
+    `4 站都参观完了，录了 ${s.recorded} 段导游词。${stars === 3 ? '你的英语导游词很棒！' : '下次可以试着把四段都录下来。'}`,
+    s.recorded ? { label:'▶ 播放我的导游词', action: () => playAll(urls) } : null
+  );
+}
+
+/* =========================================================
+   游戏九：情绪录音棚
+   ========================================================= */
+function startStudio() {
+  session = { type:'studio', i:0, urls:{}, recorded:0, recording:false, micBlocked:false };
+  renderStudio();
+  goActivity();
+}
+function renderStudio() {
+  stopSay();
+  const s = session;
+  if (s.i >= STUDIO.length) { endStudio(); return; }
+  const item = STUDIO[s.i];
+  const hasUrl = !!s.urls[s.i];
+  const idx = s.i;
+  const root = $('#activity-root');
+  root.innerHTML = `
+    ${actHeader('studio')}
+    ${progressBar('orange', s.i, STUDIO.length, `录了 ${s.recorded} 段`)}
+    <div class="panel">
+      <div class="rec-stage">
+        <div class="emotion-badge"><span class="e">${item.e}</span>${item.emo}</div>
+        <div class="rec-sentence" id="studio-sentence">${wordSpans(item.en)}</div>
+        <div class="rec-zh">${esc(item.tip)}</div>
+        <div class="rec-actions">
+          <button class="mini-speaker" id="studio-listen">🔊 听一遍</button>
+        </div>
+        <button class="rec-big ${s.recording ? 'recording' : ''}" id="studio-rec" aria-label="${s.recording ? '停止录音' : '开始录音'}">
+          ${s.recording ? '■' : '🎤'}
+        </button>
+        <div class="rec-status" id="studio-status">
+          ${s.recording ? '正在录音…读完点一下方块' : hasUrl ? '录好了！听听自己的声音。' : '点麦克风，用这个情绪读一读'}
+        </div>
+        <div class="rec-actions">
+          <button class="btn" id="studio-play" ${hasUrl ? '' : 'disabled'}>▶ 回放</button>
+          <button class="btn primary" id="studio-next">下一个 →</button>
+        </div>
+        <div class="rec-status" style="opacity:.75">不录音也可以继续，录音能多拿星星。</div>
+      </div>
+      <div id="studio-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#studio-listen').addEventListener('click', () => say(item.en, 'emma', $('#studio-sentence')));
+  $('#studio-rec').addEventListener('click', () => {
+    if (s.recording) { stopRecording(); return; }
+    s.recording = true;
+    renderStudio();
+    startRecording(url => {
+      s.recording = false;
+      s.urls[idx] = url;
+      s.recorded = Object.keys(s.urls).length;
+      sfx('ok');
+      renderStudio();
+    }, err => {
+      s.recording = false;
+      s.micBlocked = true;
+      renderStudio();
+      const fb = $('#studio-feedback');
+      if (fb) fb.innerHTML = `<div class="feedback bad">浏览器没有打开麦克风（${esc(err)}）。跟着读一遍，也可以继续。</div>`;
+    });
+  });
+  $('#studio-play').addEventListener('click', () => { if (s.urls[s.i]) playUrl(s.urls[s.i]); });
+  $('#studio-next').addEventListener('click', () => {
+    if (s.recording) stopRecording();
+    s.i++;
+    if (s.i >= STUDIO.length) endStudio();
+    else renderStudio();
+  });
+}
+function endStudio() {
+  const s = session;
+  const urls = STUDIO.map((_, i) => s.urls[i]);
+  const stars = s.recorded >= 3 ? 3 : s.recorded >= 1 ? 2 : 1;
+  finishActivity('studio', stars,
+    `3 个情绪都挑战完了，录了 ${s.recorded} 段。${stars === 3 ? '语气和语调都很有戏！' : '下次试着用不同的声音读一读。'}`,
+    s.recorded ? { label:'▶ 播放我的录音', action: () => playAll(urls) } : null
+  );
+}
+
+/* =========================================================
+   彩带
+   ========================================================= */
+const confettiCanvas = $('#confetti');
+const cctx = confettiCanvas.getContext('2d');
+let particles = [];
+let confettiRAF = null;
+function sizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  confettiCanvas.width = window.innerWidth * dpr;
+  confettiCanvas.height = window.innerHeight * dpr;
+  confettiCanvas.style.width = window.innerWidth + 'px';
+  confettiCanvas.style.height = window.innerHeight + 'px';
+  cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+sizeCanvas();
+window.addEventListener('resize', sizeCanvas);
+function confetti() {
+  const colors = ['#E4572E','#2A9D8F','#F2B93B','#3E6FD1','#E0698E','#3FA34D'];
+  particles = [];
+  const count = window.innerWidth < 600 ? 70 : 120;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: window.innerWidth / 2 + (Math.random() - .5) * 220,
+      y: window.innerHeight * .32 + (Math.random() - .5) * 80,
+      vx: (Math.random() - .5) * 11,
+      vy: -Math.random() * 10 - 3,
+      w: 6 + Math.random() * 7,
+      h: 5 + Math.random() * 8,
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - .5) * .3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 1
+    });
+  }
+  if (confettiRAF) cancelAnimationFrame(confettiRAF);
+  const start = performance.now();
+  const tick = now => {
+    const elapsed = now - start;
+    cctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    particles.forEach(p => {
+      p.vy += .28; p.vx *= .995; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.life = Math.max(0, 1 - elapsed / 2600);
+      cctx.save();
+      cctx.globalAlpha = p.life;
+      cctx.translate(p.x, p.y);
+      cctx.rotate(p.rot);
+      cctx.fillStyle = p.color;
+      cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      cctx.restore();
+    });
+    if (elapsed < 2700) confettiRAF = requestAnimationFrame(tick);
+    else cctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  };
+  confettiRAF = requestAnimationFrame(tick);
+}
+
+/* =========================================================
+   图标 & 启动
+   ========================================================= */
+const ICON_SPEAKER = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 25 L23 25 L39 12 L39 52 L23 39 L8 39 Z" fill="#1F2A28" stroke="#1F2A28" stroke-width="3" stroke-linejoin="round"/><path d="M46 23 Q55 32 46 41" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/><path d="M53 16 Q67 32 53 48" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round" opacity=".5"/></svg>`;
+const ICON_SOUND_ON = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 25 L24 25 L40 13 L40 51 L24 39 L10 39 Z" fill="#1F2A28"/><path d="M46 24 Q54 32 46 40" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/><path d="M53 18 Q65 32 53 46" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round" opacity=".45"/></svg>`;
+const ICON_SOUND_OFF = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 25 L24 25 L40 13 L40 51 L24 39 L10 39 Z" fill="#1F2A28"/><path d="M48 24 L60 40 M60 24 L48 40" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/></svg>`;
+
+const soundBtn = $('#sound-toggle');
+function paintSound() { soundBtn.innerHTML = soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF; }
+function setSound(v) {
+  soundOn = v;
+  localStorage.setItem('town_sound', soundOn ? '1' : '0');
+  paintSound();
+  if (!soundOn) cleanupAudio();
+}
+paintSound();
+soundBtn.addEventListener('click', () => { setSound(!soundOn); if (soundOn) sfx('ok'); });
+
+$('#brand-home').addEventListener('click', goTown);
+$('#reset-town').addEventListener('click', () => {
+  if (confirm('要清空英语小镇的所有星星吗？')) {
+    saved = {};
+    localStorage.removeItem('town_stars');
+    renderTown();
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const overlay = $('#overlay');
+    if (overlay.classList.contains('show')) { overlay.classList.remove('show'); goTown(); }
+    else if ($('#screen-activity').classList.contains('active')) goTown();
+  }
+});
+window.addEventListener('resize', () => {
+  if (session && session.type === 'magician' && $('#magic-canvas')) setupMagicCanvas();
+});
+
+renderTown();
+updateTopStars();
+</script>
+</body>
+</html>

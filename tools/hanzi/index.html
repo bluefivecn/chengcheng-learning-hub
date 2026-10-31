@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1116" media="(prefers-color-scheme: dark)">
+<meta name="description" content="输入一个汉字，看它一笔一画怎么写。小学生汉字笔顺动画查询工具。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1116'/%3E%3Crect x='6' y='6' width='20' height='20' rx='3' fill='none' stroke='%234fd1c5' stroke-width='2'/%3E%3Ctext x='16' y='22.5' font-size='14' text-anchor='middle' fill='%234fd1c5' font-family='sans-serif'%3E字%3C/text%3E%3C/svg%3E">
+<title>汉字笔顺 · 一笔一画学写字</title>
+<style>
+  :root{
+    /* ---- palette: 数据仪表盘 (data dashboard) -------------------------------
+       A flat, data-first surface: slate greys, one teal signal colour, hairline
+       borders, no shadows, numbers set in a monospace face. The playful warm
+       gradient and the sticker shadows are gone on purpose — this direction
+       reads as an instrument, not a toy.
+
+       The twelve series colours are *solved*, not hand-picked. A categorical
+       scale at fixed HSL lightness is not perceptually uniform: L=32% is a dark
+       olive at hue 96 but a mid navy at hue 232, and the measured result was
+       4.00:1 for the lime tab — below AA. So each hue walks its own lightness
+       until it just clears the target (5.2:1 for text on both the card and its
+       own tint, 3.2:1 for the solid used on borders and bars). That also evens
+       out the perceived weight: solid-vs-card now spans 3.20:1 .. 4.57:1 where
+       the old palette spanned 1.78:1 .. 9.68:1.
+
+       Contrast is measured, not eyeballed, and the verification suite re-measures
+       it on the real rendered page in both themes. */
+    --bg1:#f6f8fa; --bg2:#f4f7fa; --bg3:#f2f5f9; --bg4:#eef2f7;
+    --halo1:rgba(255,255,255,0); --halo2:rgba(255,255,255,0);  /* flat: no halos */
+    --card:#ffffff;
+    --ink:#16202b;
+    --ink-soft:#55606e;
+    --ink-faint:#6a7482;
+    --line:#e4e9ef;
+    --grid:#c7d2dd;
+    --outline:rgba(120,140,162,.40);
+    --brand:#0d9488;          /* ring, bars, current stroke, marks */
+    --brand-ink:#0f766e;      /* teal text: 5.47:1 on card, 4.85:1 on --brand-soft */
+    --brand-soft:#e3f5f2;
+    --cta:#0f766e;            /* white on this measures 5.47:1 */
+    --on-cta:#ffffff;
+    --cta-edge:#0b5b55;
+    --pink:#7c5cff;           /* 造句 series */
+    --pink-ink:#5b3fd6;       /* 5.72:1 on --pink-soft */
+    --pink-soft:#efeaff;
+    --green:#b45309;          /* 画数 series */
+    --green-ink:#9a4a08;      /* 5.57:1 on --green-soft */
+    --green-soft:#fdf0dd;
+    --green-cta:#b45309;      /* paused state: amber, the one "attention" hue */
+    --green-edge:#8a3c07;
+    --blue:#1d4ed8;           /* 年级 series */
+    --blue-soft:#e7eefe;
+    --shadow:none;
+    --shadow-sm:none;
+    --shadow-pop:0 12px 32px rgba(16,32,48,.14);
+    --radius:10px;
+    --radius-sm:6px;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+
+    /* ---- 12 series colours --------------------------------------------------
+       One hue sweep (cool -> warm, which is also the order of the school years),
+       three values each: a solid for borders and bars, a soft tint for the
+       selected fill, and a text colour that clears AA on both the card and that
+       tint. Every value was solved for its contrast target; see above. */
+    --g0:#8361d1; --g0s:#efeafa; --g0t:#6133cc;
+    --g1:#6170d1; --g1s:#eaecfa; --g1t:#3347cc;
+    --g2:#4c96cb; --g2s:#eaf4fa; --g2t:#276a9a;
+    --g3:#319da9; --g3s:#eaf9fa; --g3t:#1f717a;
+    --g4:#2ea089; --g4s:#eafaf7; --g4t:#1d7463;
+    --g5:#2fa360; --g5s:#eafaf1; --g5t:#1e7643;
+    --g6:#5ca02e; --g6s:#f1faea; --g6t:#40741d;
+    --g7:#92952b; --g7s:#fafaea; --g7t:#6a6d1b;
+    --g8:#b78735; --g8s:#faf4ea; --g8t:#845f21;
+    --g9:#ce7a56; --g9s:#faefea; --g9t:#a04c28;
+    --g10:#d16177; --g10s:#faeaee; --g10t:#b62d49;
+    --g11:#d161bb; --g11s:#faeaf7; --g11t:#ab2b92;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg1:#0e1116; --bg2:#0f1218; --bg3:#101319; --bg4:#0d1015;
+      --halo1:rgba(0,0,0,0); --halo2:rgba(0,0,0,0);
+      --card:#151a21;
+      --ink:#d8dee9;            /* luminance 221 — the suite requires > 140 here */
+      --ink-soft:#97a3b4;
+      --ink-faint:#7c8798;
+      --line:#232a34;
+      --grid:#3b4655;
+      --outline:rgba(150,170,195,.26);
+      --brand:#4fd1c5;
+      --brand-ink:#6ee0d4;      /* 11.05:1 on --card */
+      --brand-soft:#14312f;
+      --cta:#4fd1c5;            /* dark ink on a bright fill in dark mode */
+      --on-cta:#08161a;
+      --cta-edge:#2e9c92;
+      --pink:#a78bfa;
+      --pink-ink:#b9a3ff;       /* 7.28:1 on --pink-soft */
+      --pink-soft:#241f3d;
+      --green:#f0b35c;
+      --green-ink:#f0b35c;      /* 7.86:1 on --green-soft */
+      --green-soft:#33270f;
+      --green-cta:#f0b35c;
+      --green-edge:#8a5a12;
+      --blue:#7aa8ff;
+      --blue-soft:#17233d;
+      --shadow-pop:0 16px 40px rgba(0,0,0,.55);
+
+      --g0:#8763da; --g0s:#231938; --g0t:#9e7ee8;
+      --g1:#6070da; --g1s:#191d38; --g1t:#7c8ae8;
+      --g2:#2c7fba; --g2s:#192b38; --g2t:#4ba2df;
+      --g3:#2799a5; --g3s:#193538; --g3t:#3ccddd;
+      --g4:#27a58c; --g4s:#193832; --g4t:#3cddbc;
+      --g5:#27a55b; --g5s:#193826; --g5t:#3cdd7f;
+      --g6:#59a527; --g6s:#263819; --g6t:#7cdd3c;
+      --g7:#a1a527; --g7s:#373819; --g7t:#d7dd3c;
+      --g8:#a57727; --g8s:#382d19; --g8t:#dda23c;
+      --g9:#c35b2e; --g9s:#382319; --g9t:#e18056;
+      --g10:#d44662; --g10s:#38191f; --g10t:#e56e86;
+      --g11:#d035b1; --g11s:#381932; --g11t:#e466cb;
+    }
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html{ color-scheme:light dark; }
+  html,body{ margin:0; padding:0; }
+  body{
+    min-height:100%;
+    /* Flat instrument surface. The old warm-to-cool sweep and its two halos are
+       gone; what is left is a barely-there vertical wash so the cards read as
+       sitting on something instead of floating in void. */
+    background:linear-gradient(180deg, var(--bg1) 0%, var(--bg3) 62%, var(--bg4) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                "Microsoft YaHei", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    padding:16px 14px calc(28px + env(safe-area-inset-bottom));
+    -webkit-text-size-adjust:100%;
+    /* every number on this screen is a reading, so they all line up */
+    font-variant-numeric:tabular-nums;
+  }
+  ::selection{ background:var(--brand-soft); color:var(--brand-ink); }
+  :focus-visible{ outline:2px solid var(--brand); outline-offset:2px; border-radius:var(--radius-sm); }
+  .wrap{ max-width:640px; margin:0 auto; }
+
+  /* ---------- header ---------- */
+  header{ text-align:center; margin:6px 0 16px; }
+  header h1{
+    margin:0; font-size:21px; font-weight:600; letter-spacing:.02em;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  /* The mark is a flat instrument chip now — hairline border, signal colour, no
+     sticker tilt and no gradient. Still the first thing on the page, so it still
+     sets the tone; just a quieter one. */
+  header h1 .brush{
+    width:34px; height:34px; flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    font-size:17px; line-height:1;
+    font-family:var(--mono);
+    border-radius:var(--radius-sm);
+    background:var(--brand-soft);
+    border:1px solid var(--brand);
+    color:var(--brand-ink);
+  }
+  header p{ margin:6px 0 0; font-size:13.5px; color:var(--ink-soft); }
+
+  /* ---------- search ---------- */
+  .search{ display:flex; gap:8px; }
+  #q{
+    flex:1 1 auto; min-width:0;
+    height:56px;
+    padding:0 14px;
+    font-size:22px;
+    font-family:inherit;
+    color:var(--ink);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    outline:none;
+    transition:border-color .15s, box-shadow .15s;
+    text-align:center;
+    letter-spacing:2px;
+  }
+  #q::placeholder{ color:var(--ink-faint); font-size:15px; letter-spacing:0; }
+  /* the input is the first thing a child touches, so it lights up rather than
+     snapping: a signal ring instead of a hard border swap */
+  #q:focus{
+    border-color:var(--brand);
+    box-shadow:0 0 0 3px var(--brand-soft);
+  }
+  .search .go{
+    flex:0 0 auto; width:76px;
+    height:56px; border:1px solid transparent; border-radius:var(--radius);
+    background:var(--cta); color:var(--on-cta);
+    font-family:inherit; font-size:15px; font-weight:600; letter-spacing:.02em;
+    cursor:pointer; transition:filter .12s;
+  }
+  .search .go:hover{ filter:brightness(1.08); }
+  .search .go:active{ filter:brightness(.94); }
+
+  /* ---------- chips ---------- */
+  #chips{ display:none; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+  #chips.on{ display:flex; }
+  #chips button{
+    width:50px; height:50px; border-radius:var(--radius-sm);
+    border:1px solid var(--line); background:var(--card);
+    color:var(--ink); font-family:inherit; font-size:23px; cursor:pointer;
+    transition:border-color .12s, background .12s, color .12s;
+  }
+  #chips button.sel{ border-color:var(--brand); background:var(--brand-soft); color:var(--brand-ink); }
+
+  /* ---------- stage ---------- */
+  .stage{ margin-top:14px; display:flex; flex-direction:column; align-items:center; }
+  .tianbox{ display:flex; align-items:center; justify-content:center; }
+  /* The 田字格 reads as an instrument panel now: hairline border, small radius,
+     no drop shadow. The dashed cross is the one piece of the old language that
+     survives untouched — it is the grid, not decoration. */
+  .tian{
+    position:relative;
+    width:clamp(230px, 74vw, 380px);
+    aspect-ratio:1 / 1;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tian::before, .tian::after{
+    content:''; position:absolute; opacity:.8; pointer-events:none;
+  }
+  .tian::before{ left:50%; top:0; bottom:0; border-left:1px dashed var(--grid); }
+  .tian::after{ top:50%; left:0; right:0; border-top:1px dashed var(--grid); }
+  #writer{ position:relative; z-index:1; width:100%; height:100%; padding:8px; }
+  #writer svg{ display:block; width:100%; height:100%; }
+
+  .empty{
+    position:absolute; inset:0; z-index:2;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:9px; color:var(--ink-faint); text-align:center; padding:20px;
+  }
+  .empty .big{
+    font-size:46px; font-weight:600; color:var(--grid); line-height:1;
+    letter-spacing:2px;
+  }
+  .empty .tip{ font-size:14px; line-height:1.7; }
+  .empty.hide{ display:none; }
+
+  /* the character readout: pinyin in the display face, the two facts as mono
+     readings rather than candy pills */
+  .meta{
+    margin-top:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    justify-content:center; min-height:30px;
+  }
+  .meta .py{
+    font-size:22px; font-weight:600; color:var(--brand-ink);
+    letter-spacing:.02em; line-height:1.2;
+  }
+  /* two series, two accents: 画数 in amber, 册 in blue. Colour is doing real
+     work — a child can tell the two readings apart without reading them. */
+  .meta .tag{
+    font-family:var(--mono); font-size:12px; padding:3px 9px;
+    border-radius:var(--radius-sm);
+    background:var(--green-soft); color:var(--green-ink); font-weight:600;
+    border:1px solid var(--green);
+  }
+  .meta .tag.grade{ background:var(--blue-soft); color:var(--blue); border-color:var(--blue); }
+
+  /* ---------- dashboard panel ----------
+     The old design ended in a bead strip. This direction replaces it with the
+     three things a data view actually wants: a ring for the single ratio, a
+     segmented bar for the per-stroke state, and three readings for the
+     character's own numbers. Every figure here is real — 笔画 comes from the
+     stroke data, 组词/造句 from the loaded chunk. Nothing is invented to fill a
+     card, which is the whole point of the direction. */
+  .dash{
+    margin-top:14px; width:100%;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:13px 14px;
+    display:grid;
+    grid-template-columns:auto minmax(0, 1fr) auto;
+    gap:14px;
+    align-items:center;
+  }
+  .ring{
+    position:relative;
+    width:60px; height:60px; flex:0 0 auto;
+    border-radius:50%;
+    /* The unfilled track is data, not decoration: it is how you see how much is
+       left. --grid clears the 1.5:1 non-text floor against the card in both
+       themes (1.53 light / 1.83 dark); --line does not (1.22 / 1.21). */
+    background:conic-gradient(var(--brand) calc(var(--p, 0) * 1%), var(--grid) 0);
+    display:grid; place-items:center;
+  }
+  .ring::after{
+    content:''; position:absolute; inset:6px; border-radius:50%;
+    background:var(--card);
+  }
+  .ring span{
+    position:relative; z-index:1;
+    font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--ink);
+    line-height:1;
+  }
+  .dash-mid{ min-width:0; display:flex; flex-direction:column; gap:6px; }
+  .dash-k{
+    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  #dots{ display:flex; flex-wrap:wrap; gap:3px; }
+  #dots i{
+    width:6px; height:15px; border-radius:2px;
+    background:var(--grid); display:block; transition:background .18s, transform .18s;
+  }
+  /* Grouped in nines. A long character like 曦 has 20 strokes, and the gap lets a
+     child count them off in nines instead of losing their place in one smear. */
+  #dots i:nth-child(9n+1):not(:first-child){ margin-left:8px; }
+  #dots i.done{ background:var(--brand); }
+  #dots i.now{ background:var(--brand); transform:scaleY(1.4); box-shadow:0 0 0 2px var(--brand-soft); }
+  .dash-v{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); }
+  .dash-v b{ color:var(--ink); font-weight:600; }
+  .dash-stats{ display:grid; grid-template-columns:repeat(3, auto); gap:14px; }
+  .stat{ min-width:0; }
+  .stat span{
+    display:block; font-size:10.5px; letter-spacing:.06em; color:var(--ink-faint);
+    margin-bottom:1px; white-space:nowrap;
+  }
+  .stat b{
+    font-family:var(--mono); font-size:19px; font-weight:600; color:var(--ink);
+    line-height:1.15;
+  }
+  /* narrow screens: the three readings drop to their own row rather than
+     squeezing the bar into nothing */
+  @media (max-width:479px){
+    .dash{ grid-template-columns:auto minmax(0, 1fr); }
+    .dash-stats{
+      grid-column:1 / -1;
+      border-top:1px solid var(--line); padding-top:10px;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- controls ---------- */
+  .controls{
+    margin-top:12px; width:100%;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;
+  }
+  .btn{
+    height:52px; border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--card); color:var(--ink);
+    font-family:inherit; font-size:14.5px; font-weight:600;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    transition:border-color .12s, background .12s, color .12s, opacity .15s;
+    user-select:none; touch-action:manipulation;
+    padding:0 6px;
+  }
+  .btn .ico{ font-size:14px; line-height:1; opacity:.7; }
+  .btn:hover:not(:disabled){ border-color:var(--brand); color:var(--brand-ink); }
+  .btn:disabled{ opacity:.4; cursor:default; }
+  .btn.primary{
+    background:var(--cta); color:var(--on-cta); border-color:transparent;
+    grid-column:span 3; font-size:16px; letter-spacing:.04em;
+  }
+  .btn.primary .ico{ opacity:.9; }
+  .btn.primary:hover:not(:disabled){ color:var(--on-cta); filter:brightness(1.08); }
+  /* paused flips the big button to amber — the one "attention" hue in the
+     palette, so the state is legible at a glance without reading the label */
+  .btn.primary.paused{ background:var(--green-cta); color:var(--on-cta); }
+
+  @media (min-width:560px){
+    .btn{ font-size:15px; gap:8px; }
+    .btn .ico{ font-size:16px; }
+  }
+
+  /* ---------- 组词 / 造句 ---------- */
+  .words{ margin-top:20px; }
+  .words.hide{ display:none; }
+  .words h2{
+    margin:0 0 10px; font-size:11px; font-weight:600; color:var(--ink-faint);
+    display:flex; align-items:center; gap:7px;
+    letter-spacing:.1em; text-transform:uppercase;
+  }
+  .words h2 .ico{ font-size:13px; }
+  .wlist{ display:flex; flex-direction:column; gap:8px; }
+  .wcard{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:12px 14px 13px;
+    border-left:3px solid var(--brand);
+  }
+  .wcard .w{
+    font-size:24px; font-weight:600; color:var(--brand-ink);
+    letter-spacing:.06em; line-height:1.25;
+  }
+  .wcard .d{ font-size:13.5px; color:var(--ink-soft); margin-top:2px; line-height:1.6; }
+  /* the sentence gets its own series colour: a violet tint, a violet 造句 pill and
+     the target word picked out in the same violet. Teal (word) -> violet
+     (sentence) is the one colour step a child has to learn on this screen. */
+  .wcard .s{
+    margin-top:8px; padding:8px 11px 9px; border-radius:var(--radius-sm);
+    background:var(--pink-soft); font-size:15px; line-height:1.7;
+  }
+  .wcard .s i{
+    font-style:normal; font-size:11px; font-weight:600;
+    color:var(--pink-ink); background:var(--card);
+    padding:1px 6px; border-radius:999px; margin-right:6px;
+    vertical-align:2px; letter-spacing:.04em;
+    border:1px solid var(--pink);
+  }
+  .wcard .s b{ color:var(--pink-ink); font-weight:600; }
+
+  /* ---------- picker ---------- */
+  details.picker{
+    margin-top:20px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  details.picker > summary{
+    list-style:none; cursor:pointer; padding:15px 16px;
+    font-size:14px; font-weight:600; color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  details.picker > summary::-webkit-details-marker{ display:none; }
+  details.picker > summary::after{
+    content:'▾'; font-size:14px; color:var(--ink-faint); transition:transform .2s;
+  }
+  details.picker[open] > summary::after{ transform:rotate(180deg); }
+  details.picker[open] > summary{ border-bottom:1px solid var(--line); }
+  /* The grade tabs are a grid, never a scroller: all 12 volumes have to be
+     visible at once so a child can see everything there is to choose from.
+     The column count follows the *panel* width, not the viewport, because on
+     wide screens the picker is a floating panel whose width is unrelated to
+     the window. 12 divides evenly by 3, 4 and 6, so no row is ever ragged.
+     min-height keeps every tab a 44px tap target. */
+  .picker-body{
+    padding:14px 14px 18px; container-type:inline-size;
+    /* fallbacks, so nothing is ever an invalid colour if the grid has not been
+       painted yet */
+    --gh:var(--brand); --ghs:var(--brand-soft); --ght:var(--brand-ink);
+  }
+  .tabs{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:7px;
+    padding-bottom:12px;
+  }
+  .tabs button{
+    min-width:0;
+    min-height:44px;
+    display:flex; align-items:center; justify-content:center;
+    padding:6px 6px; border-radius:var(--radius-sm);
+    border:1px solid var(--line); background:transparent;
+    /* Every tab is written in its own series colour, so the row reads as a
+       categorical scale and a child can find "their" year by colour before
+       reading the label. The border stays neutral: the labels are the thing
+       that has to clear AA, and they now do so evenly — 5.20:1 to 7.36:1 on the
+       card, where the previous hand-ordered palette spanned a much wider range. */
+    color:var(--ght);
+    font-family:inherit; font-size:13px; font-weight:600;
+    cursor:pointer; white-space:nowrap;
+  }
+  .tabs button.sel{
+    background:var(--ghs); border-color:var(--gh); color:var(--ght);
+    box-shadow:0 0 0 1px var(--gh);
+  }
+
+  /* one binding per grade — the hues are the derivation's own order */
+  .tabs button:nth-child(1){ --gh:var(--g0); --ghs:var(--g0s); --ght:var(--g0t); }
+  .tabs button:nth-child(2){ --gh:var(--g1); --ghs:var(--g1s); --ght:var(--g1t); }
+  .tabs button:nth-child(3){ --gh:var(--g2); --ghs:var(--g2s); --ght:var(--g2t); }
+  .tabs button:nth-child(4){ --gh:var(--g3); --ghs:var(--g3s); --ght:var(--g3t); }
+  .tabs button:nth-child(5){ --gh:var(--g4); --ghs:var(--g4s); --ght:var(--g4t); }
+  .tabs button:nth-child(6){ --gh:var(--g5); --ghs:var(--g5s); --ght:var(--g5t); }
+  .tabs button:nth-child(7){ --gh:var(--g6); --ghs:var(--g6s); --ght:var(--g6t); }
+  .tabs button:nth-child(8){ --gh:var(--g7); --ghs:var(--g7s); --ght:var(--g7t); }
+  .tabs button:nth-child(9){ --gh:var(--g8); --ghs:var(--g8s); --ght:var(--g8t); }
+  .tabs button:nth-child(10){ --gh:var(--g9); --ghs:var(--g9s); --ght:var(--g9t); }
+  .tabs button:nth-child(11){ --gh:var(--g10); --ghs:var(--g10s); --ght:var(--g10t); }
+  .tabs button:nth-child(12){ --gh:var(--g11); --ghs:var(--g11s); --ght:var(--g11t); }
+
+  @container (min-width: 400px){
+    .tabs{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    .tabs button{ font-size:13.5px; }
+  }
+  @container (min-width: 540px){
+    .tabs{ grid-template-columns:repeat(6, minmax(0, 1fr)); }
+    .tabs button{ font-size:14px; padding:6px 8px; }
+  }
+  #grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(50px, 1fr));
+    gap:8px; max-height:290px; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  #grid button{
+    aspect-ratio:1/1; border-radius:var(--radius-sm); border:1px solid var(--line);
+    background:transparent; color:var(--ink);
+    font-family:inherit; font-size:22px; cursor:pointer;
+    transition:border-color .12s, background .12s, color .12s;
+    display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  #grid button:hover{ border-color:var(--brand); }
+  /* the grid inherits the active series' colour, so the character you picked is
+     highlighted in the same colour as the tab you picked it from */
+  #grid button.sel{ background:var(--ghs); border-color:var(--gh); color:var(--ght); }
+
+  /* ---------- footer / status ---------- */
+  .status{
+    margin-top:14px; text-align:center; font-size:13.5px; min-height:20px;
+    color:var(--ink-soft);
+  }
+  .status.err{ color:var(--brand-ink); font-weight:600; }
+  footer{
+    margin-top:18px; text-align:center; font-size:11.5px; color:var(--ink-faint);
+    line-height:1.8;
+  }
+  .sr{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  /* ---------------------------------------------------------------------------
+     Wide screens: the whole tool on one screen, no page scrolling.
+
+     Below 900px the page stays a single column and scrolls normally — on a
+     phone that is the right behaviour. From 900px up it becomes two columns
+     (controls + 田字格 on the left, 组词/造句 on the right) inside a fixed
+     100dvh shell, so the page itself never scrolls. The word list is the one
+     thing allowed to scroll, and only inside its own column, and only when
+     there are more words than fit.
+
+     The grade picker is deliberately taken out of flow here: it is a floating
+     panel, so opening it never steals height from the 田字格. Keeping it in
+     flow would force the character box to shrink below a usable size.
+
+     The 760px width and 720px height floors are not arbitrary. The left column
+     spends a fixed 321px on search + meta + dashboard + controls + status
+     (measured at 1440x900), and the character box must keep a usable size on
+     top of that. Below 720px tall there simply is not room for both, so those
+     windows keep the stacked scrolling layout rather than showing a shrunken
+     character.
+     --------------------------------------------------------------------------- */
+  @media (min-width: 760px) and (min-height: 720px){
+    html, body{ height:100%; }
+    body{ padding:0; overflow:hidden; }
+    .wrap{
+      position:relative;
+      height:100dvh;
+      max-width:1280px;
+      margin:0 auto;
+      padding:14px 24px 10px;
+      display:grid;
+      /* nav + header + main + footer; the main row is the one that gets the
+         remaining height so the 田字格 can grow instead of being pushed down. */
+      grid-template-rows:auto auto minmax(0, 1fr) auto;
+      gap:10px;
+    }
+
+    header{ margin:0; text-align:left; padding-right:205px; }
+    header h1{ justify-content:flex-start; font-size:19px; }
+    header h1 .brush{ width:30px; height:30px; font-size:15px; }
+    header p{ margin:3px 0 0; font-size:12.5px; }
+
+    .main{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(0, 1.04fr);
+      gap:0 26px;
+      min-height:0;
+    }
+    .col{ min-height:0; display:flex; flex-direction:column; }
+
+    /* left column — the 田字格 takes whatever height is left over.
+
+       .tianbox is a size container, so the square can be sized as
+       min(100cqw, 100cqh) — the largest square that fits. Sizing it with
+       aspect-ratio alone does not work: whichever axis gets clamped by
+       max-width/max-height keeps its old value and the box comes out
+       rectangular, which would stretch the character. */
+    .stage{ flex:1 1 auto; min-height:0; margin-top:12px; }
+    .tianbox{
+      flex:1 1 0;
+      min-height:0;
+      width:100%;
+      container-type:size;
+    }
+    .tian{
+      flex:0 0 auto;
+      width:min(100cqw, 100cqh);
+      height:auto;
+      aspect-ratio:1 / 1;
+    }
+    .meta{ flex:0 0 auto; margin-top:8px; }
+    .dash{ flex:0 0 auto; margin-top:10px; padding:11px 12px; }
+    .ring{ width:54px; height:54px; }
+    .controls{
+      flex:0 0 auto; margin-top:10px;
+      grid-template-columns:1.25fr repeat(3, minmax(0, 1fr));
+    }
+    .controls .btn.primary{ grid-column:auto; }
+    .controls .btn{ height:50px; }
+    .status{ flex:0 0 auto; margin-top:9px; min-height:0; font-size:13px; }
+
+    /* right column — the word list scrolls in place, the page does not */
+    .col-right .words{
+      flex:1 1 auto;
+      min-height:0;
+      margin-top:0;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      padding-right:8px;
+    }
+    .col-right .words::-webkit-scrollbar{ width:8px; }
+    .col-right .words::-webkit-scrollbar-thumb{
+      background:var(--grid); border-radius:99px;
+    }
+
+    /* nothing chosen yet — fill the right half rather than leave it blank */
+    .col-right:has(> .words.hide)::before{
+      content:'输入一个汉字，这里会出现它的组词和造句';
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      height:100%; padding:20px; color:var(--ink-faint);
+      font-size:15px; line-height:1.7;
+      border:2px dashed var(--grid); border-radius:var(--radius);
+    }
+
+    /* the grade picker floats above the layout instead of pushing it around */
+    details.picker{
+      position:absolute; top:14px; right:24px; width:auto; margin:0;
+      background:transparent; box-shadow:none; overflow:visible;
+      border-radius:999px;
+    }
+    details.picker > summary{
+      padding:8px 15px; border-radius:999px;
+      border:2px solid var(--line); background:var(--card);
+      box-shadow:var(--shadow-sm);
+      font-size:13.5px; white-space:nowrap;
+    }
+    details.picker[open] > summary{ border-color:var(--brand); }
+    details.picker .picker-body{
+      position:absolute; top:calc(100% + 9px); right:0;
+      width:min(620px, 52vw);
+      background:var(--card); border-radius:var(--radius);
+      box-shadow:0 16px 48px rgba(24,44,68,.22);
+      max-height:min(62dvh, 540px); overflow-y:auto;
+      z-index:30;
+    }
+    #grid{ max-height:min(400px, 40dvh); }
+
+    footer{ margin:0; font-size:11.5px; line-height:1.5; }
+  }
+
+  /* learning hub navigation */
+  .hub-nav{
+    display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;
+    margin:0 0 16px;padding:6px;
+    border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--card);
+    font-size:12.5px;color:var(--ink-soft);
+  }
+  .hub-nav a{
+    min-height:38px;display:inline-flex;align-items:center;justify-content:center;
+    padding:0 11px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;
+  }
+  .hub-nav a:hover{background:var(--brand-soft);color:var(--brand-ink)}
+  .hub-nav a[aria-current="page"]{background:var(--brand-soft);color:var(--brand-ink)}
+  .hub-nav .hub-home{border:1px solid var(--line)}
+  .hub-nav .hub-sep{opacity:.35;font-size:10px}
+  @media(max-width:520px){
+    .hub-nav{gap:2px;margin-bottom:12px;padding:5px;font-size:11.5px}
+    .hub-nav a{min-height:36px;padding:0 8px}
+    .hub-nav .hub-sep{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="hub-nav" aria-label="丞丞学习基地导航">
+    <a class="hub-home" href="../../index.html">⌂ 丞丞学习基地</a>
+    <span class="hub-sep" aria-hidden="true">·</span>
+    <a href="../english/index.html">英语</a>
+    <span class="hub-sep" aria-hidden="true">·</span>
+    <a href="index.html" aria-current="page">汉字</a>
+  </nav>
+
+  <header>
+    <h1><span class="brush">🖌️</span>汉字笔顺</h1>
+    <p>输入一个汉字，看看它一笔一画怎么写</p>
+  </header>
+
+  <div class="main">
+  <div class="col col-left">
+
+  <div class="search">
+    <input id="q" type="text" maxlength="12" placeholder="在这里输入汉字"
+           aria-label="输入要查询的汉字"
+           autocomplete="off" autocapitalize="off" autocorrect="off"
+           spellcheck="false" enterkeyhint="search">
+    <button class="go" id="btn-go" type="button" aria-label="查一查">查一查</button>
+  </div>
+
+  <div id="chips" aria-label="选择要查看的字"></div>
+
+  <div class="stage">
+    <div class="tianbox">
+      <div class="tian">
+        <div id="writer" aria-label="汉字笔顺演示区"></div>
+        <div class="empty" id="empty">
+          <div class="big">字</div>
+          <div class="tip">在上面输入一个汉字<br>就能看到它的笔顺啦</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="dash" id="dash">
+    <div class="ring" id="ring" aria-hidden="true">
+      <span id="ringPct">0%</span>
+    </div>
+    <div class="dash-mid">
+      <div class="dash-k">笔顺 · 进度</div>
+      <div id="dots" aria-hidden="true"></div>
+      <div class="dash-v" id="progTxt" aria-live="polite">还没有选字</div>
+    </div>
+    <div class="dash-stats">
+      <div class="stat"><span>笔画</span><b id="statStrokes">—</b></div>
+      <div class="stat"><span>组词</span><b id="statWords">—</b></div>
+      <div class="stat"><span>造句</span><b id="statSents">—</b></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn primary" id="btn-play" type="button" disabled>
+      <span class="ico" id="playIco">▶</span><span id="playLbl">播放笔顺</span>
+    </button>
+    <button class="btn" id="btn-reset" type="button" disabled>
+      <span class="ico">↻</span><span>重播</span>
+    </button>
+    <button class="btn" id="btn-prev" type="button" disabled>
+      <span class="ico">◀</span><span>上一笔</span>
+    </button>
+    <button class="btn" id="btn-next" type="button" disabled>
+      <span class="ico">▶</span><span>下一笔</span>
+    </button>
+  </div>
+
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+
+  </div><!-- /col-left -->
+  <div class="col col-right">
+
+  <section class="words hide" id="words" aria-label="组词和造句"></section>
+
+  </div><!-- /col-right -->
+  </div><!-- /main -->
+
+  <details class="picker">
+    <summary>或者，按年级挑一个字</summary>
+    <div class="picker-body">
+      <div class="tabs" id="tabs"></div>
+      <div id="grid"></div>
+    </div>
+  </details>
+
+  <footer>
+    共收录小学 1–6 年级生字 2479 个，配组词 7154 条、造句 6336 句<br>
+    笔顺数据来自 hanzi-writer，其他汉字需要联网获取
+  </footer>
+
+</div>
+
+<script src="vendor/hanzi-writer.min.js"></script>
+<script src="vendor/pinyin-pro.js"></script>
+<script>
+/* ---- data plumbing (must exist before data/index.js runs) ---- */
+window.HZ_DATA  = {};
+window.HZ_IDX   = {};
+window.HZ_LABELS = [];
+window.HZ_CHUNK_OK = {};
+window.HZ_CHUNK_WAIT = {};
+window.HZ_INDEX = function (labels, idx) {
+  window.HZ_LABELS = labels;
+  window.HZ_IDX = idx;
+};
+window.HZ_LOAD = function (i, data) {
+  var k;
+  for (k in data) { if (Object.prototype.hasOwnProperty.call(data, k)) window.HZ_DATA[k] = data[k]; }
+  window.HZ_CHUNK_OK[i] = true;
+  if (window.HZ_CHUNK_WAIT[i]) {
+    var done = window.HZ_CHUNK_WAIT[i];
+    delete window.HZ_CHUNK_WAIT[i];
+    done();
+  }
+};
+</script>
+<script src="data/index.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var BASE = 400;                 // internal render resolution of the character
+  var INSTANT_SPEED = 1000;       // strokeAnimationSpeed that renders a stroke instantly
+  var CDN = 'https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/';
+
+  // A stroke lasts 500 / speed ms. Busier characters get a brisker pace so a
+  // 20-stroke word does not take a quarter of a minute to write out.
+  function paceFor(total) {
+    if (total <= 8) return { speed: 1.0, gap: 220 };
+    if (total <= 14) return { speed: 1.4, gap: 160 };
+    return { speed: 1.8, gap: 130 };
+  }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elQ = $('q'), elChips = $('chips'), elWriter = $('writer'), elEmpty = $('empty'),
+      elMeta = $('meta'), elDots = $('dots'), elProg = $('progTxt'), elStatus = $('status'),
+      elRing = $('ring'), elRingPct = $('ringPct'),
+      elStatStrokes = $('statStrokes'), elStatWords = $('statWords'), elStatSents = $('statSents'),
+      elTabs = $('tabs'), elGrid = $('grid'), elWords = $('words'),
+      elPicker = document.querySelector('details.picker'),
+      bPlay = $('btn-play'), bReset = $('btn-reset'), bPrev = $('btn-prev'),
+      bNext = $('btn-next'), bGo = $('btn-go'),
+      icoPlay = $('playIco'), lblPlay = $('playLbl');
+
+  /* ================= state ================= */
+  var st = {
+    char: null, data: null, writer: null,
+    total: 0, shown: 0, playing: false,
+    speed: 1, gap: 220,        // pacing for the current character
+    building: false,           // true while an instant rebuild is in flight
+    token: 0,   // invalidates in-flight data loads
+    gen: 0      // invalidates in-flight stroke animations
+  };
+  var dotEls = [];
+  var chunkP = {};
+  var activeGrade = 0;
+  var composing = false;
+
+  /* ================= helpers ================= */
+  function isHan(ch) { return /[\u4e00-\u9fff\u3400-\u4dbf]/.test(ch); }
+
+  function pickChar(text) {
+    var out = [], i;
+    for (i = 0; i < text.length; i++) { if (isHan(text.charAt(i))) out.push(text.charAt(i)); }
+    return out;
+  }
+
+  function pinyinOf(ch) {
+    var e = window.HZ_IDX[ch];
+    if (e && e[0]) return e[0];
+    try {
+      if (window.pinyinPro) return window.pinyinPro.pinyin(ch, { toneType: 'symbol' });
+    } catch (err) { /* ignore */ }
+    return '';
+  }
+
+  function gradeOf(ch) {
+    var e = window.HZ_IDX[ch];
+    return e ? window.HZ_LABELS[e[1]] : '';
+  }
+
+  function setStatus(msg, isErr) {
+    elStatus.textContent = msg || '';
+    elStatus.className = 'status' + (isErr ? ' err' : '');
+  }
+
+  function setEnabled(on) {
+    bPlay.disabled = !on; bReset.disabled = !on;
+    bPrev.disabled = !on; bNext.disabled = !on;
+  }
+
+  /* ================= data loading ================= */
+  function loadChunk(i) {
+    if (window.HZ_CHUNK_OK[i]) return Promise.resolve();
+    if (chunkP[i]) return chunkP[i];
+    chunkP[i] = new Promise(function (resolve, reject) {
+      window.HZ_CHUNK_WAIT[i] = resolve;
+      var s = document.createElement('script');
+      s.src = 'data/g' + i + '.js';
+      s.async = true;
+      s.onload = function () { if (window.HZ_CHUNK_OK[i]) resolve(); };
+      s.onerror = function () { delete window.HZ_CHUNK_WAIT[i]; reject(new Error('chunk ' + i)); };
+      document.head.appendChild(s);
+      setTimeout(function () {
+        if (!window.HZ_CHUNK_OK[i]) { delete window.HZ_CHUNK_WAIT[i]; reject(new Error('timeout')); }
+      }, 8000);
+    });
+    chunkP[i]['catch'](function () { chunkP[i] = null; });
+    return chunkP[i];
+  }
+
+  function fetchRemote(ch) {
+    var key = 'hz:data:' + ch, cached = null;
+    try { cached = window.localStorage.getItem(key); } catch (e) { /* ignore */ }
+    if (cached) { try { return Promise.resolve(JSON.parse(cached)); } catch (e) { /* ignore */ } }
+    if (!window.fetch) return Promise.reject(new Error('no fetch'));
+    return window.fetch(CDN + encodeURIComponent(ch) + '.json')
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (d) {
+        try { window.localStorage.setItem(key, JSON.stringify(d)); } catch (e) { /* quota */ }
+        return d;
+      });
+  }
+
+  function getCharData(ch) {
+    if (window.HZ_DATA[ch]) return Promise.resolve(window.HZ_DATA[ch]);
+    var e = window.HZ_IDX[ch];
+    if (e) {
+      return loadChunk(e[1]).then(function () {
+        if (window.HZ_DATA[ch]) return window.HZ_DATA[ch];
+        return fetchRemote(ch);
+      });
+    }
+    return fetchRemote(ch);
+  }
+
+  /* ================= rendering ================= */
+  function buildWriter(ch, data) {
+    elWriter.innerHTML = '';
+    // read both colours off the stylesheet so the glyph follows the theme
+    // instead of being pinned to one set of values
+    var cs = getComputedStyle(document.body);
+    var ink = cs.getPropertyValue('--ink').trim() || '#2f1d29';
+    var outline = cs.getPropertyValue('--outline').trim() || 'rgba(206,138,162,.42)';
+    st.writer = window.HanziWriter.create(elWriter, ch, {
+      width: BASE,
+      height: BASE,
+      padding: 26,                  // keeps the glyph clear of the 田字格 border
+      showOutline: true,            // faint full character as a writing guide
+      showCharacter: false,         // strokes appear only when they are drawn
+      strokeColor: ink,
+      outlineColor: outline,
+      strokeAnimationSpeed: st.speed, // 500 / speed ms per stroke
+      strokeFadeDuration: 0,        // resets are instant, not faded
+      delayBetweenStrokes: 0,       // pacing is handled by the app
+      charDataLoader: function (c, onComplete) { onComplete(data); }
+    });
+    // make the SVG scale with its container
+    var svg = elWriter.querySelector('svg');
+    if (svg) {
+      if (!svg.getAttribute('viewBox')) svg.setAttribute('viewBox', '0 0 ' + BASE + ' ' + BASE);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      svg.removeAttribute('width');
+      svg.removeAttribute('height');
+      svg.style.width = '100%';
+      svg.style.height = '100%';
+    }
+  }
+
+  // Rebuild the canvas with exactly the first n strokes drawn.
+  // hanzi-writer 3.x cannot un-draw a stroke, so "back one" means starting from
+  // a clean writer and replaying the strokes instantly. The instant replay has
+  // to be chained through onComplete: firing animateStroke() in a tight loop
+  // makes each call cancel the previous one, leaving a single stroke on screen.
+  function rebuild(n) {
+    if (!st.char || !st.data) return;
+    st.gen++;
+    var gen = st.gen;
+    buildWriter(st.char, st.data);
+    st.shown = n;
+    paintDots();
+    if (n <= 0) return;
+    st.building = true;
+    setSpeed(INSTANT_SPEED);
+    var i = 0;
+    (function chain() {
+      if (gen !== st.gen) { st.building = false; return; }
+      if (i >= n) { st.building = false; setSpeed(st.speed); return; }
+      st.writer.animateStroke(i++, { onComplete: chain });
+    })();
+  }
+
+  function buildDots(n) {
+    elDots.innerHTML = '';
+    dotEls = [];
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < n; i++) {
+      var d = document.createElement('i');
+      frag.appendChild(d);
+      dotEls.push(d);
+    }
+    elDots.appendChild(frag);
+  }
+
+  function paintDots() {
+    for (var i = 0; i < dotEls.length; i++) {
+      dotEls[i].className = i < st.shown ? 'done' : (i === st.shown ? 'now' : '');
+    }
+    if (!st.total) {
+      elRing.style.setProperty('--p', 0);
+      elRingPct.textContent = '0%';
+      elProg.textContent = '还没有选字';
+      return;
+    }
+    // The ring and the bar show the same number two ways: the ring for "how far
+    // through", the bar for "which stroke". A child who has lost their place
+    // needs the second one; a glance needs the first.
+    var pct = Math.round(st.shown / st.total * 100);
+    elRing.style.setProperty('--p', pct);
+    elRingPct.textContent = pct + '%';
+    elProg.innerHTML = '第 <b>' + st.shown + '</b> 笔 / 共 <b>' + st.total + '</b> 笔';
+  }
+
+  // The three readings are the character's own numbers, read straight off the
+  // loaded chunk. Nothing here is decoration — which is the point of the
+  // direction. No character, no numbers: they go back to a dash rather than
+  // leaving a stale figure from the last one.
+  function setStats() {
+    var d = st.data || {}, list = d.w || [], sents = d.s || [], s = 0, i;
+    for (i = 0; i < sents.length; i++) { if (sents[i]) s++; }
+    elStatStrokes.textContent = st.total || '—';
+    elStatWords.textContent = list.length || '—';
+    elStatSents.textContent = s || '—';
+  }
+
+  function setMeta(ch) {
+    var py = pinyinOf(ch), g = gradeOf(ch), html = '';
+    if (py) html += '<span class="py">' + esc(py) + '</span>';
+    if (st.total) html += '<span class="tag">' + st.total + ' 画</span>';
+    if (g) html += '<span class="tag grade">' + esc(g) + '</span>';
+    else html += '<span class="tag grade">课外字</span>';
+    elMeta.innerHTML = html;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // Wrap the 组词 word inside its 造句 sentence, so the child can see at a
+  // glance where the word sits in the sentence.
+  function markWord(sentence, word) {
+    var i = sentence.indexOf(word);
+    if (i < 0) return esc(sentence);
+    return esc(sentence.slice(0, i)) +
+           '<b>' + esc(word) + '</b>' +
+           esc(sentence.slice(i + word.length));
+  }
+
+  // 组词 (words + a plain-language gloss) and 造句 (one scene sentence each).
+  // Both come straight out of the loaded chunk, so this is pure rendering —
+  // no extra request, and it works offline like everything else.
+  function renderWords() {
+    var data = st.data;
+    var list = data && data.w;
+    if (!list || !list.length) {
+      elWords.className = 'words hide';
+      elWords.innerHTML = '';
+      return;
+    }
+    var sents = data.s || [];
+    var html = '<h2><span class="ico">📖</span>组词 · 造句</h2><div class="wlist">';
+    for (var i = 0; i < list.length; i++) {
+      var word = list[i][0], def = list[i][1], s = sents[i] || '';
+      html += '<div class="wcard">' +
+                '<div class="w">' + esc(word) + '</div>' +
+                '<div class="d">' + esc(def) + '</div>' +
+                (s ? '<div class="s"><i>造句</i>' + markWord(s, word) + '</div>' : '') +
+              '</div>';
+    }
+    html += '</div>';
+    elWords.innerHTML = html;
+    elWords.className = 'words';
+  }
+
+  /* ================= playback ================= */
+  function stopPlayback() {
+    st.playing = false;
+    updatePlayBtn();
+  }
+
+  function updatePlayBtn() {
+    if (st.playing) {
+      icoPlay.textContent = '❚❚'; lblPlay.textContent = '暂停';
+      bPlay.classList.add('paused');
+    } else {
+      icoPlay.textContent = '▶'; lblPlay.textContent = st.total && st.shown >= st.total ? '再放一遍' : '播放笔顺';
+      bPlay.classList.remove('paused');
+    }
+  }
+
+  function setSpeed(speed) {
+    // animateStroke() takes its timing from this option (there is no per-call
+    // duration), so we nudge it to draw instantly when rebuilding the picture.
+    if (st.writer && st.writer._options) st.writer._options.strokeAnimationSpeed = speed;
+  }
+
+  function playFrom(n) {
+    if (!st.writer) return;
+    var gen = st.gen;
+    if (n >= st.total) { st.shown = st.total; paintDots(); stopPlayback(); return; }
+    st.shown = n;
+    paintDots();
+    st.writer.animateStroke(n, { onComplete: function () {
+      if (gen !== st.gen) return;
+      st.shown = n + 1;
+      paintDots();
+      if (!st.playing) return;
+      if (n + 1 >= st.total) { stopPlayback(); return; }   // no idle gap at the end
+      window.setTimeout(function () {
+        if (st.playing && gen === st.gen) playFrom(n + 1);
+      }, st.gap);
+    } });
+  }
+
+  function play() {
+    if (st.building || !st.writer || !st.total) return;
+    if (st.playing) { stopPlayback(); return; }
+    if (st.shown >= st.total) rebuild(0);   // finished -> start over
+    setSpeed(st.speed);
+    st.playing = true;
+    updatePlayBtn();
+    playFrom(st.shown);
+  }
+
+  function replay() {
+    if (st.building || !st.writer || !st.total) return;
+    stopPlayback();
+    rebuild(0);
+    setSpeed(st.speed);
+    st.playing = true;
+    updatePlayBtn();
+    playFrom(0);
+  }
+
+  function stepNext() {
+    if (st.building || !st.writer || st.shown >= st.total) return;
+    stopPlayback();
+    setSpeed(st.speed);
+    var gen = st.gen, n = st.shown;
+    st.shown = n + 1;
+    paintDots();
+    st.writer.animateStroke(n, { onComplete: function () {
+      if (gen === st.gen) paintDots();
+    } });
+  }
+
+  function stepPrev() {
+    if (st.building || !st.writer || st.shown <= 0) return;
+    stopPlayback();
+    rebuild(st.shown - 1);
+  }
+
+  /* ================= main flow ================= */
+  function show(ch) {
+    st.token++;
+    var token = st.token;
+    st.playing = false;
+    updatePlayBtn();
+    // A character has been chosen, so put the grade picker away. On a wide
+    // screen the picker floats over the 组词/造句 column, and leaving it open
+    // would hide the very words the child just asked for. Harmless when it is
+    // already closed.
+    elPicker.open = false;
+    st.char = ch;
+    st.shown = 0;
+    st.total = 0;
+    st.data = null;          // so the readings cannot show the previous 字
+    setEnabled(false);
+    setStatus('正在找这个字…');
+    elEmpty.classList.add('hide');
+    elMeta.innerHTML = '';
+    elWords.className = 'words hide';
+    elWords.innerHTML = '';
+    buildDots(0);
+    paintDots();
+    setStats();
+    markChips();
+
+    getCharData(ch).then(function (data) {
+      if (token !== st.token) return;
+      var pace = paceFor(data.strokes.length);
+      st.data = data;
+      st.total = data.strokes.length;
+      st.speed = pace.speed;
+      st.gap = pace.gap;
+      st.building = false;
+      buildDots(st.total);
+      setMeta(ch);
+      setStats();
+      renderWords();
+      setEnabled(true);
+      setStatus('');
+      if (prefersReducedMotion()) {
+        rebuild(st.total);          // no animation: show the finished character
+        updatePlayBtn();
+      } else {
+        rebuild(0);
+        st.playing = true;
+        updatePlayBtn();
+        playFrom(0);                // write it out once, right away
+      }
+    })['catch'](function () {
+      if (token !== st.token) return;
+      elWriter.innerHTML = '';
+      elEmpty.classList.remove('hide');
+      setStatus('没有找到「' + ch + '」的笔顺数据，换一个字试试吧', true);
+      paintDots();
+    });
+  }
+
+  function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  /* ================= input handling ================= */
+  var lastText = '';
+
+  function markChips() {
+    var btns = elChips.querySelectorAll('button'), i;
+    for (i = 0; i < btns.length; i++) {
+      btns[i].className = btns[i].getAttribute('data-c') === st.char ? 'sel' : '';
+    }
+  }
+
+  function renderChips(chars) {
+    if (chars.length <= 1) { elChips.className = ''; elChips.innerHTML = ''; return; }
+    elChips.innerHTML = '';
+    chars.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = c;
+      b.setAttribute('data-c', c);
+      b.setAttribute('aria-label', '查看 ' + c);
+      b.onclick = function () { show(c); markChips(); };
+      elChips.appendChild(b);
+    });
+    elChips.className = 'on';
+    markChips();
+  }
+
+  function handleInput() {
+    var raw = elQ.value;
+    if (raw === lastText) return;
+    lastText = raw;
+    var chars = pickChar(raw);
+    if (!chars.length) {
+      if (raw.replace(/\s/g, '')) setStatus('请只输入汉字哦', true);
+      else setStatus('');
+      return;
+    }
+    setStatus('');
+    renderChips(chars);
+    var target = chars.indexOf(st.char) >= 0 ? st.char : chars[0];
+    if (target !== st.char || !st.writer) show(target);
+  }
+
+  var inputTimer = null;
+  elQ.addEventListener('input', function () {
+    if (composing) return;
+    window.clearTimeout(inputTimer);
+    inputTimer = window.setTimeout(handleInput, 200);
+  });
+  elQ.addEventListener('compositionstart', function () { composing = true; });
+  elQ.addEventListener('compositionend', function () {
+    composing = false;
+    window.clearTimeout(inputTimer);
+    inputTimer = window.setTimeout(handleInput, 60);
+  });
+  elQ.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { window.clearTimeout(inputTimer); composing = false; handleInput(); elQ.blur(); }
+  });
+  bGo.addEventListener('click', function () {
+    window.clearTimeout(inputTimer); composing = false; handleInput(); elQ.blur();
+  });
+
+  bPlay.addEventListener('click', play);
+  bReset.addEventListener('click', replay);
+  bNext.addEventListener('click', stepNext);
+  bPrev.addEventListener('click', stepPrev);
+
+  document.addEventListener('keydown', function (e) {
+    if (document.activeElement === elQ) return;
+    if (e.key === 'ArrowRight') { stepNext(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { stepPrev(); e.preventDefault(); }
+    if (e.key === ' ') { play(); e.preventDefault(); }
+  });
+
+  /* ================= picker ================= */
+  function buildPicker() {
+    if (!window.HZ_LABELS.length) return;
+    window.HZ_LABELS.forEach(function (name, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = name;
+      b.onclick = function () { activeGrade = i; paintTabs(); paintGrid(); };
+      elTabs.appendChild(b);
+    });
+    paintTabs(); paintGrid();
+  }
+
+  function paintTabs() {
+    var btns = elTabs.querySelectorAll('button'), i;
+    for (i = 0; i < btns.length; i++) btns[i].className = i === activeGrade ? 'sel' : '';
+  }
+
+  function paintGrid() {
+    var name = window.HZ_LABELS[activeGrade];
+    // Hand the active grade's three colours to the grid, so a character picked
+    // from 三年级上 is highlighted in the same colour as that tab. Set as var()
+    // references rather than resolved values, so a theme flip needs no repaint.
+    elGrid.style.setProperty('--gh', 'var(--g' + activeGrade + ')');
+    elGrid.style.setProperty('--ghs', 'var(--g' + activeGrade + 's)');
+    elGrid.style.setProperty('--ght', 'var(--g' + activeGrade + 't)');
+    elGrid.innerHTML = '';
+    var list = [], ch;
+    for (ch in window.HZ_IDX) {
+      if (Object.prototype.hasOwnProperty.call(window.HZ_IDX, ch) &&
+          window.HZ_LABELS[window.HZ_IDX[ch][1]] === name) list.push(ch);
+    }
+    var frag = document.createDocumentFragment();
+    list.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = c;
+      b.setAttribute('aria-label', '查看 ' + c + ' 的笔顺');
+      b.onclick = function () {
+        elQ.value = c; lastText = c;
+        renderChips([c]);
+        show(c);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      frag.appendChild(b);
+    });
+    elGrid.appendChild(frag);
+  }
+
+  /* ================= boot ================= */
+  buildPicker();
+  paintDots();
+  setStats();
+
+  // keep the ink colour in sync when the OS theme flips
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onTheme = function () { if (st.char && st.data) rebuild(st.shown); };
+    if (mq.addEventListener) mq.addEventListener('change', onTheme);
+    else if (mq.addListener) mq.addListener(onTheme);
+  }
+})();
+</script>
+</body>
+</html>

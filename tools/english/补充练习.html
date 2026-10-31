@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>补充练习册 · Unit 1–3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF4E8; --paper2:#FFFDF8; --ink:#1F2A28; --ink-soft:#5C6864;
+    --orange:#E4572E; --teal:#2A9D8F; --sun:#F2B93B; --blue:#3E6FD1;
+    --pink:#E0698E; --green:#3FA34D;
+    --mint:#DDF1EC; --peach:#FFE8D6; --sky:#E7ECFB; --butter:#FBF0C9;
+    --display:'Fredoka','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, rgba(31,42,40,.085) 1px, transparent 1px);
+    background-size:22px 22px;color:var(--ink);
+    font-family:'Nunito','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+  }
+  button{font-family:inherit;color:inherit}
+  ::selection{background:var(--sun)}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:10px clamp(14px,4vw,38px);background:rgba(250,244,232,.9);backdrop-filter:blur(12px);border-bottom:2px solid rgba(31,42,40,.12)}
+  .brand{display:flex;align-items:center;gap:11px;background:none;border:0;cursor:pointer;padding:2px;text-align:left}
+  .brand-mark{width:44px;height:44px;flex:none;display:grid;place-items:center;background:var(--orange);color:#fff;border:2.5px solid var(--ink);border-radius:13px;box-shadow:0 3px 0 var(--ink);transform:rotate(-4deg);font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.04em}
+  .brand-text h1{font-family:var(--display);font-size:17px;font-weight:600;line-height:1.1}
+  .brand-text p{font-size:10.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.08em;margin-top:2px}
+  .top-spacer{flex:1}
+  .star-pill{display:flex;align-items:center;gap:7px;border:2.5px solid var(--ink);border-radius:99px;background:var(--paper2);padding:7px 14px 7px 11px;box-shadow:0 3px 0 var(--ink);font-family:var(--display);font-weight:600;font-size:15px}
+  .star-pill .glyph{color:var(--sun);font-size:17px}
+  .icon-btn{width:44px;height:44px;flex:none;display:grid;place-items:center;border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s}
+  .icon-btn:hover{background:#FFF6E3}
+  .icon-btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .icon-btn svg{width:22px;height:22px;display:block}
+
+  .screen{display:none}
+  .screen.active{display:block;animation:screenIn .36s cubic-bezier(.2,.8,.2,1)}
+  @keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .page{max-width:1040px;margin:0 auto;padding:clamp(20px,4vw,38px) clamp(14px,4vw,30px) 90px}
+
+  .hero{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin:4px 0 24px}
+  .hero-copy{flex:1 1 400px;min-width:0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .eyebrow::before{content:'';width:22px;height:2px;background:var(--ink);border-radius:2px}
+  .hero h2{font-family:var(--display);font-size:clamp(36px,6.6vw,58px);line-height:1.02;letter-spacing:-.025em}
+  .hero h2 .hl{position:relative;display:inline-block;z-index:0}
+  .hero h2 .hl::after{content:'';position:absolute;left:-1%;right:-1%;bottom:7%;height:32%;background:var(--sun);border-radius:6px;z-index:-1;transform:rotate(-1.4deg)}
+  .hero p{max-width:50ch;font-size:14.5px;line-height:1.7;color:var(--ink-soft);font-weight:600;margin-top:14px;text-wrap:pretty}
+  .progress-card{margin-left:auto;min-width:220px;border:2.5px solid var(--ink);border-radius:18px;background:var(--paper2);padding:12px 16px;box-shadow:0 4px 0 var(--ink)}
+  .progress-card .row{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--ink-soft);margin-bottom:7px}
+  .progress-card b{font-family:var(--display);font-size:16px;color:var(--ink);font-weight:600}
+  .progress-card .bar{height:10px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;background:var(--paper)}
+  .progress-card .bar i{display:block;height:100%;width:0;background:var(--teal);border-right:2px solid var(--ink);transition:width .5s}
+
+  .unit-card{border:2.5px solid var(--ink);border-radius:24px;background:var(--paper2);box-shadow:0 6px 0 var(--ink);overflow:hidden;margin-bottom:18px}
+  .unit-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2.5px solid var(--ink);background:var(--tint)}
+  .unit-emoji{width:46px;height:46px;flex:none;display:grid;place-items:center;background:var(--paper2);border:2.5px solid var(--ink);border-radius:13px;box-shadow:0 3px 0 var(--ink);font-size:24px;transform:rotate(-3deg)}
+  .unit-head h3{font-family:var(--display);font-size:20px;font-weight:600;line-height:1.1}
+  .unit-head p{font-size:11.5px;font-weight:800;color:var(--ink-soft);margin-top:3px}
+  .unit-head .badge{margin-left:auto;font-family:var(--display);font-size:13px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+  .act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+  .act-tile{display:flex;align-items:center;gap:11px;padding:11px 12px;border:2px solid transparent;border-radius:14px;background:transparent;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,transform .12s}
+  .act-tile:hover{background:#FFF6E3;border-color:rgba(31,42,40,.16)}
+  .act-tile:active{transform:scale(.99)}
+  .act-tile .ico{width:38px;height:38px;flex:none;display:grid;place-items:center;background:var(--paper);border:2px solid var(--ink);border-radius:10px;font-size:19px}
+  .act-tile .txt{flex:1;min-width:0}
+  .act-tile .name{display:block;font-family:var(--display);font-size:15px;font-weight:600;line-height:1.15}
+  .act-tile .desc{display:block;font-size:10.5px;font-weight:700;color:var(--ink-soft);margin-top:2px;line-height:1.35}
+  .act-tile .stars{display:inline-flex;gap:2px;font-size:12px;flex:none}
+  .act-tile .stars .s{color:#D8D0BF}
+  .act-tile .stars .s.on{color:var(--sun)}
+  .act-tile .go{font-size:14px;opacity:.3;flex:none}
+
+  .foot{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:var(--ink-soft)}
+  .link-btn{background:none;border:0;font-size:12px;font-weight:800;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .link-btn:hover{color:var(--ink)}
+  .back-link{color:var(--ink);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sun);padding-bottom:1px}
+
+  .act-body{max-width:820px;margin:0 auto}
+  .act-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .act-head .back{width:46px;height:46px;flex:none;display:grid;place-items:center;border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);font-size:20px;cursor:pointer;transition:transform .12s,box-shadow .12s}
+  .act-head .back:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+  .act-head h2{font-family:var(--display);font-size:clamp(22px,3.4vw,28px);font-weight:600;line-height:1.1}
+  .act-head p{font-size:12px;font-weight:700;color:var(--ink-soft);margin-top:3px}
+  .gh-stars{margin-left:auto;font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink-soft);white-space:nowrap}
+
+  .progress{height:13px;border:2.5px solid var(--ink);border-radius:99px;background:var(--paper2);overflow:hidden;margin:14px 0 6px}
+  .progress i{display:block;height:100%;width:0;background:var(--teal);border-right:2px solid var(--ink);transition:width .35s}
+  .progress.sun i{background:var(--sun)}
+  .progress.orange i{background:var(--orange)}
+  .progress.blue i{background:var(--blue)}
+  .prog-row{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--ink-soft);margin-bottom:14px}
+
+  .panel{border:2.5px solid var(--ink);border-radius:24px;background:var(--paper2);box-shadow:0 6px 0 var(--ink);padding:clamp(16px,3vw,24px)}
+  .prompt-center{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:130px;justify-content:center}
+  .prompt-tag{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .prompt-word{font-family:var(--display);font-size:clamp(22px,4.2vw,32px);font-weight:600;line-height:1.2;text-wrap:pretty}
+  .prompt-zh{font-size:13px;font-weight:800;color:var(--ink-soft);line-height:1.6}
+  .big-speaker{width:96px;height:96px;border-radius:50%;border:3px solid var(--ink);background:var(--sun);box-shadow:0 6px 0 var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s}
+  .big-speaker svg{width:42px;height:42px}
+  .big-speaker:hover{background:#FFC94D}
+  .big-speaker:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+  .mini-speaker{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);border-radius:99px;background:var(--paper2);padding:6px 12px;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+  .mini-speaker:active{transform:translateY(2px);box-shadow:0 0 0 var(--ink)}
+
+  .btn{border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);padding:11px 18px;font-family:var(--display);font-size:15px;font-weight:600;box-shadow:0 4px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s}
+  .btn:hover{background:#FFF6E3}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+  .btn.primary{background:var(--sun)}
+  .btn.primary:hover{background:#FFC94D}
+  .btn.teal{background:var(--teal);color:#fff}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 4px 0 var(--ink)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  .feedback{max-width:680px;margin:14px auto 0;padding:11px 15px;border:2px solid var(--ink);border-radius:13px;background:var(--butter);font-size:13px;font-weight:800;box-shadow:0 3px 0 var(--ink);line-height:1.55;animation:screenIn .3s}
+  .feedback.good{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 3px 0 #1E7D6F}
+  .feedback.bad{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 3px 0 #C53F1B}
+
+  .say-w{transition:background .12s,color .12s;border-radius:4px;padding:0 1px}
+  .say-w.on{background:var(--sun);color:var(--ink)}
+
+  /* sequence */
+  .seq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .seq-card{position:relative;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper2);box-shadow:0 4px 0 var(--ink);padding:10px 8px;cursor:pointer;text-align:center;transition:transform .12s,box-shadow .12s,background .15s}
+  .seq-card:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink);background:#FFF9EC}
+  .seq-card:active{transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+  .seq-card.picked{background:var(--butter)}
+  .seq-pic{height:74px;display:grid;place-items:center;font-size:44px;line-height:1}
+  .seq-pic .shape-svg{width:54px;height:54px}
+  .seq-en{font-family:var(--display);font-size:13px;font-weight:600;margin-top:4px}
+  .seq-num{position:absolute;top:6px;left:6px;width:24px;height:24px;display:grid;place-items:center;background:var(--orange);color:#fff;border:2px solid var(--ink);border-radius:50%;font-family:var(--display);font-size:12px;font-weight:600;opacity:0;transform:scale(.6);transition:.2s}
+  .seq-card.picked .seq-num{opacity:1;transform:scale(1)}
+
+  /* choice */
+  .choice-prompt{border:2.5px solid var(--ink);border-radius:20px;background:var(--butter);padding:18px 18px;box-shadow:0 5px 0 var(--ink);font-size:clamp(15px,2.6vw,18px);font-weight:800;line-height:1.7;text-align:center}
+  .choice-opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .choice-opt{border:2.5px solid var(--ink);border-radius:15px;background:var(--paper2);box-shadow:0 4px 0 var(--ink);padding:14px 16px;font-family:var(--display);font-size:clamp(16px,2.8vw,20px);font-weight:600;text-align:left;cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s}
+  .choice-opt:hover{background:#FFF6E3;transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+  .choice-opt.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .choice-opt.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+  /* picture choice */
+  .pic-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .pic-opt{position:relative;border:2.5px solid var(--ink);border-radius:18px;background:var(--paper2);box-shadow:0 4px 0 var(--ink);padding:8px;cursor:pointer;transition:transform .14s,box-shadow .14s,background .15s}
+  .pic-opt:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink);background:#FFF9EC}
+  .pic-frame{height:clamp(104px,18vw,140px);display:grid;place-items:center;background:var(--paper);border:2px solid rgba(31,42,40,.14);border-radius:12px;overflow:hidden}
+  .pic-frame .ph-emoji{font-size:clamp(48px,9vw,68px);line-height:1}
+  .pic-frame .ph-row{display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap;padding:6px;font-size:clamp(30px,6vw,44px);line-height:1}
+  .pic-frame .ph-row .shape-svg{width:38px;height:38px}
+  .pic-frame .ph-single .shape-svg{width:66px;height:66px}
+  .pic-frame .ph-color{width:78px;height:78px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:42px;border:2px solid var(--ink)}
+  .pic-frame .ph-room{width:96px;height:74px;border-radius:12px;background:var(--c);border:2px solid var(--ink);display:grid;place-items:center;font-size:38px}
+  .pic-opt .tag{position:absolute;left:12px;top:10px;width:22px;height:22px;display:grid;place-items:center;background:var(--paper2);border:2px solid var(--ink);border-radius:50%;font-family:var(--display);font-size:11px;font-weight:600}
+  .pic-opt.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .pic-opt.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+  .pic-opt.reveal{outline:3px dashed #1E7D6F;outline-offset:2px}
+
+  /* order */
+  .order-pool{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+  .order-line{display:flex;align-items:center;gap:10px;border:2.5px solid var(--ink);border-radius:14px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);padding:11px 13px;cursor:pointer;text-align:left;transition:transform .12s,box-shadow .12s,background .15s}
+  .order-line:hover{background:#FFF6E3}
+  .order-line:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+  .order-line.picked{background:var(--butter)}
+  .order-line .en{display:block;font-family:var(--display);font-size:clamp(14px,2.4vw,17px);font-weight:600;line-height:1.25}
+  .order-line .zh{display:block;font-size:11px;font-weight:700;color:var(--ink-soft);margin-top:2px}
+  .order-line .num{width:26px;height:26px;flex:none;display:grid;place-items:center;border:2px solid var(--ink);border-radius:50%;font-family:var(--display);font-size:12px;font-weight:600;background:var(--paper);opacity:0}
+  .order-line.picked .num{opacity:1;background:var(--orange);color:#fff}
+
+  /* odd */
+  .odd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .odd-word{border:2.5px solid var(--ink);border-radius:16px;background:var(--paper2);box-shadow:0 4px 0 var(--ink);padding:16px 10px;font-family:var(--display);font-size:clamp(17px,3vw,22px);font-weight:600;cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s;min-height:80px}
+  .odd-word:hover{background:#FFF6E3;transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+  .odd-word.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .odd-word.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+
+  /* match */
+  .match-board{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .match-col{display:flex;flex-direction:column;gap:8px}
+  .match-item{border:2.5px solid var(--ink);border-radius:13px;background:var(--paper2);box-shadow:0 3px 0 var(--ink);padding:8px;min-height:64px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,box-shadow .12s,background .15s}
+  .match-item:hover{background:#FFF6E3}
+  .match-item.selected{background:var(--sun);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+  .match-item.done{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 3px 0 #1E7D6F;cursor:default;opacity:.85}
+  .match-item.shake{animation:shake .36s}
+  .match-pic{font-size:32px;line-height:1}
+  .match-pic .shape-svg{width:40px;height:40px}
+  .match-word{font-family:var(--display);font-size:clamp(13px,2.4vw,16px);font-weight:600;text-align:center;line-height:1.15}
+
+  /* color */
+  .color-prompt{font-family:var(--display);font-size:clamp(20px,3.6vw,28px);font-weight:600;text-align:center;line-height:1.3}
+  .color-board{width:100%;margin-top:10px;border:2.5px solid var(--ink);border-radius:18px;background:var(--paper2);box-shadow:inset 0 0 0 1px rgba(31,42,40,.05);overflow:hidden}
+  .color-board svg{display:block;width:100%;height:auto;touch-action:manipulation}
+  .color-board svg [data-shape]{cursor:pointer;transition:fill .2s}
+  .palette{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+  .swatch-btn{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s;position:relative}
+  .swatch-btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--ink)}
+  .swatch-btn.active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink),0 0 0 3px var(--sun)}
+  .swatch-btn span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;color:var(--ink-soft);white-space:nowrap}
+
+  /* place */
+  .place-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .place-tile{position:relative;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper2);box-shadow:0 4px 0 var(--ink);padding:14px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-height:108px;justify-content:center;transition:transform .14s,box-shadow .14s,background .15s}
+  .place-tile:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--ink);background:#FFF9EC}
+  .place-tile .room-emoji{font-size:32px;line-height:1}
+  .place-tile .room-zh{font-size:11.5px;font-weight:800;color:var(--ink-soft)}
+  .place-tile .room-en{font-family:var(--display);font-size:11.5px;font-weight:600;color:#1E7D6F;opacity:0;transition:.25s}
+  .place-tile.reveal .room-en{opacity:1}
+  .place-tile.correct{background:#D8F0DF;border-color:#1E7D6F;box-shadow:0 4px 0 #1E7D6F}
+  .place-tile.wrong{background:#FBE0D9;border-color:#C53F1B;box-shadow:0 4px 0 #C53F1B;animation:shake .36s}
+
+  #overlay{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;background:rgba(31,42,40,.46);backdrop-filter:blur(5px)}
+  #overlay.show{display:grid;animation:fadeIn .25s}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .result{width:min(440px,100%);background:var(--paper2);border:3px solid var(--ink);border-radius:26px;box-shadow:0 12px 0 rgba(31,42,40,.32);padding:clamp(22px,4vw,30px);text-align:center;animation:pop .45s cubic-bezier(.2,.9,.2,1)}
+  .res-badge{font-size:44px;line-height:1;margin-bottom:6px}
+  .result h2{font-family:var(--display);font-size:27px;font-weight:600}
+  .result .stars{font-size:46px;letter-spacing:7px;margin:10px 0 4px;line-height:1;color:var(--sun);text-shadow:0 2px 0 rgba(31,42,40,.25)}
+  .result .stars .off{opacity:.16;text-shadow:none}
+  .result p{font-size:13.5px;font-weight:700;color:var(--ink-soft);margin:8px 0 18px;line-height:1.6}
+  .result .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  @keyframes pop{0%{transform:scale(.88);opacity:0}62%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:120}
+
+  @media(max-width:720px){
+    .act-grid{grid-template-columns:1fr}
+    .progress-card{margin-left:0;width:100%}
+    .place-grid{grid-template-columns:repeat(2,1fr)}
+    .seq-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media(max-width:520px){
+    .brand-text p{display:none}
+    .pic-grid{gap:9px}
+    .pic-frame{height:100px}
+    .pic-frame .ph-row .shape-svg{width:30px;height:30px}
+    .pic-frame .ph-single .shape-svg{width:54px;height:54px}
+    .pic-frame .ph-emoji{font-size:44px}
+    .pic-frame .ph-room{width:78px;height:62px;font-size:32px}
+    .odd-grid{gap:8px}
+    .odd-word{min-height:70px;padding:12px 6px}
+    .match-board{gap:8px}
+    .match-item{min-height:56px;padding:6px}
+    .seq-pic{height:62px;font-size:36px}
+    .seq-pic .shape-svg{width:44px;height:44px}
+    .seq-en{font-size:11.5px}
+    .swatch-btn{width:36px;height:36px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  }
+
+  /* learning hub navigation */
+  .hub-nav{
+    display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;
+    padding:6px clamp(12px,4vw,38px);
+    border-bottom:2px solid rgba(31,42,40,.12);
+    background:rgba(255,253,248,.9);
+    font-size:12px;font-weight:800;color:var(--ink-soft);
+  }
+  .hub-nav a{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:36px;padding:0 11px;border:2px solid transparent;border-radius:999px;
+    color:var(--ink);text-decoration:none;white-space:nowrap;
+    transition:background .15s,border-color .15s,transform .15s;
+  }
+  .hub-nav a:hover{background:var(--paper2);border-color:rgba(31,42,40,.24)}
+  .hub-nav a[aria-current="page"]{background:var(--sun);border-color:var(--ink)}
+  .hub-nav .hub-home{background:var(--paper2);border-color:var(--ink);box-shadow:0 2px 0 var(--ink)}
+  .hub-nav .hub-sep{opacity:.35;font-size:11px}
+  @media(max-width:520px){
+    .hub-nav{gap:3px;padding:5px 8px;font-size:11px}
+    .hub-nav a{min-height:34px;padding:0 8px}
+    .hub-nav .hub-sep{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="brand" id="brand-home" aria-label="回到练习册首页">
+    <span class="brand-mark">EX</span>
+    <span class="brand-text">
+      <h1>补充练习册</h1>
+      <p>UNIT 1–3 · 配套练习</p>
+    </span>
+  </button>
+  <div class="top-spacer"></div>
+  <div class="star-pill"><span class="glyph">★</span><span id="total-stars">0</span></div>
+  <button class="icon-btn" id="sound-toggle" aria-label="开关声音"></button>
+</header>
+
+<nav class="hub-nav" aria-label="丞丞学习基地导航">
+  <a class="hub-home" href="../../index.html">⌂ 丞丞学习基地</a>
+  <span class="hub-sep" aria-hidden="true">·</span>
+  <a href="index.html">英语</a>
+  <span class="hub-sep" aria-hidden="true">·</span>
+  <a href="../hanzi/index.html">汉字</a>
+</nav>
+
+<main>
+  <section class="screen active" id="screen-home">
+    <div class="page">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">把练习卷变成小关卡</div>
+          <h2>补充<span class="hl">练习册</span></h2>
+          <p>根据学校发的 Unit 1–3 补充卷整理。听音排序、情景选择、读句选图、圈不同类、对话排序、涂色，都做成了可以点、可以听的小任务。</p>
+        </div>
+        <div class="progress-card">
+          <div class="row"><span>完成关卡</span><span><b id="badge-count">0</b> / 13</span></div>
+          <div class="bar"><i id="badge-bar"></i></div>
+          <div class="row" style="margin:8px 0 0"><span>收集星星</span><span><b id="town-stars">0</b> / 39</span></div>
+        </div>
+      </div>
+      <div id="units"></div>
+      <div class="foot">
+        <span>小建议：先做「听音」类，再做「读句」类，最后做「排序」类。</span>
+        <span style="display:flex;gap:16px;align-items:center">
+          <a class="back-link" href="index.html">← 单词乐园</a>
+          <a class="back-link" href="英语小镇.html">← 英语小镇</a>
+          <button class="link-btn" id="reset-progress">清空记录</button>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-act">
+    <div class="page"><div class="act-body" id="act-root"></div></div>
+  </section>
+</main>
+
+<div id="overlay" role="dialog" aria-modal="true" aria-label="练习结果"></div>
+<canvas id="confetti"></canvas>
+
+<script src="audio/manifest.js"></script>
+<script>
+/* =========================================================
+   数据
+   ========================================================= */
+const UNITS = [
+  {id:'u1', name:'Unit 1', sub:'玩具 · 颜色 · 食物', tint:'var(--mint)', emoji:'🧸', acts:['u1-seq','u1-scene','u1-pic','u1-order']},
+  {id:'u2', name:'Unit 2', sub:'形状 · 数量 · 颜色', tint:'var(--butter)', emoji:'🔷', acts:['u2-shape','u2-odd','u2-match','u2-color']},
+  {id:'u3', name:'Unit 3', sub:'校园场所 · 介绍', tint:'var(--sky)', emoji:'🏫', acts:['u3-place','u3-odd','u3-scene','u3-pic','u3-order']}
+];
+
+const ACTS = {
+  'u1-seq': {
+    unit:'u1', name:'听音排序', icon:'🔢', desc:'听 6 个词，按顺序点图', engine:'sequence',
+    data: {
+      items: [
+        {key:'digger', text:'toy digger', en:'toy digger', zh:'玩具挖掘机', pic:'digger'},
+        {key:'noodles', text:'noodles', en:'noodles', zh:'面条', pic:'noodles'},
+        {key:'doll', text:'doll', en:'doll', zh:'洋娃娃', pic:'doll'},
+        {key:'train', text:'toy train', en:'toy train', zh:'玩具火车', pic:'train'},
+        {key:'skate', text:'skate', en:'skate', zh:'滑冰', pic:'skate'},
+        {key:'balloon', text:'a balloon', en:'a balloon', zh:'气球', pic:'balloon'}
+      ]
+    }
+  },
+  'u1-scene': {
+    unit:'u1', name:'情景选择', icon:'💬', desc:'中文情景，选英文句子', engine:'choice',
+    data: {
+      questions: [
+        {p:'你想让津津看一看你的积木，你应该说：', opts:['Look, my building blocks.','Look, my toy digger.'], c:0},
+        {p:'天天想要一辆玩具火车，他应该这样说：', opts:['I want a toy train.','I want a toy jeep.'], c:0},
+        {p:'你送给丽丽一个玩具机器人，你应该这样对她说：', opts:['A robot for you.','A doll for you.'], c:0},
+        {p:'怎么表达你有一辆黄色玩具卡车：', opts:['I have a red toy car.','I have a yellow toy truck.'], c:1},
+        {p:'你送给朋友一辆红色玩具挖掘机，并这样对朋友说：', opts:['A blue toy digger for you.','A red toy digger for you.'], c:1},
+        {p:'朋友高兴地接过玩具挖掘机，并这样对你说：', opts:['Here you are.','Thank you.'], c:1}
+      ]
+    }
+  },
+  'u1-pic': {
+    unit:'u1', name:'读句选图', icon:'🖼️', desc:'读句子，选对应图片', engine:'picture',
+    data: {
+      questions: [
+        {p:'A doll for you.', a:'doll', b:'balloon', c:0},
+        {p:'My car is coming.', a:'car', b:'blocks', c:0},
+        {p:'Would you like some Coke?', a:'cola', b:'milk', c:0},
+        {p:'Look, a toy digger!', a:'truck', b:'digger', c:1},
+        {p:'I am a fish. I can swim.', a:'fish', b:'cat', c:0},
+        {p:'Do you have a robot?', a:'robot', b:'teddy', c:0},
+        {p:'They are building blocks.', a:'blocks', b:'train', c:0}
+      ]
+    }
+  },
+  'u1-order': {
+    unit:'u1', name:'对话排序', icon:'🔀', desc:'把 4 句话排成对话', engine:'order',
+    data: {
+      lines: [
+        {en:'I want a toy jeep.', zh:'我想要一辆玩具吉普车。'},
+        {en:'Here you are.', zh:'给你。'},
+        {en:'Thank you.', zh:'谢谢你。'},
+        {en:'You are welcome.', zh:'不客气。'}
+      ]
+    }
+  },
+
+  'u2-shape': {
+    unit:'u2', name:'听音选形状', icon:'🔷', desc:'听句子，选对应图形', engine:'picture',
+    data: {
+      questions: [
+        {p:"It's a square.", a:'square', b:'rectangle', c:0},
+        {p:'I can draw a triangle.', a:'triangle', b:'diamond', c:0},
+        {p:'I like the heart.', a:'heart', b:'circle', c:0},
+        {p:'Look, a diamond.', a:'diamond', b:'square', c:0},
+        {p:'I can draw three circles.', a:'threeCircles', b:'twoCircles', c:0},
+        {p:"It's a black triangle.", a:'blackTriangle', b:'blueTriangle', c:0},
+        {p:'I can draw a rectangle.', a:'rectangle', b:'square', c:0},
+        {p:'I can draw a very nice robot.', a:'robot', b:'blocks', c:0}
+      ]
+    }
+  },
+  'u2-odd': {
+    unit:'u2', name:'圈不同类', icon:'⭕', desc:'找出不同类的单词', engine:'odd',
+    data: {
+      rows: [
+        {words:['car','bus','jeep','rectangle'], odd:3, why:'rectangle 是形状，其他是交通工具。'},
+        {words:['hamburger','noodles','heart','vegetables'], odd:2, why:'heart 是形状，其他是食物。'},
+        {words:['juice','diamond','water','tea'], odd:1, why:'diamond 是形状，其他是饮品。'},
+        {words:['swim','square','rectangle','diamond'], odd:0, why:'swim 是运动，其他是形状。'},
+        {words:['doll','teddy bear','triangle','toy gun'], odd:2, why:'triangle 是形状，其他是玩具。'}
+      ]
+    }
+  },
+  'u2-match': {
+    unit:'u2', name:'单词连线', icon:'🔗', desc:'把单词和图片配对', engine:'match',
+    data: {
+      rounds: [
+        [
+          {word:'square', pic:'square'},
+          {word:'circle', pic:'circle'},
+          {word:'triangle', pic:'blueTriangle'},
+          {word:'robot', pic:'robot'},
+          {word:'rectangle', pic:'rectangle'}
+        ],
+        [
+          {word:'building blocks', pic:'blocks'},
+          {word:'heart', pic:'heart'},
+          {word:'ball', pic:'ball'},
+          {word:'diamond', pic:'diamond'},
+          {word:'toy truck', pic:'truck'}
+        ]
+      ]
+    }
+  },
+  'u2-color': {
+    unit:'u2', name:'读句涂色', icon:'🎨', desc:'读句子，给图形涂色', engine:'color',
+    data: {
+      prompts: [
+        {shape:'square', color:'pink', hex:'#F49AC1', text:'Colour the square pink.'},
+        {shape:'circle', color:'yellow', hex:'#F5C518', text:'Colour the circle yellow.'},
+        {shape:'diamond', color:'green', hex:'#3FA34D', text:'Colour the diamond green.'},
+        {shape:'heart', color:'red', hex:'#E23B3B', text:'Colour the heart red.'},
+        {shape:'triangle', color:'orange', hex:'#F08A24', text:'Colour the triangle orange.'}
+      ]
+    }
+  },
+
+  'u3-place': {
+    unit:'u3', name:'听音选场所', icon:'🗺️', desc:'听句子，找到那个地方', engine:'place',
+    data: {
+      questions: [
+        {p:'This is our school.', room:'school'},
+        {p:'This is our music room.', room:'music'},
+        {p:'This is our art room.', room:'art'},
+        {p:'This is our library.', room:'library'},
+        {p:'This is our classroom.', room:'classroom'},
+        {p:'This is our gym.', room:'gym'}
+      ]
+    }
+  },
+  'u3-odd': {
+    unit:'u3', name:'圈不同类', icon:'⭕', desc:'找出不同类的单词', engine:'odd',
+    data: {
+      rows: [
+        {words:['red','yellow','gym','green'], odd:2, why:'gym 是场所，其他是颜色。'},
+        {words:['kitten','music room','puppy','bird'], odd:1, why:'music room 是场所，其他是动物。'},
+        {words:['three','four','classroom','one'], odd:2, why:'classroom 是场所，其他是数字。'},
+        {words:['school','triangle','heart','circle'], odd:0, why:'school 是场所，其他是形状。'},
+        {words:['toy jeep','toy truck','library','toy train'], odd:2, why:'library 是场所，其他是玩具。'}
+      ]
+    }
+  },
+  'u3-scene': {
+    unit:'u3', name:'情景选择', icon:'💬', desc:'中文情景，选英文句子', engine:'choice',
+    data: {
+      questions: [
+        {p:'你想知道津津的橡皮是什么形状的，应该这样问：', opts:['What colour?','What shape?'], c:1},
+        {p:'你想告诉客人你们学校有五间美术教室，你应该说：', opts:['We have six art rooms.','We have five art rooms.'], c:1},
+        {p:'当天天带领其他学校的同学来参观时，引路时他会这样说：', opts:['This way, please.','We love our school.'], c:0},
+        {p:'梅梅想要一块长方形的蛋糕，她应该这样说：', opts:['I want a square-shaped cake.','I want a rectangle-shaped cake.'], c:1},
+        {p:'你带着客人参观你们的图书馆，你应该这样说：', opts:['This is our library.','This is our gym.'], c:0}
+      ]
+    }
+  },
+  'u3-pic': {
+    unit:'u3', name:'看图选句', icon:'🖼️', desc:'看图片，选对应句子', engine:'picture',
+    data: {
+      questions: [
+        {p:'This is our gym.', a:'gym', b:'music', c:0},
+        {p:'We love our school.', a:'school', b:'classroom', c:0},
+        {p:'This way, please.', a:'arrow', b:'angry', c:0},
+        {p:'Study and sing, draw and play.', a:'study', b:'sleep', c:0}
+      ]
+    }
+  },
+  'u3-order': {
+    unit:'u3', name:'对话排序', icon:'🔀', desc:'把 4 句话排成对话', engine:'order',
+    data: {
+      lines: [
+        {en:"Hello, I'm Jinjin.", zh:'你好，我是津津。'},
+        {en:'This is our library.', zh:'这是我们的图书馆。'},
+        {en:'Wow! How big!', zh:'哇！好大呀！'},
+        {en:'Thank you. We all love it.', zh:'谢谢你。我们都很喜欢它。'}
+      ]
+    }
+  }
+};
+
+const ROOMS = [
+  {key:'school', zh:'学校', en:'school', emoji:'🏫'},
+  {key:'classroom', zh:'教室', en:'classroom', emoji:'🧑‍🏫'},
+  {key:'music', zh:'音乐教室', en:'music room', emoji:'🎵'},
+  {key:'art', zh:'美术教室', en:'art room', emoji:'🎨'},
+  {key:'gym', zh:'体育馆', en:'gym', emoji:'🏀'},
+  {key:'library', zh:'图书馆', en:'library', emoji:'📚'}
+];
+
+/* =========================================================
+   工具
+   ========================================================= */
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const shuffle = arr => {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normSay = s => String(s).replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim().toLowerCase();
+function wordSpans(text) {
+  return String(text).split(/(\s+)/).map(part => /^\s+$/.test(part) ? part : `<span class="say-w">${esc(part)}</span>`).join('');
+}
+function starRow(n) { return [0,1,2].map(i => `<span class="s ${i < n ? 'on' : ''}">★</span>`).join(''); }
+
+function shapeSVG(kind, color) {
+  const ink = '#1F2A28';
+  const c = color || {triangle:'#F2B93B', square:'#E4572E', rectangle:'#7FB3E8', diamond:'#2A9D8F', heart:'#E0698E', circle:'#8E6BBF'}[kind] || '#F2B93B';
+  const common = `fill="${c}" stroke="${ink}" stroke-width="4" stroke-linejoin="round"`;
+  let inner;
+  switch (kind) {
+    case 'triangle':  inner = `<polygon points="32,7 58,55 6,55" ${common}/>`; break;
+    case 'rectangle': inner = `<rect x="7" y="18" width="50" height="28" rx="3" ${common}/>`; break;
+    case 'square':    inner = `<rect x="13" y="13" width="38" height="38" rx="3" ${common}/>`; break;
+    case 'diamond':   inner = `<polygon points="32,5 59,32 32,59 5,32" ${common}/>`; break;
+    case 'heart':     inner = `<path d="M32 56 C10 40 5 25 16 17 C24 11 32 19 32 24 C32 19 40 11 48 17 C59 25 54 40 32 56 Z" ${common}/>`; break;
+    default:          inner = `<circle cx="32" cy="32" r="24" ${common}/>`;
+  }
+  return `<svg class="shape-svg" viewBox="0 0 64 64" aria-hidden="true">${inner}</svg>`;
+}
+
+function sceneHTML(key) {
+  const emoji = v => `<span class="ph-emoji">${v}</span>`;
+  const single = (shape, color) => `<div class="ph-single">${shapeSVG(shape, color)}</div>`;
+  const row = html => `<div class="ph-row">${html}</div>`;
+  const room = (e, c) => `<div class="ph-room" style="--c:${c}">${e}</div>`;
+  const colorCard = (e, c) => `<div class="ph-color" style="--c:${c}">${e}</div>`;
+  const S = {
+    doll: emoji('🪆'),
+    balloon: emoji('🎈'),
+    car: emoji('🚗'),
+    blocks: emoji('🧱'),
+    cola: colorCard('🥤', '#8B5E3C'),
+    milk: emoji('🥛'),
+    truck: emoji('🚚'),
+    digger: emoji('🚜'),
+    fish: colorCard('🐟', '#BFE3F5'),
+    cat: emoji('🐱'),
+    robot: emoji('🤖'),
+    teddy: emoji('🧸'),
+    train: emoji('🚂'),
+    noodles: emoji('🍜'),
+    skate: emoji('⛸️'),
+    ball: emoji('⚽'),
+    square: single('square'),
+    circle: single('circle'),
+    triangle: single('triangle'),
+    rectangle: single('rectangle'),
+    diamond: single('diamond'),
+    heart: single('heart'),
+    blueTriangle: single('triangle', '#3B7DD8'),
+    blackTriangle: single('triangle', '#1F2A28'),
+    threeCircles: row(shapeSVG('circle') + shapeSVG('circle') + shapeSVG('circle')),
+    twoCircles: row(shapeSVG('circle') + shapeSVG('circle')),
+    gym: room('🏀', '#DDF1EC'),
+    music: room('🎵', '#E7ECFB'),
+    school: room('🏫', '#EFE7F7'),
+    classroom: room('🧑‍🏫', '#FFE8D6'),
+    arrow: row('🚶➡️'),
+    angry: emoji('😠'),
+    study: row('📚🎨🎵'),
+    sleep: emoji('😴')
+  };
+  return S[key] || '';
+}
+
+/* =========================================================
+   声音
+   ========================================================= */
+let soundOn = localStorage.getItem('ex_sound') !== '0';
+let sayAudio = null;
+let sayRAF = null;
+let sayEl = null;
+let sayTimings = null;
+let seqAudio = null;
+let actx = null;
+let cachedVoice = null;
+
+const ICON_SPEAKER = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 25 L23 25 L39 12 L39 52 L23 39 L8 39 Z" fill="#1F2A28" stroke="#1F2A28" stroke-width="3" stroke-linejoin="round"/><path d="M46 23 Q55 32 46 41" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/><path d="M53 16 Q67 32 53 48" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round" opacity=".5"/></svg>`;
+const ICON_SOUND_ON = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 25 L24 25 L40 13 L40 51 L24 39 L10 39 Z" fill="#1F2A28"/><path d="M46 24 Q54 32 46 40" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/><path d="M53 18 Q65 32 53 46" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round" opacity=".45"/></svg>`;
+const ICON_SOUND_OFF = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 25 L24 25 L40 13 L40 51 L24 39 L10 39 Z" fill="#1F2A28"/><path d="M48 24 L60 40 M60 24 L48 40" fill="none" stroke="#1F2A28" stroke-width="4" stroke-linecap="round"/></svg>`;
+
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  if (cachedVoice) return cachedVoice;
+  const voices = window.speechSynthesis.getVoices() || [];
+  cachedVoice = voices.find(v => /^en[-_](US|GB)/i.test(v.lang) && /female|samantha|zira|google/i.test(v.name))
+             || voices.find(v => /^en/i.test(v.lang)) || null;
+  return cachedVoice;
+}
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => { cachedVoice = null; pickVoice(); };
+}
+function speakTTS(text) {
+  if (!soundOn || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = .82; u.pitch = 1.05;
+    const v = pickVoice(); if (v) u.voice = v;
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function getClip(text, voice='emma') {
+  const clips = window.AUDIO_MANIFEST && window.AUDIO_MANIFEST.clips;
+  return clips && clips[voice + '|' + normSay(text)];
+}
+function clearSayHighlight() {
+  if (sayEl) sayEl.querySelectorAll('.say-w.on').forEach(w => w.classList.remove('on'));
+  if (sayRAF) { cancelAnimationFrame(sayRAF); sayRAF = null; }
+  sayEl = null; sayTimings = null;
+}
+function stopSay() {
+  clearSayHighlight();
+  if (sayAudio) { sayAudio.onended = null; sayAudio.onerror = null; try { sayAudio.pause(); } catch(e){} sayAudio = null; }
+  if (seqAudio) { seqAudio.onended = null; seqAudio.onerror = null; try { seqAudio.pause(); } catch(e){} seqAudio = null; }
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+function highlightLoop() {
+  if (!sayAudio || !sayEl || !sayTimings) return;
+  const t = sayAudio.currentTime;
+  const words = sayEl.querySelectorAll('.say-w');
+  let idx = -1;
+  for (let i = 0; i < sayTimings.length; i++) {
+    if (t >= sayTimings[i].s && t < sayTimings[i].e) { idx = i; break; }
+    if (t >= sayTimings[i].e) idx = i;
+  }
+  words.forEach((w, i) => w.classList.toggle('on', i === idx));
+  if (!sayAudio.paused && !sayAudio.ended) sayRAF = requestAnimationFrame(highlightLoop);
+}
+function say(text, voice='emma', el=null) {
+  if (!soundOn) return;
+  stopSay();
+  const clip = getClip(text, voice);
+  if (!clip) { speakTTS(text); return; }
+  const a = new Audio(clip.file);
+  sayAudio = a;
+  if (el) {
+    sayEl = el;
+    sayTimings = clip.timings || [];
+    if (!sayTimings.length) {
+      const words = el.querySelectorAll('.say-w');
+      const dur = clip.duration || 1;
+      sayTimings = Array.from(words).map((w, i) => ({ s: dur * i / words.length, e: dur * (i + 1) / words.length }));
+    }
+  }
+  a.onplay = () => { if (sayEl) highlightLoop(); };
+  a.onended = () => { clearSayHighlight(); sayAudio = null; };
+  a.onerror = () => { stopSay(); speakTTS(text); };
+  a.play().catch(() => { stopSay(); speakTTS(text); });
+}
+function playTexts(texts, voice='emma', onStep) {
+  stopSay();
+  let i = 0;
+  const next = () => {
+    if (i >= texts.length) return;
+    const text = texts[i];
+    if (onStep) onStep(i);
+    const clip = getClip(text, voice);
+    if (!clip) {
+      speakTTS(text);
+      i++;
+      setTimeout(next, 950);
+      return;
+    }
+    const a = new Audio(clip.file);
+    seqAudio = a;
+    a.onended = () => { seqAudio = null; i++; setTimeout(next, 260); };
+    a.onerror = () => { seqAudio = null; i++; setTimeout(next, 300); };
+    a.play().catch(() => { seqAudio = null; i++; setTimeout(next, 300); });
+  };
+  next();
+}
+
+/* =========================================================
+   进度 & 导航
+   ========================================================= */
+const ACT_IDS = Object.keys(ACTS);
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem('ex_stars') || '{}') || {}; } catch(e) { saved = {}; }
+function totalStars() { return ACT_IDS.reduce((n,k) => n + (saved[k] || 0), 0); }
+function badgeCount() { return ACT_IDS.filter(k => (saved[k] || 0) > 0).length; }
+function saveScore(id, stars) {
+  if (!saved[id] || stars > saved[id]) {
+    saved[id] = stars;
+    localStorage.setItem('ex_stars', JSON.stringify(saved));
+  }
+  const el = $('#total-stars'); if (el) el.textContent = totalStars();
+}
+let session = null;
+
+function goHome() {
+  stopSay();
+  session = null;
+  $$('.screen').forEach(s => s.classList.toggle('active', s.id === 'screen-home'));
+  renderHome();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goAct() {
+  $$('.screen').forEach(s => s.classList.toggle('active', s.id === 'screen-act'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function renderHome() {
+  const el = $('#total-stars'); if (el) el.textContent = totalStars();
+  const wrap = $('#units');
+  wrap.innerHTML = UNITS.map(u => {
+    const acts = u.acts.map(id => {
+      const a = ACTS[id];
+      return `
+        <button class="act-tile" data-act="${id}">
+          <span class="ico">${a.icon}</span>
+          <span class="txt">
+            <span class="name">${a.name}</span>
+            <span class="desc">${a.desc}</span>
+          </span>
+          <span class="stars">${starRow(saved[id] || 0)}</span>
+          <span class="go">→</span>
+        </button>`;
+    }).join('');
+    const done = u.acts.filter(id => (saved[id] || 0) > 0).length;
+    return `
+      <section class="unit-card">
+        <div class="unit-head" style="--tint:${u.tint}">
+          <span class="unit-emoji">${u.emoji}</span>
+          <div>
+            <h3>${u.name}</h3>
+            <p>${u.sub}</p>
+          </div>
+          <span class="badge">${done}/${u.acts.length} ✓</span>
+        </div>
+        <div class="act-grid">${acts}</div>
+      </section>`;
+  }).join('');
+  $$('.act-tile', wrap).forEach(btn => btn.addEventListener('click', () => startAct(btn.dataset.act)));
+  const b = badgeCount();
+  $('#badge-count').textContent = b;
+  $('#badge-bar').style.width = (b / ACT_IDS.length * 100) + '%';
+  $('#town-stars').textContent = totalStars();
+}
+function actHeader(id) {
+  const a = ACTS[id];
+  const u = UNITS.find(x => x.id === a.unit);
+  return `
+    <div class="act-head">
+      <button class="back" id="act-back" aria-label="回练习册">←</button>
+      <div><h2>${a.name}</h2><p>${u.name} · ${a.desc}</p></div>
+      <div class="gh-stars">★ ${totalStars()}</div>
+    </div>`;
+}
+function bindBack() {
+  const b = $('#act-back');
+  if (b) b.addEventListener('click', goHome);
+}
+function progressBar(kind, i, n, right) {
+  return `
+    <div class="progress ${kind}"><i style="width:${(i / n) * 100}%"></i></div>
+    <div class="prog-row"><span>第 ${i + 1} / ${n} 题</span><span>${right}</span></div>`;
+}
+function startAct(id) {
+  stopSay();
+  const a = ACTS[id];
+  const starters = {
+    sequence: startSequence,
+    choice: startChoice,
+    picture: startPicture,
+    order: startOrder,
+    odd: startOdd,
+    match: startMatch,
+    color: startColor,
+    place: startPlace
+  };
+  starters[a.engine](id);
+}
+function finish(id, stars, detail) {
+  saveScore(id, stars);
+  const overlay = $('#overlay');
+  overlay.innerHTML = `
+    <div class="result">
+      <div class="res-badge">${stars === 3 ? '🎉' : stars === 2 ? '🌟' : '💪'}</div>
+      <h2>${stars === 3 ? '完成得真棒！' : '完成练习'}</h2>
+      <div class="stars">${[0,1,2].map(i => `<span class="${i < stars ? '' : 'off'}">★</span>`).join('')}</div>
+      <p>${detail}</p>
+      <div class="btns">
+        <button class="btn primary" id="res-again">再练一次</button>
+        <button class="btn" id="res-home">回练习册</button>
+      </div>
+    </div>`;
+  overlay.classList.add('show');
+  $('#res-again').addEventListener('click', () => { overlay.classList.remove('show'); startAct(id); });
+  $('#res-home').addEventListener('click', () => { overlay.classList.remove('show'); goHome(); });
+  if (stars >= 2) confetti();
+  sfxWin();
+}
+
+/* =========================================================
+   1. 听音排序
+   ========================================================= */
+function startSequence(id) {
+  const items = ACTS[id].data.items;
+  session = {
+    type:'sequence', id, items,
+    target: shuffle(items),
+    display: shuffle(items),
+    picked: [],
+    checks: 0,
+    locked: false
+  };
+  renderSequence();
+  goAct();
+  setTimeout(() => playSequence(), 600);
+}
+function playSequence() {
+  if (!session) return;
+  playTexts(session.target.map(x => x.text), 'emma');
+}
+function renderSequence() {
+  const s = session;
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">听一听 · 按顺序点图</span>
+        <button class="big-speaker" id="seq-play" aria-label="再听一遍">${ICON_SPEAKER}</button>
+        <div class="prompt-zh">听到哪个词，就点哪张图。点错了可以再点一下取消。</div>
+      </div>
+      <div class="seq-grid" id="seq-grid">
+        ${s.display.map(item => `
+          <button class="seq-card ${s.picked.includes(item.key) ? 'picked' : ''}" data-key="${item.key}">
+            <span class="seq-num">${s.picked.indexOf(item.key) + 1}</span>
+            <div class="seq-pic">${sceneHTML(item.pic)}</div>
+            <div class="seq-en">${esc(item.en)}</div>
+          </button>`).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="seq-reset">重来</button>
+        <button class="btn primary" id="seq-check">检查顺序</button>
+      </div>
+      <div id="seq-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#seq-play').addEventListener('click', playSequence);
+  $('#seq-reset').addEventListener('click', () => {
+    s.picked = []; s.locked = false;
+    const fb = $('#seq-feedback'); if (fb) fb.innerHTML = '';
+    renderSequence();
+  });
+  $('#seq-check').addEventListener('click', checkSequence);
+  $$('.seq-card', root).forEach(btn => btn.addEventListener('click', () => {
+    if (s.locked) return;
+    const key = btn.dataset.key;
+    const idx = s.picked.indexOf(key);
+    if (idx >= 0) s.picked.splice(idx, 1);
+    else s.picked.push(key);
+    renderSequence();
+  }));
+}
+function checkSequence() {
+  const s = session;
+  if (s.locked) return;
+  if (s.picked.length !== s.target.length) {
+    showFeedback('seq-feedback', '还有图片没点完，6 张都要排上顺序。', 'bad');
+    return;
+  }
+  const ok = s.picked.every((k, i) => k === s.target[i].key);
+  if (ok) {
+    s.locked = true;
+    const stars = s.checks <= 1 ? 3 : s.checks <= 3 ? 2 : 1;
+    finish(s.id, stars, `6 个词都排对了，中间检查了 ${s.checks} 次。`);
+    playSequence();
+  } else {
+    s.checks++;
+    showFeedback('seq-feedback', '顺序还不对，再听一遍，从第一个词开始。', 'bad');
+    sfxNo();
+  }
+}
+
+/* =========================================================
+   2. 情景选择
+   ========================================================= */
+function startChoice(id) {
+  session = { type:'choice', id, qs: ACTS[id].data.questions, i:0, score:0, locked:false };
+  renderChoice();
+  goAct();
+}
+function renderChoice() {
+  const s = session;
+  const q = s.qs[s.i];
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('orange', s.i, s.qs.length, `答对 ${s.score} 题`)}
+    <div class="panel">
+      <div class="choice-prompt">${esc(q.p)}</div>
+      <div class="choice-opts">
+        ${q.opts.map((o, i) => `<button class="choice-opt" data-i="${i}">${esc(o)}</button>`).join('')}
+      </div>
+      <div id="choice-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.choice-opt', root).forEach(btn => btn.addEventListener('click', () => answerChoice(btn, q)));
+}
+function answerChoice(btn, q) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const i = Number(btn.dataset.i);
+  const ok = i === q.c;
+  if (ok) { s.score++; btn.classList.add('correct'); sfxOk(); }
+  else {
+    btn.classList.add('wrong'); sfxNo();
+    const right = $$('.choice-opt').find(b => Number(b.dataset.i) === q.c);
+    if (right) right.classList.add('correct');
+  }
+  $$('.choice-opt').forEach(b => b.disabled = true);
+  say(q.opts[ok ? i : q.c]);
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.qs.length) {
+      const stars = s.score >= s.qs.length - 1 ? 3 : s.score >= s.qs.length - 3 ? 2 : 1;
+      finish(s.id, stars, `6 道情景题答对了 ${s.score} 道。`);
+    } else {
+      s.locked = false;
+      renderChoice();
+    }
+  }, ok ? 1200 : 1900);
+}
+
+/* =========================================================
+   3. 读句选图 / 听音选形状 / 看图选句
+   ========================================================= */
+function startPicture(id) {
+  session = { type:'picture', id, qs: ACTS[id].data.questions, i:0, score:0, locked:false };
+  renderPicture();
+  goAct();
+}
+function renderPicture() {
+  const s = session;
+  const q = s.qs[s.i];
+  const root = $('#act-root');
+  const isListen = s.id === 'u2-shape';
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('teal', s.i, s.qs.length, `答对 ${s.score} 题`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">${isListen ? '听句子 · 选图形' : '读句子 · 选图片'}</span>
+        ${isListen
+          ? `<button class="big-speaker" id="pic-speak" aria-label="再听一遍">${ICON_SPEAKER}</button>
+             <div class="prompt-zh">听一听，哪张图是这句话？</div>`
+          : `<div class="prompt-word" id="pic-sentence">${wordSpans(q.p)}</div>
+             <button class="mini-speaker" id="pic-speak">🔊 再听一遍</button>`}
+      </div>
+      <div class="pic-grid">
+        <button class="pic-opt" data-i="0">
+          <span class="tag">A</span>
+          <div class="pic-frame">${sceneHTML(q.a)}</div>
+        </button>
+        <button class="pic-opt" data-i="1">
+          <span class="tag">B</span>
+          <div class="pic-frame">${sceneHTML(q.b)}</div>
+        </button>
+      </div>
+      <div id="pic-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#pic-speak').addEventListener('click', () => {
+    if (!soundOn) setSound(true);
+    say(q.p, 'emma', isListen ? null : $('#pic-sentence'));
+  });
+  $$('.pic-opt', root).forEach(btn => btn.addEventListener('click', () => answerPicture(btn, q, isListen)));
+  setTimeout(() => say(q.p, 'emma', isListen ? null : $('#pic-sentence')), 400);
+}
+function answerPicture(btn, q, isListen) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const i = Number(btn.dataset.i);
+  const ok = i === q.c;
+  if (ok) { s.score++; btn.classList.add('correct'); sfxOk(); }
+  else {
+    btn.classList.add('wrong'); sfxNo();
+    const right = $$('.pic-opt').find(b => Number(b.dataset.i) === q.c);
+    if (right) right.classList.add('reveal');
+  }
+  $$('.pic-opt').forEach(b => b.disabled = true);
+  say(q.p, 'emma', isListen ? null : $('#pic-sentence'));
+  const fb = $('#pic-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(q.p)}</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.qs.length) {
+      const stars = s.score >= s.qs.length - 1 ? 3 : s.score >= s.qs.length - 3 ? 2 : 1;
+      finish(s.id, stars, `${s.qs.length} 道题答对了 ${s.score} 道。`);
+    } else {
+      s.locked = false;
+      renderPicture();
+    }
+  }, ok ? 1500 : 2100);
+}
+
+/* =========================================================
+   4. 对话排序
+   ========================================================= */
+function startOrder(id) {
+  const lines = ACTS[id].data.lines;
+  session = { type:'order', id, lines, display: shuffle(lines.map((l, i) => ({...l, idx:i}))), picked: [], checks:0, locked:false };
+  renderOrder();
+  goAct();
+}
+function renderOrder() {
+  const s = session;
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">排一排 · 组成完整对话</span>
+        <div class="prompt-zh">按对话的先后顺序点句子，点错了可以再点一下取消。</div>
+      </div>
+      <div class="order-pool">
+        ${s.display.map(line => {
+          const pos = s.picked.indexOf(line.idx);
+          return `
+            <button class="order-line ${pos >= 0 ? 'picked' : ''}" data-idx="${line.idx}">
+              <span class="num">${pos + 1}</span>
+              <span>
+                <span class="en">${esc(line.en)}</span>
+                <span class="zh">${esc(line.zh)}</span>
+              </span>
+            </button>`;
+        }).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="order-reset">重来</button>
+        <button class="btn primary" id="order-check">检查顺序</button>
+      </div>
+      <div id="order-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#order-reset').addEventListener('click', () => { s.picked = []; s.locked = false; const fb = $('#order-feedback'); if (fb) fb.innerHTML = ''; renderOrder(); });
+  $('#order-check').addEventListener('click', checkOrder);
+  $$('.order-line', root).forEach(btn => btn.addEventListener('click', () => {
+    if (s.locked) return;
+    const idx = Number(btn.dataset.idx);
+    const pos = s.picked.indexOf(idx);
+    if (pos >= 0) s.picked.splice(pos, 1);
+    else s.picked.push(idx);
+    renderOrder();
+  }));
+}
+function checkOrder() {
+  const s = session;
+  if (s.locked) return;
+  if (s.picked.length !== s.lines.length) {
+    showFeedback('order-feedback', '4 句话都要排上顺序。', 'bad');
+    return;
+  }
+  const ok = s.picked.every((idx, i) => idx === i);
+  if (ok) {
+    s.locked = true;
+    const stars = s.checks <= 1 ? 3 : s.checks <= 3 ? 2 : 1;
+    finish(s.id, stars, `对话排对了，中间检查了 ${s.checks} 次。`);
+    playTexts(s.lines.map(l => l.en), 'emma');
+  } else {
+    s.checks++;
+    showFeedback('order-feedback', '顺序还不对，想一想：谁先开口？', 'bad');
+    sfxNo();
+  }
+}
+
+/* =========================================================
+   5. 圈不同类
+   ========================================================= */
+function startOdd(id) {
+  session = { type:'odd', id, rows: ACTS[id].data.rows, i:0, score:0, locked:false };
+  renderOdd();
+  goAct();
+}
+function renderOdd() {
+  const s = session;
+  const r = s.rows[s.i];
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('sun', s.i, s.rows.length, `答对 ${s.score} 题`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">圈出不同类</span>
+        <div class="prompt-zh">哪一个单词和另外三个不是同一类？</div>
+      </div>
+      <div class="odd-grid">
+        ${r.words.map((w, i) => `<button class="odd-word" data-i="${i}">${esc(w)}</button>`).join('')}
+      </div>
+      <div id="odd-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.odd-word', root).forEach(btn => btn.addEventListener('click', () => answerOdd(btn, r)));
+}
+function answerOdd(btn, r) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const i = Number(btn.dataset.i);
+  const ok = i === r.odd;
+  if (ok) { s.score++; btn.classList.add('correct'); sfxOk(); }
+  else {
+    btn.classList.add('wrong'); sfxNo();
+    const right = $$('.odd-word').find(b => Number(b.dataset.i) === r.odd);
+    if (right) right.classList.add('correct');
+  }
+  $$('.odd-word').forEach(b => b.disabled = true);
+  say(r.words[r.odd]);
+  const fb = $('#odd-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(r.why)}</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.rows.length) {
+      const stars = s.score >= s.rows.length - 1 ? 3 : s.score >= s.rows.length - 3 ? 2 : 1;
+      finish(s.id, stars, `${s.rows.length} 组词，答对了 ${s.score} 组。`);
+    } else {
+      s.locked = false;
+      renderOdd();
+    }
+  }, ok ? 1600 : 2200);
+}
+
+/* =========================================================
+   6. 单词连线
+   ========================================================= */
+function startMatch(id) {
+  const rounds = ACTS[id].data.rounds;
+  session = { type:'match', id, rounds, round:0, pairs: rounds[0], left: shuffle(rounds[0]), right: shuffle(rounds[0]), sel:null, done:[], mistakes:0, locked:false };
+  renderMatch();
+  goAct();
+}
+function renderMatch() {
+  const s = session;
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('blue', s.round, s.rounds.length, `第 ${s.round + 1} 组`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">连一连 · 单词和图片配对</span>
+        <div class="prompt-zh">先点左边的图片，再点右边对应的单词。</div>
+      </div>
+      <div class="match-board">
+        <div class="match-col">
+          ${s.left.map(p => `
+            <button class="match-item ${s.done.includes(p.word) ? 'done' : ''}" data-side="pic" data-key="${esc(p.word)}">
+              <span class="match-pic">${sceneHTML(p.pic)}</span>
+            </button>`).join('')}
+        </div>
+        <div class="match-col">
+          ${s.right.map(p => `
+            <button class="match-item ${s.done.includes(p.word) ? 'done' : ''}" data-side="word" data-key="${esc(p.word)}">
+              <span class="match-word">${esc(p.word)}</span>
+            </button>`).join('')}
+        </div>
+      </div>
+      <div id="match-feedback"></div>
+    </div>`;
+  bindBack();
+  $$('.match-item', root).forEach(btn => btn.addEventListener('click', () => clickMatch(btn)));
+}
+function clickMatch(btn) {
+  const s = session;
+  if (s.locked || btn.classList.contains('done')) return;
+  const side = btn.dataset.side;
+  const key = btn.dataset.key;
+  if (!s.sel) {
+    if (side !== 'pic') { showFeedback('match-feedback', '先点左边的图片。', 'bad'); return; }
+    s.sel = key;
+    btn.classList.add('selected');
+    say(key);
+    return;
+  }
+  if (side === 'pic') {
+    s.sel = key;
+    $$('.match-item.selected').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    say(key);
+    return;
+  }
+  if (key === s.sel) {
+    s.done.push(key);
+    s.sel = null;
+    sfxOk();
+    say(key);
+    const fb = $('#match-feedback'); if (fb) fb.innerHTML = '';
+    renderMatch();
+    if (s.done.length === s.pairs.length) {
+      s.locked = true;
+      setTimeout(() => {
+        s.round++;
+        if (s.round >= s.rounds.length) {
+          const stars = s.mistakes <= 1 ? 3 : s.mistakes <= 3 ? 2 : 1;
+          finish(s.id, stars, `10 组单词都连对了，中间试错 ${s.mistakes} 次。`);
+        } else {
+          const pairs = s.rounds[s.round];
+          s.pairs = pairs; s.left = shuffle(pairs); s.right = shuffle(pairs);
+          s.done = []; s.sel = null; s.locked = false;
+          renderMatch();
+        }
+      }, 900);
+    }
+  } else {
+    s.mistakes++;
+    sfxNo();
+    btn.classList.add('shake');
+    setTimeout(() => btn.classList.remove('shake'), 400);
+    showFeedback('match-feedback', '这张图片和这个单词不是一对，再试试。', 'bad');
+  }
+}
+
+/* =========================================================
+   7. 读句涂色
+   ========================================================= */
+function startColor(id) {
+  session = {
+    type:'color', id,
+    prompts: ACTS[id].data.prompts,
+    i:0, mistakes:0,
+    selected:null,
+    fills:{},
+    locked:false
+  };
+  renderColor();
+  goAct();
+}
+function renderColor() {
+  const s = session;
+  s.locked = false;
+  const p = s.prompts[s.i];
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('orange', s.i, s.prompts.length, `涂对 ${s.i} 个`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">读句子 · 涂颜色</span>
+        <div class="color-prompt" id="color-sentence">${wordSpans(p.text)}</div>
+        <button class="mini-speaker" id="color-speak">🔊 再听一遍</button>
+        <div class="prompt-zh">先选颜色，再点句子说的那个图形。</div>
+      </div>
+      <div class="color-board">
+        <svg viewBox="0 0 600 360" id="color-svg" aria-label="涂色图形">
+          <rect data-shape="square" x="55" y="55" width="95" height="95" rx="4" fill="${s.fills.square || '#FFFDF8'}" stroke="#1F2A28" stroke-width="5"/>
+          <circle data-shape="circle" cx="230" cy="105" r="52" fill="${s.fills.circle || '#FFFDF8'}" stroke="#1F2A28" stroke-width="5"/>
+          <polygon data-shape="diamond" points="390,42 458,110 390,178 322,110" fill="${s.fills.diamond || '#FFFDF8'}" stroke="#1F2A28" stroke-width="5" stroke-linejoin="round"/>
+          <path data-shape="heart" d="M530 168 C500 140 490 110 512 96 C528 86 540 98 540 108 C540 98 552 86 568 96 C590 110 580 140 530 168 Z" fill="${s.fills.heart || '#FFFDF8'}" stroke="#1F2A28" stroke-width="5" stroke-linejoin="round"/>
+          <polygon data-shape="triangle" points="300,240 375,335 225,335" fill="${s.fills.triangle || '#FFFDF8'}" stroke="#1F2A28" stroke-width="5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="palette" id="palette">
+        ${[
+          ['pink','#F49AC1'],['yellow','#F5C518'],['green','#3FA34D'],['red','#E23B3B'],['orange','#F08A24']
+        ].map(([name, hex]) => `<button class="swatch-btn ${s.selected === hex ? 'active' : ''}" data-hex="${hex}" style="background:${hex}" aria-label="${name}"><span>${name}</span></button>`).join('')}
+      </div>
+      <div id="color-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#color-speak').addEventListener('click', () => say(p.text, 'emma', $('#color-sentence')));
+  $$('.swatch-btn', root).forEach(btn => btn.addEventListener('click', () => {
+    s.selected = btn.dataset.hex;
+    $$('.swatch-btn').forEach(b => b.classList.toggle('active', b === btn));
+  }));
+  $$('[data-shape]', root).forEach(shape => shape.addEventListener('click', () => colorShape(shape, p)));
+  setTimeout(() => say(p.text, 'emma', $('#color-sentence')), 350);
+}
+function colorShape(shapeEl, p) {
+  const s = session;
+  if (s.locked) return;
+  const shape = shapeEl.dataset.shape;
+  if (!s.selected) { showFeedback('color-feedback', '先在下面选一个颜色。', 'bad'); return; }
+  if (shape !== p.shape) {
+    s.mistakes++;
+    showFeedback('color-feedback', `这句话说的是 ${p.shape}，不是 ${shape}。`, 'bad');
+    sfxNo();
+    return;
+  }
+  if (s.selected !== p.hex) {
+    s.mistakes++;
+    showFeedback('color-feedback', `颜色不对，应该是 ${p.color}。`, 'bad');
+    sfxNo();
+    return;
+  }
+  s.fills[p.shape] = p.hex;
+  shapeEl.setAttribute('fill', p.hex);
+  s.selected = null;
+  s.locked = true;
+  sfxOk();
+  say(p.text, 'emma', $('#color-sentence'));
+  s.i++;
+  if (s.i >= s.prompts.length) {
+    const stars = s.mistakes <= 1 ? 3 : s.mistakes <= 3 ? 2 : 1;
+    setTimeout(() => finish(s.id, stars, `5 个图形都涂对了，中间试错 ${s.mistakes} 次。`), 500);
+  } else {
+    setTimeout(renderColor, 700);
+  }
+}
+
+/* =========================================================
+   8. 听音选场所
+   ========================================================= */
+function startPlace(id) {
+  session = { type:'place', id, qs: ACTS[id].data.questions, i:0, score:0, locked:false };
+  renderPlace();
+  goAct();
+}
+function renderPlace() {
+  const s = session;
+  const q = s.qs[s.i];
+  const root = $('#act-root');
+  root.innerHTML = `
+    ${actHeader(s.id)}
+    ${progressBar('blue', s.i, s.qs.length, `找对 ${s.score} 个`)}
+    <div class="panel">
+      <div class="prompt-center">
+        <span class="prompt-tag">听一听 · 找到那个地方</span>
+        <button class="big-speaker" id="place-speak" aria-label="再听一遍">${ICON_SPEAKER}</button>
+        <div class="prompt-zh">他在介绍学校的哪里？</div>
+      </div>
+      <div class="place-grid">
+        ${ROOMS.map(r => `
+          <button class="place-tile" data-key="${r.key}">
+            <span class="room-emoji">${r.emoji}</span>
+            <span class="room-zh">${r.zh}</span>
+            <span class="room-en">${r.en}</span>
+          </button>`).join('')}
+      </div>
+      <div id="place-feedback"></div>
+    </div>`;
+  bindBack();
+  $('#place-speak').addEventListener('click', () => { if (!soundOn) setSound(true); say(q.p); });
+  $$('.place-tile', root).forEach(btn => btn.addEventListener('click', () => answerPlace(btn, q)));
+  setTimeout(() => say(q.p), 400);
+}
+function answerPlace(btn, q) {
+  const s = session;
+  if (s.locked) return;
+  s.locked = true;
+  const ok = btn.dataset.key === q.room;
+  if (ok) { s.score++; btn.classList.add('correct'); sfxOk(); }
+  else {
+    btn.classList.add('wrong'); sfxNo();
+    const right = $$('.place-tile').find(b => b.dataset.key === q.room);
+    if (right) { right.classList.add('correct'); }
+  }
+  $$('.place-tile').forEach(b => { b.classList.add('reveal'); b.disabled = true; });
+  say(q.p);
+  const room = ROOMS.find(r => r.key === q.room);
+  const fb = $('#place-feedback');
+  if (fb) fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}">${esc(q.p)} · ${esc(room.zh)}（${esc(room.en)}）</div>`;
+  setTimeout(() => {
+    s.i++;
+    if (s.i >= s.qs.length) {
+      const stars = s.score >= s.qs.length - 1 ? 3 : s.score >= s.qs.length - 3 ? 2 : 1;
+      finish(s.id, stars, `6 个地方，听对了 ${s.score} 个。`);
+    } else {
+      s.locked = false;
+      renderPlace();
+    }
+  }, ok ? 1600 : 2200);
+}
+
+/* =========================================================
+   反馈 / 音效 / 彩带
+   ========================================================= */
+function showFeedback(id, text, kind) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="feedback ${kind}">${esc(text)}</div>`;
+}
+function sfxOk() {
+  if (!soundOn) return;
+  const c = getAC(); if (!c) return;
+  [660, 880].forEach((f, i) => beep(c, f, i * .08, .14));
+}
+function sfxNo() {
+  if (!soundOn) return;
+  const c = getAC(); if (!c) return;
+  beep(c, 190, 0, .16, 'sawtooth');
+  beep(c, 140, .12, .2, 'sawtooth');
+}
+function sfxWin() {
+  if (!soundOn) return;
+  const c = getAC(); if (!c) return;
+  [523, 659, 784, 1047].forEach((f, i) => beep(c, f, i * .1, .3));
+}
+function getAC() {
+  if (!actx) {
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return null;
+    actx = new C();
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function beep(c, freq, start, dur, type='sine') {
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.value = freq;
+  o.connect(g); g.connect(c.destination);
+  const t = c.currentTime + start;
+  g.gain.setValueAtTime(.0001, t);
+  g.gain.linearRampToValueAtTime(.055, t + .012);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.start(t); o.stop(t + dur + .03);
+}
+
+const confettiCanvas = $('#confetti');
+const cctx = confettiCanvas.getContext('2d');
+let particles = [];
+let confettiRAF = null;
+function sizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  confettiCanvas.width = window.innerWidth * dpr;
+  confettiCanvas.height = window.innerHeight * dpr;
+  confettiCanvas.style.width = window.innerWidth + 'px';
+  confettiCanvas.style.height = window.innerHeight + 'px';
+  cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+sizeCanvas();
+window.addEventListener('resize', sizeCanvas);
+function confetti() {
+  const colors = ['#E4572E','#2A9D8F','#F2B93B','#3E6FD1','#E0698E','#3FA34D'];
+  particles = [];
+  const count = window.innerWidth < 600 ? 70 : 120;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: window.innerWidth / 2 + (Math.random() - .5) * 220,
+      y: window.innerHeight * .32 + (Math.random() - .5) * 80,
+      vx: (Math.random() - .5) * 11, vy: -Math.random() * 10 - 3,
+      w: 6 + Math.random() * 7, h: 5 + Math.random() * 8,
+      rot: Math.random() * Math.PI, vr: (Math.random() - .5) * .3,
+      color: colors[Math.floor(Math.random() * colors.length)], life: 1
+    });
+  }
+  if (confettiRAF) cancelAnimationFrame(confettiRAF);
+  const start = performance.now();
+  const tick = now => {
+    const elapsed = now - start;
+    cctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    particles.forEach(p => {
+      p.vy += .28; p.vx *= .995; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.life = Math.max(0, 1 - elapsed / 2600);
+      cctx.save(); cctx.globalAlpha = p.life; cctx.translate(p.x, p.y); cctx.rotate(p.rot);
+      cctx.fillStyle = p.color; cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); cctx.restore();
+    });
+    if (elapsed < 2700) confettiRAF = requestAnimationFrame(tick);
+    else cctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  };
+  confettiRAF = requestAnimationFrame(tick);
+}
+
+/* =========================================================
+   启动
+   ========================================================= */
+const soundBtn = $('#sound-toggle');
+function paintSound() { soundBtn.innerHTML = soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF; }
+function setSound(v) {
+  soundOn = v;
+  localStorage.setItem('ex_sound', soundOn ? '1' : '0');
+  paintSound();
+  if (!soundOn) stopSay();
+}
+paintSound();
+soundBtn.addEventListener('click', () => { setSound(!soundOn); if (soundOn) sfxOk(); });
+$('#brand-home').addEventListener('click', goHome);
+$('#reset-progress').addEventListener('click', () => {
+  if (confirm('要清空补充练习册的所有星星吗？')) {
+    saved = {};
+    localStorage.removeItem('ex_stars');
+    renderHome();
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const overlay = $('#overlay');
+    if (overlay.classList.contains('show')) { overlay.classList.remove('show'); goHome(); }
+    else if ($('#screen-act').classList.contains('active')) goHome();
+  }
+});
+renderHome();
+</script>
+</body>
+</html>

@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8f5ea">
+  <title>丞丞的学习基地 · 乐园地图</title>
+  <style>
+    :root {
+      --ink: #23463a;
+      --ink-soft: #557064;
+      --cream: #fff9e9;
+      --paper: #f7efd8;
+      --mint: #cfe8c8;
+      --green: #79bd79;
+      --coral: #ef785b;
+      --coral-deep: #b84630;
+      --yellow: #f5cb48;
+      --blue: #73b9ea;
+      --pink: #efa7b8;
+      --line: rgba(35, 70, 58, .2);
+      --shadow: 0 7px 0 rgba(35, 70, 58, .18);
+      --font-body: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      --font-display: "YouYuan", "SimYou", "Noto Sans SC", sans-serif;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255,255,255,.92) 0 4%, transparent 17%),
+        radial-gradient(circle at 92% 8%, rgba(255,255,255,.62) 0 7%, transparent 20%),
+        linear-gradient(180deg, #dff1ee 0%, #e8f5ea 52%, #f4f4df 100%);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      line-break: strict;
+      overflow-wrap: break-word;
+    }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #2e6e9e;
+      outline-offset: 4px;
+    }
+    .page {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 22px 30px 42px;
+    }
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 72px;
+      padding: 0 12px 0 4px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+    .brand-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: 0 3px 0 rgba(35,70,58,.16);
+    }
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: var(--ink);
+      border-radius: 999px;
+    }
+    .brand-mark::before { width: 18px; height: 2px; transform: rotate(-32deg); }
+    .brand-mark::after { width: 2px; height: 18px; transform: rotate(-32deg); }
+    .brand-mark span {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+      top: 7px;
+      right: 8px;
+    }
+    .mainnav {
+      display: flex;
+      gap: 6px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.56);
+    }
+    .mainnav button,
+    .mainnav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .mainnav button:hover,
+    .mainnav a:hover,
+    .mainnav button[aria-current="page"],
+    .mainnav a[aria-current="page"] {
+      color: var(--cream);
+      background: var(--ink);
+    }
+    .top-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .day-chip {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .day-chip .spark {
+      position: relative;
+      width: 18px;
+      height: 18px;
+    }
+    .day-chip .spark::before,
+    .day-chip .spark::after {
+      content: "";
+      position: absolute;
+      inset: 7px 0;
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 0 0 0 1px rgba(35,70,58,.22);
+    }
+    .day-chip .spark::after { transform: rotate(90deg); }
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 3px 0 rgba(35,70,58,.17);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(330px, .72fr) minmax(640px, 1.5fr);
+      gap: 34px;
+      align-items: stretch;
+      min-height: 640px;
+      padding: 28px 0 12px;
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 32px 12px 38px 30px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: #45695c;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--coral);
+      border-radius: 999px;
+    }
+    h1 {
+      max-width: 520px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(52px, 5.1vw, 82px);
+      line-height: 1.04;
+      letter-spacing: -.06em;
+      text-wrap: balance;
+    }
+    h1 em {
+      position: relative;
+      z-index: 0;
+      font-style: normal;
+      color: inherit;
+      white-space: nowrap;
+    }
+    h1 em::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: -4px;
+      right: -8px;
+      bottom: 3px;
+      height: 17px;
+      border-radius: 999px;
+      background: var(--yellow);
+      transform: rotate(-2deg);
+    }
+    .lede {
+      max-width: 410px;
+      margin: 24px 0 0;
+      color: #4e6b61;
+      font-size: 18px;
+      line-height: 1.8;
+      text-wrap: pretty;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .btn-primary {
+      color: #fffaf0;
+      background: var(--coral-deep);
+      box-shadow: 0 6px 0 #8f3021;
+    }
+    .btn-secondary {
+      color: var(--ink);
+      background: rgba(255,255,255,.65);
+      box-shadow: 0 5px 0 rgba(35,70,58,.18);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(35,70,58,.2); }
+    .map-wrap {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      border: 2px solid rgba(35,70,58,.72);
+      border-radius: 46px;
+      background:
+        radial-gradient(circle at 72% 16%, rgba(255,255,255,.9) 0 3%, transparent 18%),
+        linear-gradient(180deg, #d7eff3 0%, #eaf6dc 44%, #d8edb8 100%);
+      box-shadow: 0 18px 45px rgba(50,90,66,.12);
+      isolation: isolate;
+    }
+    .map-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      pointer-events: none;
+      opacity: .14;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+    .map-title {
+      position: absolute;
+      z-index: 5;
+      top: 24px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 13px 8px 8px;
+      border: 1px solid rgba(35,70,58,.2);
+      border-radius: 999px;
+      background: rgba(255,249,233,.86);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .map-title .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--coral);
+      border: 1px solid var(--ink);
+    }
+    .map-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .map-cloud {
+      position: absolute;
+      z-index: 1;
+      width: 120px;
+      height: 34px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      filter: blur(.2px);
+    }
+    .map-cloud::before,
+    .map-cloud::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      border-radius: 50%;
+      background: inherit;
+    }
+    .map-cloud::before { width: 56px; height: 56px; left: 18px; }
+    .map-cloud::after { width: 72px; height: 72px; right: 17px; }
+    .cloud-1 { top: 84px; right: 75px; transform: scale(.74); }
+    .cloud-2 { top: 270px; left: -35px; transform: scale(.55); opacity: .72; }
+    .station {
+      position: absolute;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 76px auto;
+      gap: 13px;
+      align-items: center;
+      min-width: 196px;
+      min-height: 94px;
+      padding: 9px 18px 9px 9px;
+      border: 2px solid var(--ink);
+      border-radius: 28px;
+      background: rgba(255,249,233,.94);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .18s ease, box-shadow .18s ease;
+      animation: pop-in .55s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .station:hover {
+      transform: translateY(-5px) rotate(-.7deg);
+      box-shadow: 0 12px 0 rgba(35,70,58,.14);
+    }
+    .station:active { transform: translateY(3px); }
+    .station .bubble {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      border: 2px solid var(--ink);
+      border-radius: 24px;
+      background: var(--station-color, var(--coral));
+    }
+    .station .bubble svg {
+      width: 46px;
+      height: 46px;
+      overflow: visible;
+    }
+    .station strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 19px;
+      line-height: 1.25;
+      letter-spacing: -.035em;
+    }
+    .station small {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .station.done::after {
+      content: "✓";
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      color: var(--cream);
+      background: var(--ink);
+      font-size: 15px;
+      font-weight: 900;
+    }
+    .station[data-tool="english"] { left: 6%; top: 19%; animation-delay: .12s; }
+    .station[data-tool="hanzi"] { right: 7%; top: 13%; animation-delay: .22s; }
+    .station[data-tool="math"] { right: 8%; top: 48%; animation-delay: .32s; }
+    .station[data-tool="reading"] { left: 13%; top: 62%; animation-delay: .42s; }
+    .mini-note {
+      position: absolute;
+      z-index: 5;
+      right: 26px;
+      bottom: 21px;
+      width: 220px;
+      padding: 14px 16px;
+      border: 1px solid rgba(35,70,58,.4);
+      border-radius: 18px;
+      background: var(--yellow);
+      box-shadow: 0 4px 0 rgba(35,70,58,.18);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.55;
+      transform: rotate(-1.5deg);
+    }
+    .progress-strip {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 28px;
+      margin-top: 30px;
+      padding: 28px;
+      border: 1px solid rgba(35,70,58,.22);
+      border-radius: 30px;
+      background: rgba(255,249,233,.82);
+      box-shadow: 0 12px 30px rgba(45,80,60,.07);
+    }
+    .progress-copy h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 34px;
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
+    .progress-copy p {
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+    .progress-meter {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 18px;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+    }
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-right: 1px solid var(--ink);
+      border-radius: inherit;
+      background: repeating-linear-gradient(135deg, var(--yellow) 0 10px, #f8dc79 10px 20px);
+      transition: width .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .progress-number {
+      min-width: 58px;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 900;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .task-list {
+      display: grid;
+      gap: 8px;
+      align-content: center;
+    }
+    .task-row {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 54px;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(35,70,58,.16);
+      cursor: pointer;
+    }
+    .task-row:last-child { border-bottom: 0; }
+    .task-check {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--ink);
+      border-radius: 9px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .task-row.is-done .task-check { color: var(--cream); background: var(--ink); }
+    .task-row.is-done .task-name { text-decoration: line-through; text-decoration-thickness: 1px; opacity: .7; }
+    .task-name { font-weight: 800; }
+    .task-time { color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+    .site-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 30px;
+      padding: 22px 8px 0;
+      border-top: 1px solid rgba(35,70,58,.18);
+      color: #60776e;
+      font-size: 13px;
+    }
+    .site-foot button {
+      min-height: 44px;
+      padding: 0 2px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+    .modal {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 22px;
+      background: rgba(28,52,44,.34);
+      backdrop-filter: blur(8px);
+    }
+    .modal.is-open { display: grid; animation: fade-in .18s ease both; }
+    .dialog {
+      position: relative;
+      width: min(520px, 100%);
+      padding: 28px;
+      border: 2px solid var(--ink);
+      border-radius: 32px;
+      background: var(--cream);
+      box-shadow: 0 18px 0 rgba(35,70,58,.14);
+      animation: rise-in .28s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .dialog .close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(35,70,58,.3);
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      font-size: 22px;
+    }
+    .dialog-icon {
+      display: grid;
+      place-items: center;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 18px;
+      border: 2px solid var(--ink);
+      border-radius: 28px;
+      background: var(--dialog-color, var(--coral));
+    }
+    .dialog-icon svg { width: 54px; height: 54px; }
+    .dialog h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -.04em;
+    }
+    .dialog p {
+      margin: 12px 0 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+    }
+    .dialog-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .dialog-meta span {
+      padding: 6px 10px;
+      border: 1px solid rgba(35,70,58,.22);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .dialog-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .dialog-actions .btn { flex: 1; }
+    .toast {
+      position: fixed;
+      z-index: 120;
+      left: 50%;
+      bottom: 26px;
+      max-width: calc(100% - 32px);
+      padding: 12px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--cream);
+      background: var(--ink);
+      box-shadow: 0 6px 0 rgba(35,70,58,.18);
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    @keyframes pop-in {
+      from { opacity: 0; transform: translateY(18px) scale(.94); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(22px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (max-width: 1120px) {
+      .hero { grid-template-columns: .8fr 1.25fr; gap: 22px; }
+      .hero-copy { padding-left: 6px; }
+      .map-wrap { min-height: 580px; }
+      .station { grid-template-columns: 64px auto; min-width: 170px; padding-right: 12px; }
+      .station .bubble { width: 64px; height: 64px; border-radius: 21px; }
+      .station .bubble svg { width: 40px; height: 40px; }
+      .station strong { font-size: 17px; }
+    }
+    @media (max-width: 860px) {
+      .page { padding: 12px 16px 30px; }
+      .topbar { grid-template-columns: 1fr auto; }
+      .mainnav { display: none; }
+      .day-chip { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 14px; }
+      .hero-copy { padding: 24px 4px 6px; }
+      h1 { font-size: clamp(48px, 12vw, 68px); }
+      .map-wrap { min-height: 690px; border-radius: 32px; }
+      .station[data-tool="english"] { left: 5%; top: 18%; }
+      .station[data-tool="hanzi"] { right: 5%; top: 33%; }
+      .station[data-tool="math"] { left: 12%; top: 51%; }
+      .station[data-tool="reading"] { right: 7%; top: 67%; left: auto; }
+      .mini-note { left: 22px; right: auto; bottom: 18px; }
+      .progress-strip { grid-template-columns: 1fr; padding: 22px; }
+    }
+    @media (max-width: 540px) {
+      body { font-size: 16px; }
+      .brand { font-size: 18px; }
+      .hero { gap: 12px; }
+      .hero-copy { padding-top: 18px; }
+      h1 { font-size: clamp(46px, 14vw, 62px); }
+      .lede { margin-top: 18px; font-size: 16px; }
+      .hero-actions { flex-direction: column; align-items: stretch; margin-top: 24px; }
+      .btn { width: 100%; }
+      .map-wrap { min-height: 760px; }
+      .map-title { top: 16px; left: 16px; }
+      .station {
+        grid-template-columns: 58px auto;
+        min-width: 160px;
+        min-height: 76px;
+        padding: 7px 12px 7px 7px;
+        border-radius: 23px;
+      }
+      .station .bubble { width: 58px; height: 58px; border-radius: 18px; }
+      .station .bubble svg { width: 36px; height: 36px; }
+      .station strong { font-size: 16px; }
+      .station small { font-size: 12px; }
+      .station[data-tool="english"] { left: 4%; top: 15%; }
+      .station[data-tool="hanzi"] { right: 4%; top: 31%; }
+      .station[data-tool="math"] { left: 6%; top: 48%; }
+      .station[data-tool="reading"] { right: 4%; top: 65%; }
+      .mini-note { left: 16px; bottom: 15px; width: 190px; }
+      .progress-copy h2 { font-size: 29px; }
+      .task-row { grid-template-columns: 30px 1fr; }
+      .task-time { display: none; }
+      .site-foot { flex-direction: column; }
+      .dialog { padding: 24px 20px; border-radius: 26px; }
+      .dialog h3 { font-size: 29px; }
+      .dialog-actions { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="丞丞学习基地首页">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        丞丞学习基地
+      </a>
+      <nav class="mainnav" aria-label="主导航">
+        <a href="#top" aria-current="page">地图</a>
+        <a href="tools/english/index.html">英语</a>
+        <a href="tools/hanzi/index.html">汉字</a>
+        <button type="button" data-scroll="tasks">今日任务</button>
+      </nav>
+      <div class="top-right">
+        <div class="day-chip"><span class="spark" aria-hidden="true"></span><span id="todayLabel">今天 0 / 4</span></div>
+        <div class="avatar" aria-label="丞丞">丞丞</div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <div class="eyebrow"><span id="greeting">下午好</span>，丞丞</div>
+          <h1 id="heroTitle">今天，去哪个<em>岛</em>探险？</h1>
+          <p class="lede">四个学习工具变成了四个小地方。选一个靠近的，先玩十分钟，再回来点亮今天的星星。</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" data-open="english">
+              去英语记忆乐园
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12h14M13 7l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="btn btn-secondary" type="button" data-scroll="tasks">看看今日路线</button>
+          </div>
+        </div>
+
+        <div class="map-wrap" aria-label="学习工具地图">
+          <div class="map-title"><span class="dot" aria-hidden="true"></span>丞丞的探索地图</div>
+          <div class="map-cloud cloud-1" aria-hidden="true"></div>
+          <div class="map-cloud cloud-2" aria-hidden="true"></div>
+          <svg class="map-svg" viewBox="0 0 860 620" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <path d="M-40 386C86 300 150 356 238 304C348 239 397 286 493 224C610 149 738 203 900 102V680H-40V386Z" fill="#9DD09B"/>
+            <path d="M-30 470C121 399 207 452 331 400C467 344 540 375 642 318C735 266 813 291 900 230V680H-30V470Z" fill="#7DBD83"/>
+            <path d="M-32 544C143 471 272 535 402 482C542 425 681 457 908 329V680H-32V544Z" fill="#E9D89D"/>
+            <path d="M760 89C708 112 673 147 679 195C685 245 747 252 804 231C861 210 880 159 852 120C829 88 796 74 760 89Z" fill="#89C8E4"/>
+            <path d="M735 97C724 122 731 151 753 167C776 184 813 179 838 155" stroke="#F9F2DB" stroke-width="8" stroke-linecap="round" opacity=".65"/>
+            <path d="M-22 222C89 173 178 216 266 190C339 168 364 121 423 117C486 112 515 172 584 153C659 132 724 75 883 78" stroke="#FFF9E9" stroke-width="28" stroke-linecap="round" opacity=".9"/>
+            <path d="M99 288C175 343 230 345 291 300C359 250 420 249 487 285C559 323 615 315 681 260C730 220 779 206 851 214" stroke="#F2AD55" stroke-width="8" stroke-dasharray="14 14" stroke-linecap="round"/>
+            <g fill="#4E9766">
+              <path d="M649 374c-26 0-47-18-47-41s21-41 47-41 47 18 47 41-21 41-47 41Z"/>
+              <path d="M650 404v-51" stroke="#355C44" stroke-width="8" stroke-linecap="round"/>
+              <path d="M79 465c-21 0-38-14-38-32s17-32 38-32 38 14 38 32-17 32-38 32Z"/>
+              <path d="M79 490v-40" stroke="#355C44" stroke-width="7" stroke-linecap="round"/>
+              <path d="M751 499c-18 0-32-12-32-27s14-27 32-27 32 12 32 27-14 27-32 27Z"/>
+              <path d="M751 520v-32" stroke="#355C44" stroke-width="6" stroke-linecap="round"/>
+            </g>
+            <g stroke="#4F7B5E" stroke-width="3" stroke-linecap="round" opacity=".7">
+              <path d="M165 395l7-18M172 395l-4-14M307 203l8-20M315 203l-5-15M704 321l7-18M711 321l-5-14"/>
+            </g>
+          </svg>
+
+          <button class="station" type="button" data-open="english" data-tool="english" style="--station-color:#F08A6E">
+            <span class="bubble" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <rect x="6" y="12" width="24" height="24" rx="6" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/>
+                <path d="M13 27l5-9 5 9M15 23h6" stroke="#23463A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="34" y="28" width="24" height="24" rx="6" fill="#F6CB48" stroke="#23463A" stroke-width="3"/>
+                <path d="M41 40h10M41 46h7" stroke="#23463A" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span><strong>英语记忆乐园</strong><small>已接入，单词、句子、练习</small></span>
+          </button>
+
+          <button class="station" type="button" data-open="hanzi" data-tool="hanzi" style="--station-color:#F5CB48">
+            <span class="bubble" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <rect x="10" y="7" width="44" height="50" rx="10" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/>
+                <path d="M20 21h24M32 14v35M21 36h22M24 44l16-16" stroke="#23463A" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="49" cy="15" r="6" fill="#EF785B" stroke="#23463A" stroke-width="2"/>
+              </svg>
+            </span>
+            <span><strong>汉字探险岛</strong><small>已接入，笔顺动画</small></span>
+          </button>
+
+          <button class="station" type="button" data-open="math" data-tool="math" style="--station-color:#73B9EA">
+            <span class="bubble" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <rect x="7" y="12" width="50" height="40" rx="11" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/>
+                <path d="M20 27h9M24.5 22.5v9M38 24l8 8M46 24l-8 8M38 43h8" stroke="#23463A" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="14" cy="12" r="4" fill="#F5CB48" stroke="#23463A" stroke-width="2"/>
+                <circle cx="50" cy="52" r="4" fill="#EF785B" stroke="#23463A" stroke-width="2"/>
+              </svg>
+            </span>
+            <span><strong>数学小火车</strong><small>10 分钟，口算练习</small></span>
+          </button>
+
+          <button class="station" type="button" data-open="reading" data-tool="reading" style="--station-color:#EFA7B8">
+            <span class="bubble" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M8 13c9-2 17 1 24 7v35c-7-6-15-9-24-7V13Z" fill="#FFF9E9" stroke="#23463A" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M56 13c-9-2-17 1-24 7v35c7-6 15-9 24-7V13Z" fill="#FFF9E9" stroke="#23463A" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M16 23c5 0 9 2 12 5M16 32c5 0 9 2 12 5M48 23c-5 0-9 2-12 5" stroke="#23463A" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M45 10l2.2 5.3L53 17.5l-5.8 2.2L45 25l-2.2-5.3L37 17.5l5.8-2.2L45 10Z" fill="#F5CB48" stroke="#23463A" stroke-width="2"/>
+              </svg>
+            </span>
+            <span><strong>阅读故事屋</strong><small>15 分钟，读一个小故事</small></span>
+          </button>
+
+          <div class="mini-note">英语和汉字已经能进去，数学和阅读还在准备。</div>
+        </div>
+      </section>
+
+      <section class="progress-strip" id="tasks" aria-labelledby="taskTitle">
+        <div class="progress-copy">
+          <h2 id="taskTitle">今天的路线</h2>
+          <p>做完一项就点一下。进度只存在这台设备里，明天可以重新开始。</p>
+          <div class="progress-meter">
+            <div class="progress-bar" role="progressbar" aria-label="今日学习进度" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-number" id="progressNumber">0 / 4</div>
+          </div>
+        </div>
+        <div class="task-list" id="taskList">
+          <div class="task-row" role="checkbox" tabindex="0" aria-checked="false" data-task="english">
+            <span class="task-check" aria-hidden="true"></span><span class="task-name">英语记忆乐园</span><span class="task-time">10 分钟</span>
+          </div>
+          <div class="task-row" role="checkbox" tabindex="0" aria-checked="false" data-task="hanzi">
+            <span class="task-check" aria-hidden="true"></span><span class="task-name">汉字探险岛</span><span class="task-time">8 分钟</span>
+          </div>
+          <div class="task-row" role="checkbox" tabindex="0" aria-checked="false" data-task="math">
+            <span class="task-check" aria-hidden="true"></span><span class="task-name">数学小火车</span><span class="task-time">10 分钟</span>
+          </div>
+          <div class="task-row" role="checkbox" tabindex="0" aria-checked="false" data-task="reading">
+            <span class="task-check" aria-hidden="true"></span><span class="task-name">阅读故事屋</span><span class="task-time">15 分钟</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <span>给丞丞的小基地。英语和汉字已经接进来了。</span>
+      <button type="button" id="resetToday">重置今天</button>
+    </footer>
+  </div>
+
+  <div class="modal" id="toolModal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-hidden="true">
+    <div class="dialog">
+      <button class="close" type="button" id="closeModal" aria-label="关闭">×</button>
+      <div class="dialog-icon" id="dialogIcon"></div>
+      <h3 id="dialogTitle">英语记忆乐园</h3>
+      <p id="dialogText">单词卡片、英语小镇和补充练习都在这里。</p>
+      <div class="dialog-meta" id="dialogMeta"></div>
+      <div class="dialog-actions">
+        <button class="btn btn-secondary" type="button" id="toggleComplete">标记完成</button>
+        <button class="btn btn-primary" type="button" id="enterTool">进入工具</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const tools = {
+      english: {
+        title: "英语记忆乐园",
+        text: "单词卡片、英语小镇和补充练习都在这里。先选一个入口，玩十分钟。",
+        meta: ["已接入", "单词", "英语小镇", "补充练习"],
+        color: "#F08A6E",
+        href: "tools/english/index.html",
+        icon: '<svg viewBox="0 0 64 64" fill="none"><rect x="6" y="12" width="24" height="24" rx="6" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/><path d="M13 27l5-9 5 9M15 23h6" stroke="#23463A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="34" y="28" width="24" height="24" rx="6" fill="#F6CB48" stroke="#23463A" stroke-width="3"/><path d="M41 40h10M41 46h7" stroke="#23463A" stroke-width="2.4" stroke-linecap="round"/></svg>'
+      },
+      hanzi: {
+        title: "汉字探险岛",
+        text: "输入一个汉字，就能看它一笔一画怎么写。不会写的字，也可以直接来这里查。",
+        meta: ["已接入", "笔顺动画", "查字"],
+        color: "#F5CB48",
+        href: "tools/hanzi/index.html",
+        icon: '<svg viewBox="0 0 64 64" fill="none"><rect x="10" y="7" width="44" height="50" rx="10" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/><path d="M20 21h24M32 14v35M21 36h22M24 44l16-16" stroke="#23463A" stroke-width="3" stroke-linecap="round"/><circle cx="49" cy="15" r="6" fill="#EF785B" stroke="#23463A" stroke-width="2"/></svg>'
+      },
+      math: {
+        title: "数学小火车",
+        text: "让口算车厢一节一节接起来。数学工具接入后会先做一组十以内加减法。",
+        meta: ["10 分钟", "口算练习", "十以内加减"],
+        color: "#73B9EA",
+        icon: '<svg viewBox="0 0 64 64" fill="none"><rect x="7" y="12" width="50" height="40" rx="11" fill="#FFF9E9" stroke="#23463A" stroke-width="3"/><path d="M20 27h9M24.5 22.5v9M38 24l8 8M46 24l-8 8M38 43h8" stroke="#23463A" stroke-width="3" stroke-linecap="round"/><circle cx="14" cy="12" r="4" fill="#F5CB48" stroke="#23463A" stroke-width="2"/><circle cx="50" cy="52" r="4" fill="#EF785B" stroke="#23463A" stroke-width="2"/></svg>'
+      },
+      reading: {
+        title: "阅读故事屋",
+        text: "读一个小故事，留一句话明天讲给家人听。阅读工具接入后会从这里打开今天的故事。",
+        meta: ["15 分钟", "读一个小故事", "说一句感受"],
+        color: "#EFA7B8",
+        icon: '<svg viewBox="0 0 64 64" fill="none"><path d="M8 13c9-2 17 1 24 7v35c-7-6-15-9-24-7V13Z" fill="#FFF9E9" stroke="#23463A" stroke-width="3" stroke-linejoin="round"/><path d="M56 13c-9-2-17 1-24 7v35c7-6 15-9 24-7V13Z" fill="#FFF9E9" stroke="#23463A" stroke-width="3" stroke-linejoin="round"/><path d="M16 23c5 0 9 2 12 5M16 32c5 0 9 2 12 5M48 23c-5 0-9 2-12 5" stroke="#23463A" stroke-width="2.4" stroke-linecap="round"/><path d="M45 10l2.2 5.3L53 17.5l-5.8 2.2L45 25l-2.2-5.3L37 17.5l5.8-2.2L45 10Z" fill="#F5CB48" stroke="#23463A" stroke-width="2"/></svg>'
+      }
+    };
+
+    const storageKey = "zicheng-learning-progress-v1";
+    let completed = new Set();
+    let activeTool = "english";
+    let toastTimer;
+
+    try {
+      completed = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
+    } catch (error) {
+      completed = new Set();
+    }
+
+    const modal = document.getElementById("toolModal");
+    const dialogTitle = document.getElementById("dialogTitle");
+    const dialogText = document.getElementById("dialogText");
+    const dialogMeta = document.getElementById("dialogMeta");
+    const dialogIcon = document.getElementById("dialogIcon");
+    const toggleComplete = document.getElementById("toggleComplete");
+    const enterTool = document.getElementById("enterTool");
+    const toast = document.getElementById("toast");
+    const closeModalButton = document.getElementById("closeModal");
+    let lastFocused = null;
+
+    function setGreeting() {
+      const hour = new Date().getHours();
+      const greeting = hour < 11 ? "上午好" : hour < 18 ? "下午好" : "晚上好";
+      document.getElementById("greeting").textContent = greeting;
+    }
+
+    function setDateLabel() {
+      const now = new Date();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      document.getElementById("todayLabel").textContent = `${month}月${day}日 ${completed.size} / 4`;
+    }
+
+    function persist() {
+      localStorage.setItem(storageKey, JSON.stringify([...completed]));
+    }
+
+    function updateProgress() {
+      document.querySelectorAll("[data-task]").forEach((row) => {
+        const isDone = completed.has(row.dataset.task);
+        row.classList.toggle("is-done", isDone);
+        row.setAttribute("aria-checked", String(isDone));
+        row.querySelector(".task-check").textContent = isDone ? "✓" : "";
+      });
+      document.querySelectorAll("[data-tool]").forEach((station) => {
+        station.classList.toggle("done", completed.has(station.dataset.tool));
+      });
+      const count = completed.size;
+      document.getElementById("progressNumber").textContent = `${count} / 4`;
+      document.getElementById("progressFill").style.width = `${count * 25}%`;
+      document.querySelector(".progress-bar").setAttribute("aria-valuenow", String(count));
+      setDateLabel();
+      if (modal.classList.contains("is-open")) {
+        updateDialogButton();
+      }
+    }
+
+    function updateDialogButton() {
+      const done = completed.has(activeTool);
+      toggleComplete.textContent = done ? "取消完成" : "标记完成";
+      toggleComplete.classList.toggle("btn-primary", done);
+      toggleComplete.classList.toggle("btn-secondary", !done);
+    }
+
+    function openTool(id) {
+      const tool = tools[id];
+      if (!tool) return;
+      activeTool = id;
+      lastFocused = document.activeElement;
+      dialogTitle.textContent = tool.title;
+      dialogText.textContent = tool.text;
+      dialogMeta.innerHTML = tool.meta.map((item) => `<span>${item}</span>`).join("");
+      dialogIcon.style.setProperty("--dialog-color", tool.color);
+      dialogIcon.innerHTML = tool.icon;
+      updateDialogButton();
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      closeModalButton.focus();
+    }
+
+    function closeTool() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+    }
+
+    function toggleTask(id) {
+      if (completed.has(id)) completed.delete(id);
+      else completed.add(id);
+      persist();
+      updateProgress();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2300);
+    }
+
+    document.querySelectorAll("[data-open]").forEach((button) => {
+      button.addEventListener("click", () => openTool(button.dataset.open));
+    });
+
+    document.querySelectorAll("[data-scroll]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById(button.dataset.scroll).scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    document.querySelectorAll("[data-toast]").forEach((button) => {
+      button.addEventListener("click", () => showToast(button.dataset.toast));
+    });
+
+    document.querySelectorAll("[data-task]").forEach((row) => {
+      const activate = () => toggleTask(row.dataset.task);
+      row.addEventListener("click", activate);
+      row.addEventListener("keydown", (event) => {
+        if (event.key === " " || event.key === "Enter") {
+          event.preventDefault();
+          activate();
+        }
+      });
+    });
+
+    toggleComplete.addEventListener("click", () => toggleTask(activeTool));
+    enterTool.addEventListener("click", () => {
+      const tool = tools[activeTool];
+      if (tool.href) {
+        window.location.href = tool.href;
+        return;
+      }
+      showToast(`${tool.title}还在准备，先把入口留在这里。`);
+    });
+    closeModalButton.addEventListener("click", closeTool);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeTool();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) closeTool();
+    });
+    document.getElementById("resetToday").addEventListener("click", () => {
+      if (completed.size === 0) {
+        showToast("今天还没有完成记录。");
+        return;
+      }
+      if (window.confirm("要清空今天的完成记录吗？")) {
+        completed.clear();
+        persist();
+        updateProgress();
+        showToast("今天的记录已清空。");
+      }
+    });
+
+    setGreeting();
+    updateProgress();
+  </script>
+</body>
+</html>

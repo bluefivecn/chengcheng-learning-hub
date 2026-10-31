@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>子成学习基地 · 六张方向缩略图</title>
+  <style>
+    :root {
+      --ink: #20201f;
+      --paper: #f5f1e7;
+      --line: rgba(32, 32, 31, .2);
+      font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 1500px;
+      padding: 44px 48px 56px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.8), transparent 26%),
+        #d9d6ce;
+    }
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 0 0 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(32,32,31,.3);
+    }
+    h1 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+    header p {
+      margin: 0;
+      font-size: 14px;
+      color: #5d5a53;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 480px);
+      gap: 30px 32px;
+    }
+    .candidate {
+      width: 480px;
+    }
+    .thumb {
+      position: relative;
+      width: 480px;
+      height: 300px;
+      overflow: hidden;
+      box-shadow: 0 16px 32px rgba(42, 37, 28, .13);
+      isolation: isolate;
+    }
+    .caption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-top: 10px;
+      font-size: 14px;
+    }
+    .caption b { font-size: 16px; }
+    .caption span { color: #67635b; font-size: 12px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 23px;
+      padding: 0 9px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+
+    /* A · Candy trail */
+    .candy {
+      color: #173d2a;
+      background: #dff5ff;
+      font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    .candy .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 45px;
+      padding: 0 19px;
+      background: rgba(255,255,255,.88);
+    }
+    .candy .brand { font-weight: 900; font-size: 14px; letter-spacing: -.03em; }
+    .candy .pill { padding: 5px 9px; border-radius: 999px; background: #fff; font-size: 9px; font-weight: 800; }
+    .candy .sun { position: absolute; right: 45px; top: 58px; width: 72px; height: 72px; border-radius: 50%; background: #ffd34e; }
+    .candy h2 { position: absolute; left: 23px; top: 72px; width: 210px; margin: 0; font-size: 30px; line-height: 1.06; letter-spacing: -.05em; }
+    .candy .path {
+      position: absolute;
+      left: 81px;
+      top: 165px;
+      width: 325px;
+      height: 105px;
+      border: 5px dashed #f6aa31;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      transform: rotate(-4deg);
+    }
+    .station {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 66px;
+      height: 66px;
+      border: 3px solid #173d2a;
+      border-radius: 22px;
+      box-shadow: 0 5px 0 #173d2a;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .s1 { left: 61px; top: 173px; background: #ff8d70; transform: rotate(-5deg); }
+    .s2 { left: 180px; top: 136px; background: #8ddc54; transform: rotate(4deg); }
+    .s3 { left: 303px; top: 184px; background: #6dbdff; transform: rotate(-3deg); }
+    .s4 { left: 382px; top: 239px; background: #ffd34e; transform: rotate(5deg); }
+    .candy .foot { position: absolute; left: 23px; bottom: 17px; font-size: 9px; font-weight: 800; color: #3c6450; }
+
+    /* B · Shape playground */
+    .shape {
+      color: #171715;
+      background:
+        linear-gradient(90deg, rgba(23,23,21,.045) 1px, transparent 1px),
+        linear-gradient(rgba(23,23,21,.045) 1px, transparent 1px),
+        #f7f0dd;
+      background-size: 24px 24px;
+    }
+    .shape .top { position: absolute; left: 18px; right: 18px; top: 15px; display: flex; justify-content: space-between; font-size: 9px; font-weight: 800; border-bottom: 1px solid #171715; padding-bottom: 7px; }
+    .shape .han { position: absolute; left: 18px; top: 43px; font-size: 132px; font-weight: 900; line-height: .82; letter-spacing: -.08em; }
+    .shape .han em { color: #e3422a; font-style: normal; }
+    .shape .copy { position: absolute; left: 22px; top: 183px; width: 135px; font-size: 13px; line-height: 1.45; font-weight: 700; }
+    .shape .copy small { display: block; margin-top: 5px; font-size: 9px; font-weight: 500; color: #5a554b; }
+    .shape .blocks { position: absolute; right: 17px; top: 47px; width: 267px; height: 212px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 7px; }
+    .shape .block { position: relative; overflow: hidden; border: 2px solid #171715; padding: 8px; font-size: 11px; font-weight: 900; }
+    .shape .block span { position: absolute; left: 8px; bottom: 7px; z-index: 2; }
+    .shape .b1 { background: #f1c536; }
+    .shape .b2 { background: #e3422a; color: #fff7e9; }
+    .shape .b3 { background: #2377a4; color: #fff7e9; }
+    .shape .b4 { background: #ece3cc; }
+    .shape .b1::after { content: ""; position: absolute; width: 82px; height: 82px; border-radius: 50%; background: #171715; right: -15px; top: -15px; }
+    .shape .b2::after { content: ""; position: absolute; width: 65px; height: 65px; background: #f7f0dd; right: 10px; top: 9px; transform: rotate(15deg); }
+    .shape .b3::after { content: ""; position: absolute; width: 0; height: 0; border-left: 46px solid transparent; border-right: 46px solid transparent; border-bottom: 74px solid #f1c536; right: 4px; top: 4px; transform: rotate(10deg); }
+    .shape .b4::after { content: "阅"; position: absolute; right: 10px; top: 2px; font-size: 58px; line-height: 1; font-weight: 900; color: #171715; }
+    .shape .b3::before { content: "7"; position: absolute; right: 12px; top: -4px; z-index: 2; color: #fff7e9; font-size: 59px; font-weight: 900; }
+
+    /* C · Park map */
+    .park {
+      color: #244739;
+      background: #dff1e7;
+    }
+    .park .top { position: absolute; left: 18px; right: 18px; top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 800; }
+    .park .logo { display: flex; gap: 6px; align-items: center; }
+    .park .logo i { width: 17px; height: 17px; border: 2px solid #244739; border-radius: 50%; }
+    .park h2 { position: absolute; left: 20px; top: 82px; width: 153px; margin: 0; font-size: 30px; line-height: 1.07; letter-spacing: -.04em; }
+    .park p { position: absolute; left: 21px; top: 164px; width: 130px; margin: 0; font-size: 10px; line-height: 1.55; }
+    .park .cta { position: absolute; left: 21px; top: 218px; padding: 8px 12px; border-radius: 999px; color: #fff; background: #ef704f; font-size: 10px; font-weight: 800; }
+    .park .land { position: absolute; right: -7px; bottom: -4px; width: 308px; height: 248px; border-radius: 48% 0 0 0; background: #9cd3aa; }
+    .park .land::before { content: ""; position: absolute; left: 21px; top: 48px; width: 267px; height: 163px; border-radius: 50%; background: #f5e5b8; transform: rotate(-8deg); }
+    .park .route { position: absolute; right: 47px; top: 92px; width: 220px; height: 135px; border: 4px dashed #f6a04c; border-left-color: transparent; border-radius: 50%; transform: rotate(15deg); }
+    .park .place { position: absolute; z-index: 2; display: grid; place-items: center; width: 55px; height: 55px; border: 2px solid #244739; background: #fff8e9; font-size: 10px; font-weight: 900; }
+    .park .p1 { right: 210px; top: 72px; border-radius: 50%; background: #ff9677; }
+    .park .p2 { right: 115px; top: 88px; transform: rotate(8deg); background: #f8cf49; }
+    .park .p3 { right: 48px; top: 156px; border-radius: 18px; background: #73bcf1; }
+    .park .p4 { right: 175px; top: 202px; border-radius: 50% 50% 8px 8px; background: #f2a5b7; }
+    .park .tree { position: absolute; width: 25px; height: 40px; border-radius: 50% 50% 4px 4px; background: #4f9e70; }
+    .park .t1 { right: 26px; top: 38px; }
+    .park .t2 { right: 285px; top: 177px; transform: scale(.8); }
+    .park .t3 { right: 78px; top: 225px; transform: scale(.65); }
+
+    /* D · Three doors */
+    .doors {
+      color: #173c56;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,.9) 0 32px, transparent 33px),
+        radial-gradient(circle at 26% 16%, rgba(255,255,255,.9) 0 24px, transparent 25px),
+        linear-gradient(#9fe3ff 0 69%, #80c963 69%);
+    }
+    .doors .top { position: absolute; left: 18px; right: 18px; top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 900; }
+    .doors h2 { position: absolute; left: 22px; top: 55px; margin: 0; font-size: 27px; letter-spacing: -.05em; }
+    .doors .row { position: absolute; left: 22px; right: 22px; top: 112px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .door { height: 157px; border: 3px solid #173c56; border-radius: 48px 48px 8px 8px; display: grid; place-items: center; font-size: 15px; font-weight: 900; box-shadow: inset 0 -18px 0 rgba(23,60,86,.14); }
+    .door:nth-child(1) { background: #ff866c; }
+    .door:nth-child(2) { background: #f8d047; }
+    .door:nth-child(3) { background: #84d6b0; }
+    .door:nth-child(4) { background: #b9a4ea; }
+    .doors .goal { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #fff9ea; border: 1px solid #173c56; font-size: 9px; font-weight: 800; }
+
+    /* E · Study desk */
+    .desk {
+      color: #1b1b1b;
+      background: #fcfcf8;
+    }
+    .desk .top { position: absolute; left: 18px; right: 18px; top: 15px; display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid #1b1b1b; font-size: 9px; font-weight: 800; }
+    .desk .left { position: absolute; left: 18px; top: 41px; width: 95px; height: 240px; border-right: 1px solid #cfcfc7; }
+    .desk .date { font-size: 11px; font-weight: 800; line-height: 1.35; }
+    .desk .who { margin-top: 22px; font-size: 24px; font-weight: 900; letter-spacing: -.06em; }
+    .desk .note { position: absolute; left: 0; bottom: 10px; width: 83px; padding: 7px; background: #ffdf4f; font-size: 8px; line-height: 1.45; font-weight: 700; transform: rotate(-2deg); }
+    .desk h2 { position: absolute; left: 130px; top: 48px; width: 250px; margin: 0; font-size: 36px; line-height: 1.03; letter-spacing: -.06em; }
+    .desk .count { position: absolute; right: 19px; top: 47px; width: 52px; height: 52px; display: grid; place-items: center; border: 2px solid #1b1b1b; background: #fff; font-size: 16px; font-weight: 900; }
+    .desk .list { position: absolute; left: 130px; right: 19px; top: 141px; border-top: 2px solid #1b1b1b; }
+    .desk .row { display: grid; grid-template-columns: 23px 1fr 40px; align-items: center; height: 30px; border-bottom: 1px solid #d4d4cd; font-size: 9px; }
+    .desk .row b { font-size: 10px; }
+    .desk .row span { color: #75756e; text-align: right; }
+    .desk .row:nth-child(2) { background: linear-gradient(transparent 53%, #ffdf4f 53% 91%, transparent 91%); }
+    .desk .bottom { position: absolute; left: 130px; right: 19px; bottom: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 9px; }
+    .desk .btn { padding: 7px 11px; background: #1b1b1b; color: #fff; font-weight: 800; }
+
+    /* F · Geometric city */
+    .city {
+      color: #201b16;
+      background: #efe3c7;
+    }
+    .city .top { position: absolute; left: 18px; right: 18px; top: 15px; display: flex; justify-content: space-between; padding-bottom: 7px; border-bottom: 1px solid #201b16; font-size: 9px; font-weight: 800; }
+    .city .vertical { position: absolute; left: 20px; top: 49px; writing-mode: vertical-rl; font-family: "Noto Serif SC", "SimSun", serif; font-size: 35px; line-height: .9; font-weight: 900; letter-spacing: .04em; }
+    .city .redsun { position: absolute; left: 74px; top: 53px; width: 31px; height: 31px; border-radius: 50%; background: #d53b20; }
+    .city .citybox { position: absolute; right: 17px; top: 44px; width: 320px; height: 194px; border: 2px solid #201b16; background: #f8efd9; overflow: hidden; }
+    .city .citybox::after { content: "学"; position: absolute; left: 55px; top: 5px; color: #201b16; font-family: "Noto Serif SC", "SimSun", serif; font-size: 148px; font-weight: 900; line-height: 1; }
+    .city .quarter { position: absolute; width: 79px; height: 79px; border-radius: 100% 0 0 0; background: #d53b20; left: -1px; top: -1px; transform: rotate(90deg); }
+    .city .semicircle { position: absolute; right: 34px; top: 23px; width: 63px; height: 32px; border-radius: 40px 40px 0 0; background: #e3b72b; }
+    .city .stripes { position: absolute; right: 0; bottom: 0; width: 75px; height: 71px; background: repeating-linear-gradient(90deg, #285d7a 0 8px, #f8efd9 8px 16px); }
+    .city .circle { position: absolute; right: 105px; bottom: 15px; width: 43px; height: 43px; border-radius: 50%; background: #285d7a; }
+    .city .strips { position: absolute; left: 91px; right: 17px; bottom: 16px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid #201b16; }
+    .city .strips div { padding: 6px 5px 0; border-right: 1px solid #201b16; font-size: 9px; font-weight: 800; }
+    .city .strips div:last-child { border-right: 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>子成学习基地 · 六张候选</h1>
+    <p>同一组内容，六种骨架。先看小样，再进入三张完整版。</p>
+  </header>
+
+  <main class="grid">
+    <article class="candidate">
+      <div class="thumb candy">
+        <div class="top"><span class="brand">子成学习基地</span><span class="pill">今日 0 / 4</span></div>
+        <div class="sun"></div>
+        <h2>今天去哪个岛探险？</h2>
+        <div class="path"></div>
+        <div class="station s1">英语</div>
+        <div class="station s2">汉字</div>
+        <div class="station s3">数学</div>
+        <div class="station s4">阅读</div>
+        <div class="foot">沿路完成任务，点亮今天的小星星。</div>
+      </div>
+      <div class="caption"><b>A · 彩虹任务岛</b><span class="tag">Johnson Banks 逻辑</span></div>
+    </article>
+
+    <article class="candidate">
+      <div class="thumb shape">
+        <div class="top"><span>子成 / 学习游乐场</span><span>10.31 SAT.</span></div>
+        <div class="han">玩<em>学</em></div>
+        <div class="copy">把今天的学习，拼成四个形状。<small>选一块，开始。</small></div>
+        <div class="blocks">
+          <div class="block b1"><span>英语单词乐园</span></div>
+          <div class="block b2"><span>汉字探险岛</span></div>
+          <div class="block b3"><span>数学小火车</span></div>
+          <div class="block b4"><span>阅读故事屋</span></div>
+        </div>
+      </div>
+      <div class="caption"><b>B · 形状游乐场</b><span class="tag">Bruno Munari</span></div>
+    </article>
+
+    <article class="candidate">
+      <div class="thumb park">
+        <div class="top"><span class="logo"><i></i>子成学习基地</span><span>今天 0 / 4</span></div>
+        <h2>从哪一站开始？</h2>
+        <p>沿着小路走，四个学习工具都在等你。</p>
+        <div class="cta">先去英语岛</div>
+        <div class="land"></div>
+        <div class="route"></div>
+        <div class="place p1">英语</div>
+        <div class="place p2">汉字</div>
+        <div class="place p3">数学</div>
+        <div class="place p4">阅读</div>
+        <div class="tree t1"></div>
+        <div class="tree t2"></div>
+        <div class="tree t3"></div>
+      </div>
+      <div class="caption"><b>C · 儿童乐园地图</b><span class="tag">Khan Kids 参照</span></div>
+    </article>
+
+    <article class="candidate">
+      <div class="thumb doors">
+        <div class="top"><span>子成学习基地</span><span>周六 · 10月31日</span></div>
+        <h2>推开一扇门，开始今天。</h2>
+        <div class="row">
+          <div class="door">英语</div>
+          <div class="door">汉字</div>
+          <div class="door">数学</div>
+          <div class="door">阅读</div>
+        </div>
+        <div class="goal">今日小目标 · 完成 3 个任务</div>
+      </div>
+      <div class="caption"><b>D · 三扇学习门</b><span class="tag">Starfall 参照</span></div>
+    </article>
+
+    <article class="candidate">
+      <div class="thumb desk">
+        <div class="top"><span>子成学习基地</span><span>今日计划 / 0%</span></div>
+        <div class="left">
+          <div class="date">10月31日<br>星期六</div>
+          <div class="who">子成</div>
+          <div class="note">先做一件小事，也算开始。</div>
+        </div>
+        <h2>今天，<br>先做哪一件？</h2>
+        <div class="count">0/4</div>
+        <div class="list">
+          <div class="row"><b>01</b><b>英语单词乐园</b><span>10 分钟</span></div>
+          <div class="row"><b>02</b><b>汉字探险岛</b><span>8 分钟</span></div>
+          <div class="row"><b>03</b><b>数学小火车</b><span>10 分钟</span></div>
+          <div class="row"><b>04</b><b>阅读故事屋</b><span>15 分钟</span></div>
+        </div>
+        <div class="bottom"><span>完成 3 项就点亮今天</span><span class="btn">开始第一项</span></div>
+      </div>
+      <div class="caption"><b>E · 今日学习桌</b><span class="tag">网页轮盘 #17</span></div>
+    </article>
+
+    <article class="candidate">
+      <div class="thumb city">
+        <div class="top"><span>子成学习基地 / 周六课堂</span><span>2026.10.31</span></div>
+        <div class="vertical">今天开学</div>
+        <div class="redsun"></div>
+        <div class="citybox">
+          <div class="quarter"></div>
+          <div class="semicircle"></div>
+          <div class="stripes"></div>
+          <div class="circle"></div>
+        </div>
+        <div class="strips">
+          <div>英语<br>单词乐园</div>
+          <div>汉字<br>探险岛</div>
+          <div>数学<br>小火车</div>
+          <div>阅读<br>故事屋</div>
+        </div>
+      </div>
+      <div class="caption"><b>F · 汉字几何城</b><span class="tag">东亚轮盘 #9</span></div>
+    </article>
+  </main>
+</body>
+</html>

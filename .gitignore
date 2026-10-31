@@ -1,0 +1,32 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Playwright and test output
+playwright-report/
+test-results/
+screenshots/
+
+# Dependency and tool caches
+node_modules/
+.cache/
+*.log
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Temporary files
+tmp/
+*.tmp

@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#c9dbed">
+  <title>子成的学习基地 · 今日学习桌</title>
+  <style>
+    :root {
+      --ink: #1a1a19;
+      --muted: #4d5a68;
+      --paper: #c9dbed;
+      --paper-2: #b9cee5;
+      --yellow: #ffdc45;
+      --blue: #0f4fb3;
+      --red: #df4c37;
+      --rule: #a8c1dc;
+      --font-body: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      --font-serif: "Noto Serif SC", "SimSun", serif;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(26,26,25,.027) 1px, transparent 1px),
+        linear-gradient(rgba(26,26,25,.027) 1px, transparent 1px),
+        var(--paper);
+      background-size: 24px 24px;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      line-break: strict;
+      overflow-wrap: break-word;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      pointer-events: none;
+      opacity: .09;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .page {
+      width: min(1480px, 100%);
+      margin: 0 auto;
+      padding: 0 30px 30px;
+    }
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 66px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      width: fit-content;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+    .brand-mark {
+      position: relative;
+      width: 29px;
+      height: 29px;
+      border: 1.5px solid var(--ink);
+      background: var(--yellow);
+    }
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: var(--ink);
+    }
+    .brand-mark::before { width: 1px; height: 35px; left: 13px; top: -4px; }
+    .brand-mark::after { height: 1px; width: 35px; top: 13px; left: -4px; }
+    .nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav button {
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .nav button:hover,
+    .nav button[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+    .top-meta {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .03em;
+      font-variant-numeric: tabular-nums;
+    }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .workspace {
+      display: grid;
+      grid-template-columns: 190px minmax(550px, 1fr) 320px;
+      min-height: 700px;
+      padding-top: 26px;
+    }
+    .rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 18px 30px;
+      color: #fff;
+      background: var(--blue);
+      box-shadow: inset -1px 0 var(--ink);
+    }
+    .date-block {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.65;
+      letter-spacing: .04em;
+    }
+    .date-block strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.02em;
+    }
+    .identity {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.34);
+    }
+    .identity span {
+      display: block;
+      color: #dce8ff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .identity strong {
+      display: block;
+      margin-top: 2px;
+      font-family: var(--font-serif);
+      font-size: 46px;
+      line-height: 1.1;
+      letter-spacing: -.08em;
+    }
+    .rail-progress {
+      display: grid;
+      gap: 9px;
+      margin-top: 34px;
+    }
+    .rail-progress span {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #dce8ff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .rail-progress i {
+      display: block;
+      width: 24px;
+      height: 7px;
+      border: 1px solid #fff;
+      background: transparent;
+    }
+    .rail-progress span.is-done { color: #fff; }
+    .rail-progress span.is-done i { background: var(--yellow); border-color: #fff; }
+    .sticky-note {
+      position: relative;
+      margin-top: auto;
+      padding: 15px 14px 17px;
+      color: var(--ink);
+      background: var(--yellow);
+      box-shadow: 3px 4px 0 rgba(26,26,25,.18);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.55;
+      transform: rotate(-1.2deg);
+    }
+    .sticky-note::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      width: 48px;
+      height: 15px;
+      background: rgba(255,255,255,.55);
+      transform: translateX(-50%) rotate(2deg);
+    }
+    .center {
+      padding: 4px 28px 0;
+    }
+    .hero-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      padding-bottom: 23px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(58px, 6vw, 90px);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.075em;
+      text-wrap: balance;
+    }
+    h1 mark {
+      position: relative;
+      color: inherit;
+      background: linear-gradient(transparent 65%, var(--yellow) 65% 94%, transparent 94%);
+    }
+    .big-count {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 122px;
+      padding-left: 20px;
+      border-left: 1px solid var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .big-count strong {
+      font-family: var(--font-serif);
+      font-size: 72px;
+      line-height: .9;
+      letter-spacing: -.08em;
+    }
+    .big-count span {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .list-head {
+      display: grid;
+      grid-template-columns: 44px 1fr 74px 32px;
+      gap: 12px;
+      padding: 12px 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+    .tool-list {
+      border-top: 2px solid var(--ink);
+    }
+    .tool-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 44px 1fr 74px 32px;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      min-height: 87px;
+      padding: 8px 0;
+      border: 0;
+      border-bottom: 1px solid var(--ink);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background .18s ease, padding .18s ease;
+      animation: row-in .45s ease both;
+    }
+    .tool-row:nth-child(1) { animation-delay: .06s; }
+    .tool-row:nth-child(2) { animation-delay: .12s; }
+    .tool-row:nth-child(3) { animation-delay: .18s; }
+    .tool-row:nth-child(4) { animation-delay: .24s; }
+    .tool-row:hover { background: rgba(255,220,69,.18); }
+    .tool-row.is-active {
+      padding-left: 10px;
+      padding-right: 10px;
+      background: linear-gradient(90deg, rgba(255,220,69,.55), rgba(255,220,69,.08));
+    }
+    .tool-row.is-active::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 13px;
+      bottom: 13px;
+      width: 5px;
+      background: var(--ink);
+    }
+    .row-index {
+      color: var(--muted);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .row-main strong {
+      display: block;
+      font-size: 21px;
+      line-height: 1.25;
+      letter-spacing: -.035em;
+    }
+    .row-main small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .row-time {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .row-check {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--ink);
+      background: var(--paper);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .tool-row.is-done .row-check { color: var(--paper); background: var(--ink); }
+    .tool-row.is-done .row-main strong { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+    .row-check:hover { background: var(--yellow); }
+    .detail {
+      padding: 4px 0 0 26px;
+      border-left: 1px solid var(--ink);
+    }
+    .detail-kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+    .detail-figure {
+      position: relative;
+      height: 164px;
+      margin-top: 16px;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--detail-color, var(--yellow));
+    }
+    .detail-figure .figure-letter {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: var(--figure-ink, var(--ink));
+      font-family: var(--font-serif);
+      font-size: 116px;
+      font-weight: 900;
+      line-height: 1;
+      transform: translate(-50%, -50%) rotate(-5deg);
+    }
+    .detail-figure .figure-bar {
+      position: absolute;
+      width: 88px;
+      height: 10px;
+      right: -9px;
+      top: 28px;
+      background: var(--figure-ink, var(--ink));
+      transform: rotate(26deg);
+    }
+    .detail-figure .figure-circle {
+      position: absolute;
+      width: 55px;
+      height: 55px;
+      left: 14px;
+      bottom: 12px;
+      border: 1px solid var(--figure-ink, var(--ink));
+      border-radius: 50%;
+    }
+    .detail h2 {
+      margin: 18px 0 0;
+      font-size: 29px;
+      line-height: 1.2;
+      letter-spacing: -.05em;
+    }
+    .detail p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-family: var(--font-serif);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 15px;
+    }
+    .detail-meta span {
+      padding: 4px 7px;
+      border: 1px solid var(--rule);
+      background: var(--paper-2);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .detail-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .btn {
+      min-height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+      transition: background .16s ease, color .16s ease, transform .16s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(1px); }
+    .btn-dark { color: var(--paper); background: var(--ink); }
+    .btn-light { background: transparent; }
+    .btn-light:hover { background: var(--yellow); }
+    .foot {
+      display: grid;
+      grid-template-columns: 190px 1fr 320px;
+      gap: 0;
+      margin-top: 20px;
+      border-top: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .foot span { padding-top: 12px; }
+    .foot span:nth-child(2) { padding-left: 28px; }
+    .foot button {
+      justify-self: end;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+    .toast {
+      position: fixed;
+      z-index: 130;
+      left: 50%;
+      bottom: 24px;
+      max-width: calc(100% - 32px);
+      padding: 12px 17px;
+      border: 1px solid var(--ink);
+      color: var(--paper);
+      background: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    @keyframes row-in {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @media (max-width: 1120px) {
+      .workspace { grid-template-columns: 165px minmax(500px, 1fr) 280px; }
+      .center { padding-left: 22px; padding-right: 22px; }
+      .detail { padding-left: 20px; }
+      .foot { grid-template-columns: 165px 1fr 280px; }
+      h1 { font-size: clamp(56px, 6.1vw, 78px); }
+    }
+    @media (max-width: 900px) {
+      .page { padding: 0 18px 24px; }
+      .topbar { grid-template-columns: 1fr auto; }
+      .nav { display: none; }
+      .workspace { grid-template-columns: 145px 1fr; min-height: auto; }
+      .center { padding-right: 0; }
+      .detail { grid-column: 2; padding: 24px 0 0 22px; border-left: 0; border-top: 1px solid var(--ink); }
+      .detail-figure { height: 220px; }
+      .foot { grid-template-columns: 145px 1fr; }
+      .foot span:nth-child(2) { padding-left: 22px; }
+      .foot button { grid-column: 1 / -1; justify-self: start; padding-left: 0; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; background-size: 20px 20px; }
+      .topbar { min-height: 58px; }
+      .brand { font-size: 14px; }
+      .top-meta { gap: 9px; font-size: 12px; }
+      .workspace { display: block; padding-top: 18px; }
+      .rail {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+        margin: 0 -18px;
+        padding: 16px 18px 17px;
+        border-bottom: 1px solid var(--ink);
+        box-shadow: none;
+      }
+      .date-block strong { font-size: 16px; }
+      .identity { margin: 0; padding: 0; border: 0; text-align: right; }
+      .identity span { display: none; }
+      .identity strong { font-size: 30px; }
+      .rail-progress { grid-column: 1 / -1; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 0; }
+      .rail-progress span { display: block; font-size: 12px; }
+      .rail-progress i { width: 100%; margin-bottom: 4px; }
+      .sticky-note { display: none; }
+      .center { padding: 22px 0 0; }
+      .hero-line { display: block; padding-bottom: 18px; }
+      h1 { font-size: clamp(44px, 12.5vw, 58px); }
+      .big-count { display: none; }
+      .list-head { grid-template-columns: 34px 1fr 28px; }
+      .list-head span:nth-child(3) { display: none; }
+      .tool-row { grid-template-columns: 34px 1fr 28px; min-height: 78px; gap: 8px; }
+      .row-time { display: none; }
+      .row-main strong { font-size: 19px; }
+      .detail { padding: 22px 0 0; }
+      .detail-figure { height: 190px; }
+      .detail-actions { grid-template-columns: 1fr 1fr; }
+      .foot { grid-template-columns: 1fr; }
+      .foot span:nth-child(2) { padding-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="子成学习基地首页">
+        <span class="brand-mark" aria-hidden="true"></span>
+        子成学习基地
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <button type="button" aria-current="page">今天</button>
+        <button type="button" data-focus-list>全部工具</button>
+        <button type="button" data-toast="工具会陆续接入，入口先保留在这里。">工具预告</button>
+      </nav>
+      <div class="top-meta">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="topDate">10.31 周六</span>
+        <span id="topProgress">0 / 4</span>
+      </div>
+    </header>
+
+    <main class="workspace" id="top">
+      <aside class="rail" aria-label="今日概览">
+        <div class="date-block">
+          <strong id="railDate">10月31日</strong>
+          <span id="railWeekday">星期六</span>
+        </div>
+        <div class="identity">
+          <span>今天的学习桌</span>
+          <strong>子成</strong>
+        </div>
+        <div class="rail-progress" aria-label="今日进度">
+          <span data-progress-tool="english"><i></i>英语</span>
+          <span data-progress-tool="hanzi"><i></i>汉字</span>
+          <span data-progress-tool="math"><i></i>数学</span>
+          <span data-progress-tool="reading"><i></i>阅读</span>
+        </div>
+        <div class="sticky-note">先做一件小事，也算开始。今天不用全部做完。</div>
+      </aside>
+
+      <section class="center" aria-labelledby="title">
+        <div class="hero-line">
+          <div>
+            <p class="eyebrow">四个入口，今天从一件开始</p>
+            <h1 id="title">今天，<br>先做<mark>哪一件</mark>？</h1>
+          </div>
+          <div class="big-count">
+            <strong id="bigProgress">0</strong>
+            <span>OF 4 COMPLETE</span>
+          </div>
+        </div>
+
+        <div class="list-head" aria-hidden="true">
+          <span>NO.</span><span>学习工具</span><span>时间</span><span>完成</span>
+        </div>
+        <div class="tool-list" id="toolList">
+          <button class="tool-row is-active" type="button" data-tool="english" aria-pressed="true">
+            <span class="row-index">01</span>
+            <span class="row-main"><strong>英语单词乐园</strong><small>单词闯关，听一听，配一配</small></span>
+            <span class="row-time">10 分钟</span>
+            <span class="row-check" role="checkbox" tabindex="0" aria-label="标记英语单词乐园完成" aria-checked="false"></span>
+          </button>
+          <button class="tool-row" type="button" data-tool="hanzi" aria-pressed="false">
+            <span class="row-index">02</span>
+            <span class="row-main"><strong>汉字探险岛</strong><small>认识 5 个字，找出偏旁</small></span>
+            <span class="row-time">8 分钟</span>
+            <span class="row-check" role="checkbox" tabindex="0" aria-label="标记汉字探险岛完成" aria-checked="false"></span>
+          </button>
+          <button class="tool-row" type="button" data-tool="math" aria-pressed="false">
+            <span class="row-index">03</span>
+            <span class="row-main"><strong>数学小火车</strong><small>口算练习，把车厢接起来</small></span>
+            <span class="row-time">10 分钟</span>
+            <span class="row-check" role="checkbox" tabindex="0" aria-label="标记数学小火车完成" aria-checked="false"></span>
+          </button>
+          <button class="tool-row" type="button" data-tool="reading" aria-pressed="false">
+            <span class="row-index">04</span>
+            <span class="row-main"><strong>阅读故事屋</strong><small>读一个小故事，留一句话</small></span>
+            <span class="row-time">15 分钟</span>
+            <span class="row-check" role="checkbox" tabindex="0" aria-label="标记阅读故事屋完成" aria-checked="false"></span>
+          </button>
+        </div>
+      </section>
+
+      <aside class="detail" aria-labelledby="detailTitle">
+        <div class="detail-kicker"><span>当前选择</span><span id="detailIndex">01 / 04</span></div>
+        <div class="detail-figure" id="detailFigure">
+          <span class="figure-bar"></span>
+          <span class="figure-circle"></span>
+          <span class="figure-letter" id="detailLetter">A</span>
+        </div>
+        <h2 id="detailTitle">英语单词乐园</h2>
+        <p id="detailText">先认三个单词，再玩一轮配对。工具接入后会直接打开今天的单词任务。</p>
+        <div class="detail-meta" id="detailMeta"></div>
+        <div class="detail-actions">
+          <button class="btn btn-dark" type="button" id="enterTool">进入工具</button>
+          <button class="btn btn-light" type="button" id="toggleComplete">标记完成</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="foot">
+      <span>给子成的小基地</span>
+      <span>进度只存在这台设备里，明天可以重新开始。</span>
+      <button type="button" id="resetToday">重置今天</button>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toolData = {
+      english: {
+        index: "01 / 04", letter: "A", color: "#ffdc45", ink: "#1a1a19", title: "英语单词乐园",
+        text: "先认三个单词，再玩一轮配对。工具接入后会直接打开今天的单词任务。",
+        meta: ["10 分钟", "单词闯关", "听音配对"]
+      },
+      hanzi: {
+        index: "02 / 04", letter: "字", color: "#df4c37", ink: "#f7f9fc", title: "汉字探险岛",
+        text: "今天认识五个新字，再找出一个藏在句子里的老朋友。",
+        meta: ["8 分钟", "认识 5 个字", "偏旁"]
+      },
+      math: {
+        index: "03 / 04", letter: "7", color: "#0f4fb3", ink: "#f7f9fc", title: "数学小火车",
+        text: "让口算车厢一节一节接起来。先做一组十以内加减法。",
+        meta: ["10 分钟", "口算练习", "十以内加减"]
+      },
+      reading: {
+        index: "04 / 04", letter: "阅", color: "#b9cee5", ink: "#1a1a19", title: "阅读故事屋",
+        text: "读一个小故事，留一句话明天讲给家人听。",
+        meta: ["15 分钟", "读一个小故事", "说一句感受"]
+      }
+    };
+
+    const storageKey = "zicheng-learning-progress-v1";
+    let completed = new Set();
+    let activeTool = "english";
+    let toastTimer;
+
+    try {
+      completed = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
+    } catch (error) {
+      completed = new Set();
+    }
+
+    const toast = document.getElementById("toast");
+    const toggleComplete = document.getElementById("toggleComplete");
+    const enterTool = document.getElementById("enterTool");
+
+    function setDates() {
+      const now = new Date();
+      const weekdays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+      const longWeekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+      document.getElementById("topDate").textContent = `${now.getMonth() + 1}.${now.getDate()} ${weekdays[now.getDay()]}`;
+      document.getElementById("railDate").textContent = `${now.getMonth() + 1}月${now.getDate()}日`;
+      document.getElementById("railWeekday").textContent = longWeekdays[now.getDay()];
+    }
+
+    function updateProgress() {
+      document.querySelectorAll("[data-tool]").forEach((row) => {
+        const done = completed.has(row.dataset.tool);
+        row.classList.toggle("is-done", done);
+        const check = row.querySelector(".row-check");
+        check.setAttribute("aria-checked", String(done));
+        check.textContent = done ? "✓" : "";
+      });
+      document.querySelectorAll("[data-progress-tool]").forEach((label) => {
+        label.classList.toggle("is-done", completed.has(label.dataset.progressTool));
+      });
+      document.getElementById("bigProgress").textContent = String(completed.size);
+      document.getElementById("topProgress").textContent = `${completed.size} / 4`;
+      updateDetailButton();
+    }
+
+    function persist() {
+      localStorage.setItem(storageKey, JSON.stringify([...completed]));
+    }
+
+    function selectTool(id) {
+      activeTool = id;
+      const data = toolData[id];
+      document.querySelectorAll(".tool-row").forEach((row) => {
+        const isActive = row.dataset.tool === id;
+        row.classList.toggle("is-active", isActive);
+        row.setAttribute("aria-pressed", String(isActive));
+      });
+      document.getElementById("detailIndex").textContent = data.index;
+      document.getElementById("detailTitle").textContent = data.title;
+      document.getElementById("detailText").textContent = data.text;
+      document.getElementById("detailLetter").textContent = data.letter;
+      document.getElementById("detailFigure").style.setProperty("--detail-color", data.color);
+      document.getElementById("detailFigure").style.setProperty("--figure-ink", data.ink);
+      document.getElementById("detailMeta").innerHTML = data.meta.map((item) => `<span>${item}</span>`).join("");
+      updateDetailButton();
+    }
+
+    function updateDetailButton() {
+      const done = completed.has(activeTool);
+      toggleComplete.textContent = done ? "取消完成" : "标记完成";
+    }
+
+    function toggleTask(id) {
+      if (completed.has(id)) completed.delete(id);
+      else completed.add(id);
+      persist();
+      updateProgress();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2300);
+    }
+
+    document.querySelectorAll(".tool-row").forEach((row) => {
+      row.addEventListener("click", (event) => {
+        if (event.target.closest(".row-check")) return;
+        selectTool(row.dataset.tool);
+      });
+      const check = row.querySelector(".row-check");
+      check.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleTask(row.dataset.tool);
+      });
+      check.addEventListener("keydown", (event) => {
+        if (event.key === " " || event.key === "Enter") {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleTask(row.dataset.tool);
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-toast]").forEach((button) => {
+      button.addEventListener("click", () => showToast(button.dataset.toast));
+    });
+    document.querySelector("[data-focus-list]").addEventListener("click", () => {
+      document.getElementById("toolList").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    toggleComplete.addEventListener("click", () => toggleTask(activeTool));
+    enterTool.addEventListener("click", () => showToast(`${toolData[activeTool].title}正在接入，先把入口留在这里。`));
+    document.getElementById("resetToday").addEventListener("click", () => {
+      if (completed.size === 0) {
+        showToast("今天还没有完成记录。");
+        return;
+      }
+      if (window.confirm("要清空今天的学习记录吗？")) {
+        completed.clear();
+        persist();
+        updateProgress();
+        showToast("今天的记录已清空。");
+      }
+    });
+
+    setDates();
+    selectTool("english");
+    updateProgress();
+  </script>
+</body>
+</html>
