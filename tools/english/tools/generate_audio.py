@@ -56,6 +56,18 @@ WORDS = [
     # extra words from the supplementary worksheets
     "a balloon", "car", "bus", "jeep", "juice", "water",
     "kitten", "puppy", "bird", "three", "four", "one",
+    # 快乐英语第 3 册 · Unit 1 Our school
+    "school", "classroom", "music room", "art room", "science room", "library",
+    # Unit 2 Our classroom
+    "blackboard", "chair", "desk", "door", "floor",
+    # Unit 3 Our weekdays
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+    "jump rope", "go swimming", "go skating",
+    # Unit 4 Our subjects
+    "Chinese", "English", "maths", "PE", "science", "music", "art",
+    # Unit 5 Our weekends
+    "clean my room", "go to the museum", "make New Year cards",
+    "sing and dance", "visit grandma and grandpa",
 ]
 
 SENTENCES = [
@@ -147,6 +159,81 @@ SENTENCES = [
     "Hello, I'm Jinjin.",
     "Wow! How big!",
     "Thank you. We all love it.",
+    # ---- 快乐英语第 3 册 Unit 1 Our school
+    "Hello! Welcome to our school.",
+    "Hi! Your school is beautiful.",
+    "This is our library.",
+    "Wow, it's big!",
+    "Hello! I'm Li Tiantian.",
+    "Look, this is our music room.",
+    "School day, happy day.",
+    "Library, read all day.",
+    "Music room, sing and play.",
+    "Art room, draw today.",
+    "Science room, fun we play.",
+    "Classroom, learn the happy way.",
+    # ---- Unit 2 Our classroom
+    "I clean the blackboard.",
+    "Good job!",
+    "I mop the floor.",
+    "Mia, please clean the desk.",
+    "Clean the classroom.",
+    "Clean the door and the desk.",
+    "Clean the chair and the blackboard.",
+    "All is clean. With great care.",
+    # ---- Unit 3 Our weekdays
+    "It's Friday. Let's play football!",
+    "OK! Let's play together!",
+    "It's Monday.",
+    "Let's jump rope.",
+    "Let's go swimming.",
+    "Let's play ping-pong.",
+    "Let's go skating.",
+    "Monday, Tuesday, Wednesday.",
+    "Thursday and Friday.",
+    "Weekdays, weekdays, weekdays!",
+    "Fine days, fine days!",
+    # ---- Unit 4 Our subjects
+    "What subject do you like best?",
+    "I like Chinese best.",
+    "How about you, Leo?",
+    "I like PE best.",
+    "On Monday, I have maths.",
+    "I like music best.",
+    "Read, write and say.",
+    "Sun, earth and ray.",
+    "Jump, run and play.",
+    "One, two, three! Hey!",
+    # ---- Unit 5 Our weekends
+    "What will you do this weekend?",
+    "I will visit my grandma and grandpa on Saturday.",
+    "I will make New Year cards on Sunday.",
+    "Hello! My name is Li Jinjin.",
+    "This is my weekend plan.",
+    "I will clean my room on Saturday.",
+    "I will go to the museum on Sunday.",
+    "Weekends! Weekends! What will you do?",
+    "Clean my room! Cool! Cool! Cool!",
+    "Sing and dance! Good! Good! Good!",
+    "Go to the museum! Go! Go! Go!",
+    "Make New Year cards! Fun! Fun! Fun!",
+    "Visit grandma, grandpa too! Hooray!",
+    # ---- Fun story
+    "Bye! Tiantian.",
+    "Be good, Lucky! Bye!",
+    "We read books together.",
+    "We play with building blocks together.",
+    "We draw pictures together.",
+    "They go swimming. I play with toys.",
+    "We make New Year cards together.",
+    "We play football together.",
+    # ---- Amazing Tianjin
+    "Welcome to Yangliuqing Ancient Town.",
+    "They're famous Yangliuqing Woodblock New Year Prints.",
+    "The prints are so beautiful!",
+    "This is Clay Figurine Zhang.",
+    "Look at the kite. It's Kite Wei.",
+    "Xiangsheng is fun.",
 ]
 
 SHOPKEEPER = [

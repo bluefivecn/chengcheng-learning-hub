@@ -3789,5 +3789,2564 @@
     "e": 2.456
    }
   ]
+ },
+ "emma|science room": {
+  "file": "audio/emma-153.mp3",
+  "voice": "emma",
+  "text": "science room",
+  "duration": 1.536,
+  "timings": [
+   {
+    "w": "science",
+    "s": 0.05,
+    "e": 0.928
+   },
+   {
+    "w": "room",
+    "s": 0.928,
+    "e": 1.484
+   }
+  ]
+ },
+ "emma|blackboard": {
+  "file": "audio/emma-154.mp3",
+  "voice": "emma",
+  "text": "blackboard",
+  "duration": 1.344,
+  "timings": [
+   {
+    "w": "blackboard",
+    "s": 0.05,
+    "e": 1.281
+   }
+  ]
+ },
+ "emma|chair": {
+  "file": "audio/emma-155.mp3",
+  "voice": "emma",
+  "text": "chair",
+  "duration": 1.056,
+  "timings": [
+   {
+    "w": "chair",
+    "s": 0.05,
+    "e": 0.984
+   }
+  ]
+ },
+ "emma|desk": {
+  "file": "audio/emma-156.mp3",
+  "voice": "emma",
+  "text": "desk",
+  "duration": 0.888,
+  "timings": [
+   {
+    "w": "desk",
+    "s": 0.05,
+    "e": 0.828
+   }
+  ]
+ },
+ "emma|door": {
+  "file": "audio/emma-157.mp3",
+  "voice": "emma",
+  "text": "door",
+  "duration": 1.032,
+  "timings": [
+   {
+    "w": "door",
+    "s": 0.05,
+    "e": 0.969
+   }
+  ]
+ },
+ "emma|floor": {
+  "file": "audio/emma-158.mp3",
+  "voice": "emma",
+  "text": "floor",
+  "duration": 1.104,
+  "timings": [
+   {
+    "w": "floor",
+    "s": 0.05,
+    "e": 1.059
+   }
+  ]
+ },
+ "emma|monday": {
+  "file": "audio/emma-159.mp3",
+  "voice": "emma",
+  "text": "Monday",
+  "duration": 1.128,
+  "timings": [
+   {
+    "w": "Monday",
+    "s": 0.05,
+    "e": 1.078
+   }
+  ]
+ },
+ "emma|tuesday": {
+  "file": "audio/emma-160.mp3",
+  "voice": "emma",
+  "text": "Tuesday",
+  "duration": 1.248,
+  "timings": [
+   {
+    "w": "Tuesday",
+    "s": 0.05,
+    "e": 1.187
+   }
+  ]
+ },
+ "emma|wednesday": {
+  "file": "audio/emma-161.mp3",
+  "voice": "emma",
+  "text": "Wednesday",
+  "duration": 1.272,
+  "timings": [
+   {
+    "w": "Wednesday",
+    "s": 0.05,
+    "e": 1.203
+   }
+  ]
+ },
+ "emma|thursday": {
+  "file": "audio/emma-162.mp3",
+  "voice": "emma",
+  "text": "Thursday",
+  "duration": 1.224,
+  "timings": [
+   {
+    "w": "Thursday",
+    "s": 0.05,
+    "e": 1.156
+   }
+  ]
+ },
+ "emma|friday": {
+  "file": "audio/emma-163.mp3",
+  "voice": "emma",
+  "text": "Friday",
+  "duration": 1.152,
+  "timings": [
+   {
+    "w": "Friday",
+    "s": 0.05,
+    "e": 1.094
+   }
+  ]
+ },
+ "emma|jump rope": {
+  "file": "audio/emma-164.mp3",
+  "voice": "emma",
+  "text": "jump rope",
+  "duration": 1.344,
+  "timings": [
+   {
+    "w": "jump",
+    "s": 0.05,
+    "e": 0.666
+   },
+   {
+    "w": "rope",
+    "s": 0.666,
+    "e": 1.281
+   }
+  ]
+ },
+ "emma|go swimming": {
+  "file": "audio/emma-165.mp3",
+  "voice": "emma",
+  "text": "go swimming",
+  "duration": 1.44,
+  "timings": [
+   {
+    "w": "go",
+    "s": 0.05,
+    "e": 0.396
+   },
+   {
+    "w": "swimming",
+    "s": 0.396,
+    "e": 1.391
+   }
+  ]
+ },
+ "emma|go skating": {
+  "file": "audio/emma-166.mp3",
+  "voice": "emma",
+  "text": "go skating",
+  "duration": 1.536,
+  "timings": [
+   {
+    "w": "go",
+    "s": 0.05,
+    "e": 0.453
+   },
+   {
+    "w": "skating",
+    "s": 0.453,
+    "e": 1.484
+   }
+  ]
+ },
+ "emma|chinese": {
+  "file": "audio/emma-167.mp3",
+  "voice": "emma",
+  "text": "Chinese",
+  "duration": 1.224,
+  "timings": [
+   {
+    "w": "Chinese",
+    "s": 0.05,
+    "e": 1.172
+   }
+  ]
+ },
+ "emma|english": {
+  "file": "audio/emma-168.mp3",
+  "voice": "emma",
+  "text": "English",
+  "duration": 1.272,
+  "timings": [
+   {
+    "w": "English",
+    "s": 0.05,
+    "e": 1.253
+   }
+  ]
+ },
+ "emma|maths": {
+  "file": "audio/emma-169.mp3",
+  "voice": "emma",
+  "text": "maths",
+  "duration": 1.056,
+  "timings": [
+   {
+    "w": "maths",
+    "s": 0.05,
+    "e": 0.984
+   }
+  ]
+ },
+ "emma|pe": {
+  "file": "audio/emma-170.mp3",
+  "voice": "emma",
+  "text": "PE",
+  "duration": 0.768,
+  "timings": [
+   {
+    "w": "PE",
+    "s": 0.05,
+    "e": 0.719
+   }
+  ]
+ },
+ "emma|science": {
+  "file": "audio/emma-171.mp3",
+  "voice": "emma",
+  "text": "science",
+  "duration": 1.224,
+  "timings": [
+   {
+    "w": "science",
+    "s": 0.05,
+    "e": 1.172
+   }
+  ]
+ },
+ "emma|music": {
+  "file": "audio/emma-172.mp3",
+  "voice": "emma",
+  "text": "music",
+  "duration": 1.224,
+  "timings": [
+   {
+    "w": "music",
+    "s": 0.05,
+    "e": 1.156
+   }
+  ]
+ },
+ "emma|art": {
+  "file": "audio/emma-173.mp3",
+  "voice": "emma",
+  "text": "art",
+  "duration": 0.864,
+  "timings": [
+   {
+    "w": "art",
+    "s": 0.05,
+    "e": 0.812
+   }
+  ]
+ },
+ "emma|clean my room": {
+  "file": "audio/emma-174.mp3",
+  "voice": "emma",
+  "text": "clean my room",
+  "duration": 1.608,
+  "timings": [
+   {
+    "w": "clean",
+    "s": 0.05,
+    "e": 0.686
+   },
+   {
+    "w": "my",
+    "s": 0.686,
+    "e": 1.014
+   },
+   {
+    "w": "room",
+    "s": 1.014,
+    "e": 1.547
+   }
+  ]
+ },
+ "emma|go to the museum": {
+  "file": "audio/emma-175.mp3",
+  "voice": "emma",
+  "text": "go to the museum",
+  "duration": 2.064,
+  "timings": [
+   {
+    "w": "go",
+    "s": 0.05,
+    "e": 0.401
+   },
+   {
+    "w": "to",
+    "s": 0.401,
+    "e": 0.751
+   },
+   {
+    "w": "the",
+    "s": 0.751,
+    "e": 1.211
+   },
+   {
+    "w": "museum",
+    "s": 1.211,
+    "e": 2.0
+   }
+  ]
+ },
+ "emma|make new year cards": {
+  "file": "audio/emma-176.mp3",
+  "voice": "emma",
+  "text": "make New Year cards",
+  "duration": 2.136,
+  "timings": [
+   {
+    "w": "make",
+    "s": 0.05,
+    "e": 0.557
+   },
+   {
+    "w": "New",
+    "s": 0.557,
+    "e": 0.967
+   },
+   {
+    "w": "Year",
+    "s": 0.967,
+    "e": 1.474
+   },
+   {
+    "w": "cards",
+    "s": 1.474,
+    "e": 2.078
+   }
+  ]
+ },
+ "emma|sing and dance": {
+  "file": "audio/emma-177.mp3",
+  "voice": "emma",
+  "text": "sing and dance",
+  "duration": 1.68,
+  "timings": [
+   {
+    "w": "sing",
+    "s": 0.05,
+    "e": 0.579
+   },
+   {
+    "w": "and",
+    "s": 0.579,
+    "e": 1.007
+   },
+   {
+    "w": "dance",
+    "s": 1.007,
+    "e": 1.637
+   }
+  ]
+ },
+ "emma|visit grandma and grandpa": {
+  "file": "audio/emma-178.mp3",
+  "voice": "emma",
+  "text": "visit grandma and grandpa",
+  "duration": 2.544,
+  "timings": [
+   {
+    "w": "visit",
+    "s": 0.05,
+    "e": 0.613
+   },
+   {
+    "w": "grandma",
+    "s": 0.613,
+    "e": 1.358
+   },
+   {
+    "w": "and",
+    "s": 1.358,
+    "e": 1.74
+   },
+   {
+    "w": "grandpa",
+    "s": 1.74,
+    "e": 2.484
+   }
+  ]
+ },
+ "emma|hello! welcome to our school.": {
+  "file": "audio/emma-179.mp3",
+  "voice": "emma",
+  "text": "Hello! Welcome to our school.",
+  "duration": 3.0,
+  "timings": [
+   {
+    "w": "Hello!",
+    "s": 0.05,
+    "e": 1.015
+   },
+   {
+    "w": "Welcome",
+    "s": 1.015,
+    "e": 1.678
+   },
+   {
+    "w": "to",
+    "s": 1.678,
+    "e": 1.937
+   },
+   {
+    "w": "our",
+    "s": 1.937,
+    "e": 2.277
+   },
+   {
+    "w": "school.",
+    "s": 2.277,
+    "e": 2.941
+   }
+  ]
+ },
+ "emma|hi! your school is beautiful.": {
+  "file": "audio/emma-180.mp3",
+  "voice": "emma",
+  "text": "Hi! Your school is beautiful.",
+  "duration": 3.0,
+  "timings": [
+   {
+    "w": "Hi!",
+    "s": 0.05,
+    "e": 0.926
+   },
+   {
+    "w": "Your",
+    "s": 0.926,
+    "e": 1.315
+   },
+   {
+    "w": "school",
+    "s": 1.315,
+    "e": 1.852
+   },
+   {
+    "w": "is",
+    "s": 1.852,
+    "e": 2.091
+   },
+   {
+    "w": "beautiful.",
+    "s": 2.091,
+    "e": 2.926
+   }
+  ]
+ },
+ "emma|wow, it's big!": {
+  "file": "audio/emma-181.mp3",
+  "voice": "emma",
+  "text": "Wow, it's big!",
+  "duration": 1.512,
+  "timings": [
+   {
+    "w": "Wow,",
+    "s": 0.05,
+    "e": 0.514
+   },
+   {
+    "w": "it's",
+    "s": 0.514,
+    "e": 0.977
+   },
+   {
+    "w": "big!",
+    "s": 0.977,
+    "e": 1.441
+   }
+  ]
+ },
+ "emma|hello! i'm li tiantian.": {
+  "file": "audio/emma-182.mp3",
+  "voice": "emma",
+  "text": "Hello! I'm Li Tiantian.",
+  "duration": 2.736,
+  "timings": [
+   {
+    "w": "Hello!",
+    "s": 0.05,
+    "e": 1.015
+   },
+   {
+    "w": "I'm",
+    "s": 1.015,
+    "e": 1.411
+   },
+   {
+    "w": "Li",
+    "s": 1.411,
+    "e": 1.713
+   },
+   {
+    "w": "Tiantian.",
+    "s": 1.713,
+    "e": 2.676
+   }
+  ]
+ },
+ "emma|look, this is our music room.": {
+  "file": "audio/emma-183.mp3",
+  "voice": "emma",
+  "text": "Look, this is our music room.",
+  "duration": 2.328,
+  "timings": [
+   {
+    "w": "Look,",
+    "s": 0.05,
+    "e": 0.493
+   },
+   {
+    "w": "this",
+    "s": 0.493,
+    "e": 0.865
+   },
+   {
+    "w": "is",
+    "s": 0.865,
+    "e": 1.093
+   },
+   {
+    "w": "our",
+    "s": 1.093,
+    "e": 1.393
+   },
+   {
+    "w": "music",
+    "s": 1.393,
+    "e": 1.836
+   },
+   {
+    "w": "room.",
+    "s": 1.836,
+    "e": 2.279
+   }
+  ]
+ },
+ "emma|school day, happy day.": {
+  "file": "audio/emma-184.mp3",
+  "voice": "emma",
+  "text": "School day, happy day.",
+  "duration": 1.968,
+  "timings": [
+   {
+    "w": "School",
+    "s": 0.05,
+    "e": 0.609
+   },
+   {
+    "w": "day,",
+    "s": 0.609,
+    "e": 1.012
+   },
+   {
+    "w": "happy",
+    "s": 1.012,
+    "e": 1.493
+   },
+   {
+    "w": "day.",
+    "s": 1.493,
+    "e": 1.897
+   }
+  ]
+ },
+ "emma|library, read all day.": {
+  "file": "audio/emma-185.mp3",
+  "voice": "emma",
+  "text": "Library, read all day.",
+  "duration": 2.064,
+  "timings": [
+   {
+    "w": "Library,",
+    "s": 0.05,
+    "e": 0.804
+   },
+   {
+    "w": "read",
+    "s": 0.804,
+    "e": 1.23
+   },
+   {
+    "w": "all",
+    "s": 1.23,
+    "e": 1.574
+   },
+   {
+    "w": "day.",
+    "s": 1.574,
+    "e": 2.0
+   }
+  ]
+ },
+ "emma|music room, sing and play.": {
+  "file": "audio/emma-186.mp3",
+  "voice": "emma",
+  "text": "Music room, sing and play.",
+  "duration": 2.328,
+  "timings": [
+   {
+    "w": "Music",
+    "s": 0.05,
+    "e": 0.54
+   },
+   {
+    "w": "room,",
+    "s": 0.54,
+    "e": 1.031
+   },
+   {
+    "w": "sing",
+    "s": 1.031,
+    "e": 1.442
+   },
+   {
+    "w": "and",
+    "s": 1.442,
+    "e": 1.774
+   },
+   {
+    "w": "play.",
+    "s": 1.774,
+    "e": 2.265
+   }
+  ]
+ },
+ "emma|art room, draw today.": {
+  "file": "audio/emma-187.mp3",
+  "voice": "emma",
+  "text": "Art room, draw today.",
+  "duration": 1.872,
+  "timings": [
+   {
+    "w": "Art",
+    "s": 0.05,
+    "e": 0.377
+   },
+   {
+    "w": "room,",
+    "s": 0.377,
+    "e": 0.859
+   },
+   {
+    "w": "draw",
+    "s": 0.859,
+    "e": 1.263
+   },
+   {
+    "w": "today.",
+    "s": 1.263,
+    "e": 1.824
+   }
+  ]
+ },
+ "emma|science room, fun we play.": {
+  "file": "audio/emma-188.mp3",
+  "voice": "emma",
+  "text": "Science room, fun we play.",
+  "duration": 2.304,
+  "timings": [
+   {
+    "w": "Science",
+    "s": 0.05,
+    "e": 0.69
+   },
+   {
+    "w": "room,",
+    "s": 0.69,
+    "e": 1.174
+   },
+   {
+    "w": "fun",
+    "s": 1.174,
+    "e": 1.502
+   },
+   {
+    "w": "we",
+    "s": 1.502,
+    "e": 1.751
+   },
+   {
+    "w": "play.",
+    "s": 1.751,
+    "e": 2.235
+   }
+  ]
+ },
+ "emma|classroom, learn the happy way.": {
+  "file": "audio/emma-189.mp3",
+  "voice": "emma",
+  "text": "Classroom, learn the happy way.",
+  "duration": 2.424,
+  "timings": [
+   {
+    "w": "Classroom,",
+    "s": 0.05,
+    "e": 0.832
+   },
+   {
+    "w": "learn",
+    "s": 0.832,
+    "e": 1.264
+   },
+   {
+    "w": "the",
+    "s": 1.264,
+    "e": 1.557
+   },
+   {
+    "w": "happy",
+    "s": 1.557,
+    "e": 1.99
+   },
+   {
+    "w": "way.",
+    "s": 1.99,
+    "e": 2.353
+   }
+  ]
+ },
+ "emma|i clean the blackboard.": {
+  "file": "audio/emma-190.mp3",
+  "voice": "emma",
+  "text": "I clean the blackboard.",
+  "duration": 1.992,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.216
+   },
+   {
+    "w": "clean",
+    "s": 0.216,
+    "e": 0.686
+   },
+   {
+    "w": "the",
+    "s": 0.686,
+    "e": 1.003
+   },
+   {
+    "w": "blackboard.",
+    "s": 1.003,
+    "e": 1.926
+   }
+  ]
+ },
+ "emma|good job!": {
+  "file": "audio/emma-191.mp3",
+  "voice": "emma",
+  "text": "Good job!",
+  "duration": 1.248,
+  "timings": [
+   {
+    "w": "Good",
+    "s": 0.05,
+    "e": 0.613
+   },
+   {
+    "w": "job!",
+    "s": 0.613,
+    "e": 1.176
+   }
+  ]
+ },
+ "emma|i mop the floor.": {
+  "file": "audio/emma-192.mp3",
+  "voice": "emma",
+  "text": "I mop the floor.",
+  "duration": 1.632,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.238
+   },
+   {
+    "w": "mop",
+    "s": 0.238,
+    "e": 0.598
+   },
+   {
+    "w": "the",
+    "s": 0.598,
+    "e": 0.957
+   },
+   {
+    "w": "floor.",
+    "s": 0.957,
+    "e": 1.574
+   }
+  ]
+ },
+ "emma|mia, please clean the desk.": {
+  "file": "audio/emma-193.mp3",
+  "voice": "emma",
+  "text": "Mia, please clean the desk.",
+  "duration": 2.328,
+  "timings": [
+   {
+    "w": "Mia,",
+    "s": 0.05,
+    "e": 0.447
+   },
+   {
+    "w": "please",
+    "s": 0.447,
+    "e": 0.997
+   },
+   {
+    "w": "clean",
+    "s": 0.997,
+    "e": 1.47
+   },
+   {
+    "w": "the",
+    "s": 1.47,
+    "e": 1.791
+   },
+   {
+    "w": "desk.",
+    "s": 1.791,
+    "e": 2.265
+   }
+  ]
+ },
+ "emma|clean the classroom.": {
+  "file": "audio/emma-194.mp3",
+  "voice": "emma",
+  "text": "Clean the classroom.",
+  "duration": 1.776,
+  "timings": [
+   {
+    "w": "Clean",
+    "s": 0.05,
+    "e": 0.53
+   },
+   {
+    "w": "the",
+    "s": 0.53,
+    "e": 0.854
+   },
+   {
+    "w": "classroom.",
+    "s": 0.854,
+    "e": 1.721
+   }
+  ]
+ },
+ "emma|clean the door and the desk.": {
+  "file": "audio/emma-195.mp3",
+  "voice": "emma",
+  "text": "Clean the door and the desk.",
+  "duration": 2.184,
+  "timings": [
+   {
+    "w": "Clean",
+    "s": 0.05,
+    "e": 0.478
+   },
+   {
+    "w": "the",
+    "s": 0.478,
+    "e": 0.767
+   },
+   {
+    "w": "door",
+    "s": 0.767,
+    "e": 1.126
+   },
+   {
+    "w": "and",
+    "s": 1.126,
+    "e": 1.415
+   },
+   {
+    "w": "the",
+    "s": 1.415,
+    "e": 1.705
+   },
+   {
+    "w": "desk.",
+    "s": 1.705,
+    "e": 2.132
+   }
+  ]
+ },
+ "emma|clean the chair and the blackboard.": {
+  "file": "audio/emma-196.mp3",
+  "voice": "emma",
+  "text": "Clean the chair and the blackboard.",
+  "duration": 2.52,
+  "timings": [
+   {
+    "w": "Clean",
+    "s": 0.05,
+    "e": 0.453
+   },
+   {
+    "w": "the",
+    "s": 0.453,
+    "e": 0.727
+   },
+   {
+    "w": "chair",
+    "s": 0.727,
+    "e": 1.13
+   },
+   {
+    "w": "and",
+    "s": 1.13,
+    "e": 1.403
+   },
+   {
+    "w": "the",
+    "s": 1.403,
+    "e": 1.677
+   },
+   {
+    "w": "blackboard.",
+    "s": 1.677,
+    "e": 2.471
+   }
+  ]
+ },
+ "emma|all is clean. with great care.": {
+  "file": "audio/emma-197.mp3",
+  "voice": "emma",
+  "text": "All is clean. With great care.",
+  "duration": 2.952,
+  "timings": [
+   {
+    "w": "All",
+    "s": 0.05,
+    "e": 0.442
+   },
+   {
+    "w": "is",
+    "s": 0.442,
+    "e": 0.74
+   },
+   {
+    "w": "clean.",
+    "s": 0.74,
+    "e": 1.412
+   },
+   {
+    "w": "With",
+    "s": 1.412,
+    "e": 1.851
+   },
+   {
+    "w": "great",
+    "s": 1.851,
+    "e": 2.374
+   },
+   {
+    "w": "care.",
+    "s": 2.374,
+    "e": 2.897
+   }
+  ]
+ },
+ "emma|it's friday. let's play football!": {
+  "file": "audio/emma-198.mp3",
+  "voice": "emma",
+  "text": "It's Friday. Let's play football!",
+  "duration": 3.336,
+  "timings": [
+   {
+    "w": "It's",
+    "s": 0.05,
+    "e": 0.596
+   },
+   {
+    "w": "Friday.",
+    "s": 0.596,
+    "e": 1.456
+   },
+   {
+    "w": "Let's",
+    "s": 1.456,
+    "e": 1.975
+   },
+   {
+    "w": "play",
+    "s": 1.975,
+    "e": 2.411
+   },
+   {
+    "w": "football!",
+    "s": 2.411,
+    "e": 3.265
+   }
+  ]
+ },
+ "emma|ok! let's play together!": {
+  "file": "audio/emma-199.mp3",
+  "voice": "emma",
+  "text": "OK! Let's play together!",
+  "duration": 2.664,
+  "timings": [
+   {
+    "w": "OK!",
+    "s": 0.05,
+    "e": 0.838
+   },
+   {
+    "w": "Let's",
+    "s": 0.838,
+    "e": 1.345
+   },
+   {
+    "w": "play",
+    "s": 1.345,
+    "e": 1.77
+   },
+   {
+    "w": "together!",
+    "s": 1.77,
+    "e": 2.603
+   }
+  ]
+ },
+ "emma|it's monday.": {
+  "file": "audio/emma-200.mp3",
+  "voice": "emma",
+  "text": "It's Monday.",
+  "duration": 1.512,
+  "timings": [
+   {
+    "w": "It's",
+    "s": 0.05,
+    "e": 0.59
+   },
+   {
+    "w": "Monday.",
+    "s": 0.59,
+    "e": 1.441
+   }
+  ]
+ },
+ "emma|let's jump rope.": {
+  "file": "audio/emma-201.mp3",
+  "voice": "emma",
+  "text": "Let's jump rope.",
+  "duration": 1.704,
+  "timings": [
+   {
+    "w": "Let's",
+    "s": 0.05,
+    "e": 0.607
+   },
+   {
+    "w": "jump",
+    "s": 0.607,
+    "e": 1.075
+   },
+   {
+    "w": "rope.",
+    "s": 1.075,
+    "e": 1.632
+   }
+  ]
+ },
+ "emma|let's go swimming.": {
+  "file": "audio/emma-202.mp3",
+  "voice": "emma",
+  "text": "Let's go swimming.",
+  "duration": 1.8,
+  "timings": [
+   {
+    "w": "Let's",
+    "s": 0.05,
+    "e": 0.583
+   },
+   {
+    "w": "go",
+    "s": 0.583,
+    "e": 0.858
+   },
+   {
+    "w": "swimming.",
+    "s": 0.858,
+    "e": 1.735
+   }
+  ]
+ },
+ "emma|let's play ping-pong.": {
+  "file": "audio/emma-203.mp3",
+  "voice": "emma",
+  "text": "Let's play ping-pong.",
+  "duration": 1.944,
+  "timings": [
+   {
+    "w": "Let's",
+    "s": 0.05,
+    "e": 0.553
+   },
+   {
+    "w": "play",
+    "s": 0.553,
+    "e": 0.974
+   },
+   {
+    "w": "ping-pong.",
+    "s": 0.974,
+    "e": 1.882
+   }
+  ]
+ },
+ "emma|let's go skating.": {
+  "file": "audio/emma-204.mp3",
+  "voice": "emma",
+  "text": "Let's go skating.",
+  "duration": 1.752,
+  "timings": [
+   {
+    "w": "Let's",
+    "s": 0.05,
+    "e": 0.597
+   },
+   {
+    "w": "go",
+    "s": 0.597,
+    "e": 0.879
+   },
+   {
+    "w": "skating.",
+    "s": 0.879,
+    "e": 1.691
+   }
+  ]
+ },
+ "emma|monday, tuesday, wednesday.": {
+  "file": "audio/emma-205.mp3",
+  "voice": "emma",
+  "text": "Monday, Tuesday, Wednesday.",
+  "duration": 2.352,
+  "timings": [
+   {
+    "w": "Monday,",
+    "s": 0.05,
+    "e": 0.693
+   },
+   {
+    "w": "Tuesday,",
+    "s": 0.693,
+    "e": 1.415
+   },
+   {
+    "w": "Wednesday.",
+    "s": 1.415,
+    "e": 2.294
+   }
+  ]
+ },
+ "emma|thursday and friday.": {
+  "file": "audio/emma-206.mp3",
+  "voice": "emma",
+  "text": "Thursday and Friday.",
+  "duration": 1.896,
+  "timings": [
+   {
+    "w": "Thursday",
+    "s": 0.05,
+    "e": 0.812
+   },
+   {
+    "w": "and",
+    "s": 0.812,
+    "e": 1.159
+   },
+   {
+    "w": "Friday.",
+    "s": 1.159,
+    "e": 1.838
+   }
+  ]
+ },
+ "emma|weekdays, weekdays, weekdays!": {
+  "file": "audio/emma-207.mp3",
+  "voice": "emma",
+  "text": "Weekdays, weekdays, weekdays!",
+  "duration": 2.64,
+  "timings": [
+   {
+    "w": "Weekdays,",
+    "s": 0.05,
+    "e": 0.891
+   },
+   {
+    "w": "weekdays,",
+    "s": 0.891,
+    "e": 1.732
+   },
+   {
+    "w": "weekdays!",
+    "s": 1.732,
+    "e": 2.574
+   }
+  ]
+ },
+ "emma|fine days, fine days!": {
+  "file": "audio/emma-208.mp3",
+  "voice": "emma",
+  "text": "Fine days, fine days!",
+  "duration": 2.112,
+  "timings": [
+   {
+    "w": "Fine",
+    "s": 0.05,
+    "e": 0.508
+   },
+   {
+    "w": "days,",
+    "s": 0.508,
+    "e": 1.054
+   },
+   {
+    "w": "fine",
+    "s": 1.054,
+    "e": 1.513
+   },
+   {
+    "w": "days!",
+    "s": 1.513,
+    "e": 2.059
+   }
+  ]
+ },
+ "emma|what subject do you like best?": {
+  "file": "audio/emma-209.mp3",
+  "voice": "emma",
+  "text": "What subject do you like best?",
+  "duration": 2.424,
+  "timings": [
+   {
+    "w": "What",
+    "s": 0.05,
+    "e": 0.424
+   },
+   {
+    "w": "subject",
+    "s": 0.424,
+    "e": 1.014
+   },
+   {
+    "w": "do",
+    "s": 1.014,
+    "e": 1.245
+   },
+   {
+    "w": "you",
+    "s": 1.245,
+    "e": 1.547
+   },
+   {
+    "w": "like",
+    "s": 1.547,
+    "e": 1.921
+   },
+   {
+    "w": "best?",
+    "s": 1.921,
+    "e": 2.368
+   }
+  ]
+ },
+ "emma|i like chinese best.": {
+  "file": "audio/emma-210.mp3",
+  "voice": "emma",
+  "text": "I like Chinese best.",
+  "duration": 1.944,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.235
+   },
+   {
+    "w": "like",
+    "s": 0.235,
+    "e": 0.672
+   },
+   {
+    "w": "Chinese",
+    "s": 0.672,
+    "e": 1.361
+   },
+   {
+    "w": "best.",
+    "s": 1.361,
+    "e": 1.882
+   }
+  ]
+ },
+ "emma|how about you, leo?": {
+  "file": "audio/emma-211.mp3",
+  "voice": "emma",
+  "text": "How about you, Leo?",
+  "duration": 1.8,
+  "timings": [
+   {
+    "w": "How",
+    "s": 0.05,
+    "e": 0.39
+   },
+   {
+    "w": "about",
+    "s": 0.39,
+    "e": 0.893
+   },
+   {
+    "w": "you,",
+    "s": 0.893,
+    "e": 1.314
+   },
+   {
+    "w": "Leo?",
+    "s": 1.314,
+    "e": 1.735
+   }
+  ]
+ },
+ "emma|i like pe best.": {
+  "file": "audio/emma-212.mp3",
+  "voice": "emma",
+  "text": "I like PE best.",
+  "duration": 1.656,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.253
+   },
+   {
+    "w": "like",
+    "s": 0.253,
+    "e": 0.734
+   },
+   {
+    "w": "PE",
+    "s": 0.734,
+    "e": 1.03
+   },
+   {
+    "w": "best.",
+    "s": 1.03,
+    "e": 1.603
+   }
+  ]
+ },
+ "emma|on monday, i have maths.": {
+  "file": "audio/emma-213.mp3",
+  "voice": "emma",
+  "text": "On Monday, I have maths.",
+  "duration": 2.064,
+  "timings": [
+   {
+    "w": "On",
+    "s": 0.05,
+    "e": 0.292
+   },
+   {
+    "w": "Monday,",
+    "s": 0.292,
+    "e": 0.911
+   },
+   {
+    "w": "I",
+    "s": 0.911,
+    "e": 1.078
+   },
+   {
+    "w": "have",
+    "s": 1.078,
+    "e": 1.471
+   },
+   {
+    "w": "maths.",
+    "s": 1.471,
+    "e": 2.015
+   }
+  ]
+ },
+ "emma|i like music best.": {
+  "file": "audio/emma-214.mp3",
+  "voice": "emma",
+  "text": "I like music best.",
+  "duration": 1.944,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.254
+   },
+   {
+    "w": "like",
+    "s": 0.254,
+    "e": 0.735
+   },
+   {
+    "w": "music",
+    "s": 0.735,
+    "e": 1.309
+   },
+   {
+    "w": "best.",
+    "s": 1.309,
+    "e": 1.882
+   }
+  ]
+ },
+ "emma|read, write and say.": {
+  "file": "audio/emma-215.mp3",
+  "voice": "emma",
+  "text": "Read, write and say.",
+  "duration": 1.776,
+  "timings": [
+   {
+    "w": "Read,",
+    "s": 0.05,
+    "e": 0.525
+   },
+   {
+    "w": "write",
+    "s": 0.525,
+    "e": 1.0
+   },
+   {
+    "w": "and",
+    "s": 1.0,
+    "e": 1.322
+   },
+   {
+    "w": "say.",
+    "s": 1.322,
+    "e": 1.721
+   }
+  ]
+ },
+ "emma|sun, earth and ray.": {
+  "file": "audio/emma-216.mp3",
+  "voice": "emma",
+  "text": "Sun, earth and ray.",
+  "duration": 1.728,
+  "timings": [
+   {
+    "w": "Sun,",
+    "s": 0.05,
+    "e": 0.463
+   },
+   {
+    "w": "earth",
+    "s": 0.463,
+    "e": 0.955
+   },
+   {
+    "w": "and",
+    "s": 0.955,
+    "e": 1.289
+   },
+   {
+    "w": "ray.",
+    "s": 1.289,
+    "e": 1.701
+   }
+  ]
+ },
+ "emma|jump, run and play.": {
+  "file": "audio/emma-217.mp3",
+  "voice": "emma",
+  "text": "Jump, run and play.",
+  "duration": 1.776,
+  "timings": [
+   {
+    "w": "Jump,",
+    "s": 0.05,
+    "e": 0.544
+   },
+   {
+    "w": "run",
+    "s": 0.544,
+    "e": 0.878
+   },
+   {
+    "w": "and",
+    "s": 0.878,
+    "e": 1.212
+   },
+   {
+    "w": "play.",
+    "s": 1.212,
+    "e": 1.706
+   }
+  ]
+ },
+ "emma|one, two, three! hey!": {
+  "file": "audio/emma-218.mp3",
+  "voice": "emma",
+  "text": "One, two, three! Hey!",
+  "duration": 2.448,
+  "timings": [
+   {
+    "w": "One,",
+    "s": 0.05,
+    "e": 0.483
+   },
+   {
+    "w": "two,",
+    "s": 0.483,
+    "e": 0.916
+   },
+   {
+    "w": "three!",
+    "s": 0.916,
+    "e": 1.515
+   },
+   {
+    "w": "Hey!",
+    "s": 1.515,
+    "e": 2.397
+   }
+  ]
+ },
+ "emma|what will you do this weekend?": {
+  "file": "audio/emma-219.mp3",
+  "voice": "emma",
+  "text": "What will you do this weekend?",
+  "duration": 2.208,
+  "timings": [
+   {
+    "w": "What",
+    "s": 0.05,
+    "e": 0.389
+   },
+   {
+    "w": "will",
+    "s": 0.389,
+    "e": 0.727
+   },
+   {
+    "w": "you",
+    "s": 0.727,
+    "e": 1.001
+   },
+   {
+    "w": "do",
+    "s": 1.001,
+    "e": 1.209
+   },
+   {
+    "w": "this",
+    "s": 1.209,
+    "e": 1.548
+   },
+   {
+    "w": "weekend?",
+    "s": 1.548,
+    "e": 2.147
+   }
+  ]
+ },
+ "emma|i will visit my grandma and grandpa on saturday.": {
+  "file": "audio/emma-220.mp3",
+  "voice": "emma",
+  "text": "I will visit my grandma and grandpa on Saturday.",
+  "duration": 3.624,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.202
+   },
+   {
+    "w": "will",
+    "s": 0.202,
+    "e": 0.561
+   },
+   {
+    "w": "visit",
+    "s": 0.561,
+    "e": 0.989
+   },
+   {
+    "w": "my",
+    "s": 0.989,
+    "e": 1.21
+   },
+   {
+    "w": "grandma",
+    "s": 1.21,
+    "e": 1.777
+   },
+   {
+    "w": "and",
+    "s": 1.777,
+    "e": 2.067
+   },
+   {
+    "w": "grandpa",
+    "s": 2.067,
+    "e": 2.633
+   },
+   {
+    "w": "on",
+    "s": 2.633,
+    "e": 2.854
+   },
+   {
+    "w": "Saturday.",
+    "s": 2.854,
+    "e": 3.559
+   }
+  ]
+ },
+ "emma|i will make new year cards on sunday.": {
+  "file": "audio/emma-221.mp3",
+  "voice": "emma",
+  "text": "I will make New Year cards on Sunday.",
+  "duration": 2.88,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.203
+   },
+   {
+    "w": "will",
+    "s": 0.203,
+    "e": 0.566
+   },
+   {
+    "w": "make",
+    "s": 0.566,
+    "e": 0.928
+   },
+   {
+    "w": "New",
+    "s": 0.928,
+    "e": 1.22
+   },
+   {
+    "w": "Year",
+    "s": 1.22,
+    "e": 1.583
+   },
+   {
+    "w": "cards",
+    "s": 1.583,
+    "e": 2.015
+   },
+   {
+    "w": "on",
+    "s": 2.015,
+    "e": 2.238
+   },
+   {
+    "w": "Sunday.",
+    "s": 2.238,
+    "e": 2.809
+   }
+  ]
+ },
+ "emma|hello! my name is li jinjin.": {
+  "file": "audio/emma-222.mp3",
+  "voice": "emma",
+  "text": "Hello! My name is Li Jinjin.",
+  "duration": 3.192,
+  "timings": [
+   {
+    "w": "Hello!",
+    "s": 0.05,
+    "e": 1.015
+   },
+   {
+    "w": "My",
+    "s": 1.015,
+    "e": 1.309
+   },
+   {
+    "w": "name",
+    "s": 1.309,
+    "e": 1.788
+   },
+   {
+    "w": "is",
+    "s": 1.788,
+    "e": 2.083
+   },
+   {
+    "w": "Li",
+    "s": 2.083,
+    "e": 2.377
+   },
+   {
+    "w": "Jinjin.",
+    "s": 2.377,
+    "e": 3.132
+   }
+  ]
+ },
+ "emma|this is my weekend plan.": {
+  "file": "audio/emma-223.mp3",
+  "voice": "emma",
+  "text": "This is my weekend plan.",
+  "duration": 2.184,
+  "timings": [
+   {
+    "w": "This",
+    "s": 0.05,
+    "e": 0.464
+   },
+   {
+    "w": "is",
+    "s": 0.464,
+    "e": 0.718
+   },
+   {
+    "w": "my",
+    "s": 0.718,
+    "e": 0.972
+   },
+   {
+    "w": "weekend",
+    "s": 0.972,
+    "e": 1.625
+   },
+   {
+    "w": "plan.",
+    "s": 1.625,
+    "e": 2.118
+   }
+  ]
+ },
+ "emma|i will clean my room on saturday.": {
+  "file": "audio/emma-224.mp3",
+  "voice": "emma",
+  "text": "I will clean my room on Saturday.",
+  "duration": 2.616,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.206
+   },
+   {
+    "w": "will",
+    "s": 0.206,
+    "e": 0.574
+   },
+   {
+    "w": "clean",
+    "s": 0.574,
+    "e": 1.014
+   },
+   {
+    "w": "my",
+    "s": 1.014,
+    "e": 1.241
+   },
+   {
+    "w": "room",
+    "s": 1.241,
+    "e": 1.609
+   },
+   {
+    "w": "on",
+    "s": 1.609,
+    "e": 1.836
+   },
+   {
+    "w": "Saturday.",
+    "s": 1.836,
+    "e": 2.559
+   }
+  ]
+ },
+ "emma|i will go to the museum on sunday.": {
+  "file": "audio/emma-225.mp3",
+  "voice": "emma",
+  "text": "I will go to the museum on Sunday.",
+  "duration": 2.88,
+  "timings": [
+   {
+    "w": "I",
+    "s": 0.05,
+    "e": 0.216
+   },
+   {
+    "w": "will",
+    "s": 0.216,
+    "e": 0.608
+   },
+   {
+    "w": "go",
+    "s": 0.608,
+    "e": 0.849
+   },
+   {
+    "w": "to",
+    "s": 0.849,
+    "e": 1.09
+   },
+   {
+    "w": "the",
+    "s": 1.09,
+    "e": 1.407
+   },
+   {
+    "w": "museum",
+    "s": 1.407,
+    "e": 1.95
+   },
+   {
+    "w": "on",
+    "s": 1.95,
+    "e": 2.191
+   },
+   {
+    "w": "Sunday.",
+    "s": 2.191,
+    "e": 2.809
+   }
+  ]
+ },
+ "emma|weekends! weekends! what will you do?": {
+  "file": "audio/emma-226.mp3",
+  "voice": "emma",
+  "text": "Weekends! Weekends! What will you do?",
+  "duration": 4.056,
+  "timings": [
+   {
+    "w": "Weekends!",
+    "s": 0.05,
+    "e": 1.235
+   },
+   {
+    "w": "Weekends!",
+    "s": 1.235,
+    "e": 2.471
+   },
+   {
+    "w": "What",
+    "s": 2.471,
+    "e": 2.89
+   },
+   {
+    "w": "will",
+    "s": 2.89,
+    "e": 3.309
+   },
+   {
+    "w": "you",
+    "s": 3.309,
+    "e": 3.647
+   },
+   {
+    "w": "do?",
+    "s": 3.647,
+    "e": 3.985
+   }
+  ]
+ },
+ "emma|clean my room! cool! cool! cool!": {
+  "file": "audio/emma-227.mp3",
+  "voice": "emma",
+  "text": "Clean my room! Cool! Cool! Cool!",
+  "duration": 4.344,
+  "timings": [
+   {
+    "w": "Clean",
+    "s": 0.05,
+    "e": 0.615
+   },
+   {
+    "w": "my",
+    "s": 0.615,
+    "e": 0.906
+   },
+   {
+    "w": "room!",
+    "s": 0.906,
+    "e": 1.471
+   },
+   {
+    "w": "Cool!",
+    "s": 1.471,
+    "e": 2.412
+   },
+   {
+    "w": "Cool!",
+    "s": 2.412,
+    "e": 3.353
+   },
+   {
+    "w": "Cool!",
+    "s": 3.353,
+    "e": 4.294
+   }
+  ]
+ },
+ "emma|sing and dance! good! good! good!": {
+  "file": "audio/emma-228.mp3",
+  "voice": "emma",
+  "text": "Sing and dance! Good! Good! Good!",
+  "duration": 4.224,
+  "timings": [
+   {
+    "w": "Sing",
+    "s": 0.05,
+    "e": 0.536
+   },
+   {
+    "w": "and",
+    "s": 0.536,
+    "e": 0.929
+   },
+   {
+    "w": "dance!",
+    "s": 0.929,
+    "e": 1.603
+   },
+   {
+    "w": "Good!",
+    "s": 1.603,
+    "e": 2.456
+   },
+   {
+    "w": "Good!",
+    "s": 2.456,
+    "e": 3.309
+   },
+   {
+    "w": "Good!",
+    "s": 3.309,
+    "e": 4.162
+   }
+  ]
+ },
+ "emma|go to the museum! go! go! go!": {
+  "file": "audio/emma-229.mp3",
+  "voice": "emma",
+  "text": "Go to the museum! Go! Go! Go!",
+  "duration": 4.344,
+  "timings": [
+   {
+    "w": "Go",
+    "s": 0.05,
+    "e": 0.342
+   },
+   {
+    "w": "to",
+    "s": 0.342,
+    "e": 0.634
+   },
+   {
+    "w": "the",
+    "s": 0.634,
+    "e": 1.017
+   },
+   {
+    "w": "museum!",
+    "s": 1.017,
+    "e": 1.765
+   },
+   {
+    "w": "Go!",
+    "s": 1.765,
+    "e": 2.603
+   },
+   {
+    "w": "Go!",
+    "s": 2.603,
+    "e": 3.441
+   },
+   {
+    "w": "Go!",
+    "s": 3.441,
+    "e": 4.279
+   }
+  ]
+ },
+ "emma|make new year cards! fun! fun! fun!": {
+  "file": "audio/emma-230.mp3",
+  "voice": "emma",
+  "text": "Make New Year cards! Fun! Fun! Fun!",
+  "duration": 4.776,
+  "timings": [
+   {
+    "w": "Make",
+    "s": 0.05,
+    "e": 0.501
+   },
+   {
+    "w": "New",
+    "s": 0.501,
+    "e": 0.865
+   },
+   {
+    "w": "Year",
+    "s": 0.865,
+    "e": 1.317
+   },
+   {
+    "w": "cards!",
+    "s": 1.317,
+    "e": 1.941
+   },
+   {
+    "w": "Fun!",
+    "s": 1.941,
+    "e": 2.868
+   },
+   {
+    "w": "Fun!",
+    "s": 2.868,
+    "e": 3.794
+   },
+   {
+    "w": "Fun!",
+    "s": 3.794,
+    "e": 4.721
+   }
+  ]
+ },
+ "emma|visit grandma, grandpa too! hooray!": {
+  "file": "audio/emma-231.mp3",
+  "voice": "emma",
+  "text": "Visit grandma, grandpa too! Hooray!",
+  "duration": 3.48,
+  "timings": [
+   {
+    "w": "Visit",
+    "s": 0.05,
+    "e": 0.577
+   },
+   {
+    "w": "grandma,",
+    "s": 0.577,
+    "e": 1.36
+   },
+   {
+    "w": "grandpa",
+    "s": 1.36,
+    "e": 2.058
+   },
+   {
+    "w": "too!",
+    "s": 2.058,
+    "e": 2.5
+   },
+   {
+    "w": "Hooray!",
+    "s": 2.5,
+    "e": 3.426
+   }
+  ]
+ },
+ "emma|bye! tiantian.": {
+  "file": "audio/emma-232.mp3",
+  "voice": "emma",
+  "text": "Bye! Tiantian.",
+  "duration": 2.16,
+  "timings": [
+   {
+    "w": "Bye!",
+    "s": 0.05,
+    "e": 0.868
+   },
+   {
+    "w": "Tiantian.",
+    "s": 0.868,
+    "e": 2.088
+   }
+  ]
+ },
+ "emma|be good, lucky! bye!": {
+  "file": "audio/emma-233.mp3",
+  "voice": "emma",
+  "text": "Be good, Lucky! Bye!",
+  "duration": 2.4,
+  "timings": [
+   {
+    "w": "Be",
+    "s": 0.05,
+    "e": 0.324
+   },
+   {
+    "w": "good,",
+    "s": 0.324,
+    "e": 0.854
+   },
+   {
+    "w": "Lucky!",
+    "s": 0.854,
+    "e": 1.471
+   },
+   {
+    "w": "Bye!",
+    "s": 1.471,
+    "e": 2.338
+   }
+  ]
+ },
+ "emma|we read books together.": {
+  "file": "audio/emma-234.mp3",
+  "voice": "emma",
+  "text": "We read books together.",
+  "duration": 2.04,
+  "timings": [
+   {
+    "w": "We",
+    "s": 0.05,
+    "e": 0.298
+   },
+   {
+    "w": "read",
+    "s": 0.298,
+    "e": 0.701
+   },
+   {
+    "w": "books",
+    "s": 0.701,
+    "e": 1.181
+   },
+   {
+    "w": "together.",
+    "s": 1.181,
+    "e": 1.971
+   }
+  ]
+ },
+ "emma|we play with building blocks together.": {
+  "file": "audio/emma-235.mp3",
+  "voice": "emma",
+  "text": "We play with building blocks together.",
+  "duration": 2.808,
+  "timings": [
+   {
+    "w": "We",
+    "s": 0.05,
+    "e": 0.265
+   },
+   {
+    "w": "play",
+    "s": 0.265,
+    "e": 0.614
+   },
+   {
+    "w": "with",
+    "s": 0.614,
+    "e": 0.963
+   },
+   {
+    "w": "building",
+    "s": 0.963,
+    "e": 1.581
+   },
+   {
+    "w": "blocks",
+    "s": 1.581,
+    "e": 2.065
+   },
+   {
+    "w": "together.",
+    "s": 2.065,
+    "e": 2.75
+   }
+  ]
+ },
+ "emma|we draw pictures together.": {
+  "file": "audio/emma-236.mp3",
+  "voice": "emma",
+  "text": "We draw pictures together.",
+  "duration": 2.256,
+  "timings": [
+   {
+    "w": "We",
+    "s": 0.05,
+    "e": 0.298
+   },
+   {
+    "w": "draw",
+    "s": 0.298,
+    "e": 0.701
+   },
+   {
+    "w": "pictures",
+    "s": 0.701,
+    "e": 1.415
+   },
+   {
+    "w": "together.",
+    "s": 1.415,
+    "e": 2.206
+   }
+  ]
+ },
+ "emma|they go swimming. i play with toys.": {
+  "file": "audio/emma-237.mp3",
+  "voice": "emma",
+  "text": "They go swimming. I play with toys.",
+  "duration": 3.264,
+  "timings": [
+   {
+    "w": "They",
+    "s": 0.05,
+    "e": 0.455
+   },
+   {
+    "w": "go",
+    "s": 0.455,
+    "e": 0.705
+   },
+   {
+    "w": "swimming.",
+    "s": 0.705,
+    "e": 1.5
+   },
+   {
+    "w": "I",
+    "s": 1.5,
+    "e": 1.7
+   },
+   {
+    "w": "play",
+    "s": 1.7,
+    "e": 2.171
+   },
+   {
+    "w": "with",
+    "s": 2.171,
+    "e": 2.643
+   },
+   {
+    "w": "toys.",
+    "s": 2.643,
+    "e": 3.206
+   }
+  ]
+ },
+ "emma|we make new year cards together.": {
+  "file": "audio/emma-238.mp3",
+  "voice": "emma",
+  "text": "We make New Year cards together.",
+  "duration": 2.52,
+  "timings": [
+   {
+    "w": "We",
+    "s": 0.05,
+    "e": 0.275
+   },
+   {
+    "w": "make",
+    "s": 0.275,
+    "e": 0.641
+   },
+   {
+    "w": "New",
+    "s": 0.641,
+    "e": 0.936
+   },
+   {
+    "w": "Year",
+    "s": 0.936,
+    "e": 1.302
+   },
+   {
+    "w": "cards",
+    "s": 1.302,
+    "e": 1.738
+   },
+   {
+    "w": "together.",
+    "s": 1.738,
+    "e": 2.456
+   }
+  ]
+ },
+ "emma|we play football together.": {
+  "file": "audio/emma-239.mp3",
+  "voice": "emma",
+  "text": "We play football together.",
+  "duration": 2.256,
+  "timings": [
+   {
+    "w": "We",
+    "s": 0.05,
+    "e": 0.296
+   },
+   {
+    "w": "play",
+    "s": 0.296,
+    "e": 0.697
+   },
+   {
+    "w": "football",
+    "s": 0.697,
+    "e": 1.406
+   },
+   {
+    "w": "together.",
+    "s": 1.406,
+    "e": 2.191
+   }
+  ]
+ },
+ "emma|welcome to yangliuqing ancient town.": {
+  "file": "audio/emma-240.mp3",
+  "voice": "emma",
+  "text": "Welcome to Yangliuqing Ancient Town.",
+  "duration": 3.264,
+  "timings": [
+   {
+    "w": "Welcome",
+    "s": 0.05,
+    "e": 0.731
+   },
+   {
+    "w": "to",
+    "s": 0.731,
+    "e": 0.997
+   },
+   {
+    "w": "Yangliuqing",
+    "s": 0.997,
+    "e": 2.01
+   },
+   {
+    "w": "Ancient",
+    "s": 2.01,
+    "e": 2.691
+   },
+   {
+    "w": "Town.",
+    "s": 2.691,
+    "e": 3.206
+   }
+  ]
+ },
+ "emma|they're famous yangliuqing woodblock new year prints.": {
+  "file": "audio/emma-241.mp3",
+  "voice": "emma",
+  "text": "They're famous Yangliuqing Woodblock New Year Prints.",
+  "duration": 3.792,
+  "timings": [
+   {
+    "w": "They're",
+    "s": 0.05,
+    "e": 0.593
+   },
+   {
+    "w": "famous",
+    "s": 0.593,
+    "e": 1.07
+   },
+   {
+    "w": "Yangliuqing",
+    "s": 1.07,
+    "e": 1.879
+   },
+   {
+    "w": "Woodblock",
+    "s": 1.879,
+    "e": 2.554
+   },
+   {
+    "w": "New",
+    "s": 2.554,
+    "e": 2.833
+   },
+   {
+    "w": "Year",
+    "s": 2.833,
+    "e": 3.177
+   },
+   {
+    "w": "Prints.",
+    "s": 3.177,
+    "e": 3.721
+   }
+  ]
+ },
+ "emma|the prints are so beautiful!": {
+  "file": "audio/emma-242.mp3",
+  "voice": "emma",
+  "text": "The prints are so beautiful!",
+  "duration": 2.304,
+  "timings": [
+   {
+    "w": "The",
+    "s": 0.05,
+    "e": 0.356
+   },
+   {
+    "w": "prints",
+    "s": 0.356,
+    "e": 0.88
+   },
+   {
+    "w": "are",
+    "s": 0.88,
+    "e": 1.186
+   },
+   {
+    "w": "so",
+    "s": 1.186,
+    "e": 1.419
+   },
+   {
+    "w": "beautiful!",
+    "s": 1.419,
+    "e": 2.235
+   }
+  ]
+ },
+ "emma|this is clay figurine zhang.": {
+  "file": "audio/emma-243.mp3",
+  "voice": "emma",
+  "text": "This is Clay Figurine Zhang.",
+  "duration": 2.496,
+  "timings": [
+   {
+    "w": "This",
+    "s": 0.05,
+    "e": 0.462
+   },
+   {
+    "w": "is",
+    "s": 0.462,
+    "e": 0.715
+   },
+   {
+    "w": "Clay",
+    "s": 0.715,
+    "e": 1.127
+   },
+   {
+    "w": "Figurine",
+    "s": 1.127,
+    "e": 1.856
+   },
+   {
+    "w": "Zhang.",
+    "s": 1.856,
+    "e": 2.426
+   }
+  ]
+ },
+ "emma|look at the kite. it's kite wei.": {
+  "file": "audio/emma-244.mp3",
+  "voice": "emma",
+  "text": "Look at the kite. It's Kite Wei.",
+  "duration": 3.096,
+  "timings": [
+   {
+    "w": "Look",
+    "s": 0.05,
+    "e": 0.48
+   },
+   {
+    "w": "at",
+    "s": 0.48,
+    "e": 0.744
+   },
+   {
+    "w": "the",
+    "s": 0.744,
+    "e": 1.091
+   },
+   {
+    "w": "kite.",
+    "s": 1.091,
+    "e": 1.603
+   },
+   {
+    "w": "It's",
+    "s": 1.603,
+    "e": 2.083
+   },
+   {
+    "w": "Kite",
+    "s": 2.083,
+    "e": 2.564
+   },
+   {
+    "w": "Wei.",
+    "s": 2.564,
+    "e": 3.044
+   }
+  ]
+ },
+ "emma|xiangsheng is fun.": {
+  "file": "audio/emma-245.mp3",
+  "voice": "emma",
+  "text": "Xiangsheng is fun.",
+  "duration": 1.848,
+  "timings": [
+   {
+    "w": "Xiangsheng",
+    "s": 0.05,
+    "e": 1.053
+   },
+   {
+    "w": "is",
+    "s": 1.053,
+    "e": 1.339
+   },
+   {
+    "w": "fun.",
+    "s": 1.339,
+    "e": 1.804
+   }
+  ]
  }
 }

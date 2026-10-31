@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>英语记忆乐园 · Unit 1–3</title>
+<title>英语记忆乐园 · 快乐英语第 3 册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -323,6 +323,7 @@
   }
   .book-section h3 .dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);flex:none}
   .book-section h3 small{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.06em}
+  .book-section h3 .unit-tag{font-family:'Nunito',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink-soft);border:2px solid rgba(31,42,40,.18);border-radius:999px;padding:1px 8px;font-style:normal}
   .word-list{display:flex;flex-wrap:wrap;gap:9px}
   .word-chip{
     display:flex;align-items:center;gap:9px;
@@ -445,7 +446,7 @@
     <span class="brand-mark">ABC</span>
     <span class="brand-text">
       <h1>英语记忆乐园</h1>
-      <p>UNIT 1 – 3 · 二年级</p>
+      <p>快乐英语第 3 册 · Unit 1 – 5</p>
     </span>
   </button>
   <div class="top-spacer"></div>
@@ -469,11 +470,13 @@
         <div class="hero-copy">
           <div class="eyebrow">边玩边记 · 每天十分钟</div>
           <h2>把单词<br>变成<span class="hl">好朋友</span></h2>
-          <p>玩具、形状、校园场所，还有颜色和食物。翻开卡片、听一听、选一选，把 Unit 1–3 的单词一个一个记牢。</p>
+          <p>学校、教室、星期、学科、周末，整本书五个单元都在这儿。翻开卡片、听一听、选一选，把单词和句子一个一个记牢。</p>
           <div class="unit-pills">
-            <span class="unit-pill"><span class="dot" style="background:#E4572E"></span><b>Unit 1</b> 玩具 · 颜色</span>
-            <span class="unit-pill"><span class="dot" style="background:#2A9D8F"></span><b>Unit 2</b> 形状</span>
-            <span class="unit-pill"><span class="dot" style="background:#3E6FD1"></span><b>Unit 3</b> 校园</span>
+            <span class="unit-pill"><span class="dot" style="background:#3E6FD1"></span><b>Unit 1</b> 我们的学校</span>
+            <span class="unit-pill"><span class="dot" style="background:#B5651D"></span><b>Unit 2</b> 我们的教室</span>
+            <span class="unit-pill"><span class="dot" style="background:#7C6BC4"></span><b>Unit 3</b> 我们的星期</span>
+            <span class="unit-pill"><span class="dot" style="background:#2E8B7A"></span><b>Unit 4</b> 我们的学科</span>
+            <span class="unit-pill"><span class="dot" style="background:#D9557A"></span><b>Unit 5</b> 我们的周末</span>
           </div>
         </div>
         <div class="hero-art" aria-hidden="true">
@@ -607,10 +610,7 @@
 
       <div class="home-foot">
         <span>小建议：先玩翻翻卡热身，再挑战听音选词。</span>
-        <span style="display:flex;gap:14px;align-items:center">
-          <a class="link-btn" href="声音试听.html">声音试听</a>
-          <button class="link-btn" id="reset-progress">清空星星记录</button>
-        </span>
+        <button class="link-btn" id="reset-progress">清空星星记录</button>
       </div>
     </div>
   </section>
@@ -650,13 +650,17 @@
    数据
    ========================================================= */
 const CATS = {
+  school:      {name:'校园场所',   color:'#3E6FD1', unit:'Unit 1'},
+  classroom:   {name:'教室物品',   color:'#B5651D', unit:'Unit 2'},
+  weekdays:    {name:'星期',       color:'#7C6BC4', unit:'Unit 3'},
+  sports:      {name:'课后活动',   color:'#3FA34D', unit:'Unit 3'},
+  subjects:    {name:'学科',       color:'#2E8B7A', unit:'Unit 4'},
+  weekend:     {name:'周末活动',   color:'#D9557A', unit:'Unit 5'},
   toys:        {name:'玩具',       color:'#E4572E'},
   shapes:      {name:'形状',       color:'#2A9D8F'},
-  school:      {name:'校园场所',   color:'#3E6FD1'},
   colours:     {name:'颜色',       color:'#D98A2B'},
   food:        {name:'食物与饮品', color:'#C46A3A'},
   body:        {name:'身体部位',   color:'#D96C8A'},
-  sports:      {name:'运动',       color:'#3FA34D'},
   schoolthings:{name:'学习用品',   color:'#6B7FD7'}
 };
 
@@ -680,12 +684,38 @@ const WORDS = [
   {en:'heart',     zh:'心形',   cat:'shapes', shape:'heart',     color:'#E0698E'},
   {en:'circle',    zh:'圆形',   cat:'shapes', shape:'circle',    color:'#8E6BBF'},
 
-  {en:'school',    zh:'学校',     cat:'school', pic:'🏫'},
-  {en:'classroom', zh:'教室',     cat:'school', pic:'🧑‍🏫'},
-  {en:'music room',zh:'音乐教室', cat:'school', pic:'🎵'},
-  {en:'art room',  zh:'美术教室', cat:'school', pic:'🎨'},
-  {en:'gym',       zh:'体育馆',   cat:'school', pic:'🏀'},
-  {en:'library',   zh:'图书馆',   cat:'school', pic:'📚'},
+  {en:'school',       zh:'学校',     cat:'school', pic:'🏫'},
+  {en:'classroom',    zh:'教室',     cat:'school', pic:'🧑‍🏫'},
+  {en:'music room',   zh:'音乐教室', cat:'school', pic:'🎵'},
+  {en:'art room',     zh:'美术教室', cat:'school', pic:'🎨'},
+  {en:'science room', zh:'科学教室', cat:'school', pic:'🔬'},
+  {en:'library',      zh:'图书馆',   cat:'school', pic:'📚'},
+
+  {en:'blackboard', zh:'黑板', cat:'classroom', pic:'🟩'},
+  {en:'chair',      zh:'椅子', cat:'classroom', pic:'🪑'},
+  {en:'desk',       zh:'书桌', cat:'classroom', pic:'🗄️'},
+  {en:'door',       zh:'门',   cat:'classroom', pic:'🚪'},
+  {en:'floor',      zh:'地板', cat:'classroom', pic:'🟫'},
+
+  {en:'Monday',    zh:'星期一', cat:'weekdays', pic:'📅'},
+  {en:'Tuesday',   zh:'星期二', cat:'weekdays', pic:'📅'},
+  {en:'Wednesday', zh:'星期三', cat:'weekdays', pic:'📅'},
+  {en:'Thursday',  zh:'星期四', cat:'weekdays', pic:'📅'},
+  {en:'Friday',    zh:'星期五', cat:'weekdays', pic:'📅'},
+
+  {en:'Chinese', zh:'语文', cat:'subjects', pic:'📖'},
+  {en:'English', zh:'英语', cat:'subjects', pic:'🔤'},
+  {en:'maths',   zh:'数学', cat:'subjects', pic:'➗'},
+  {en:'PE',      zh:'体育', cat:'subjects', pic:'🏀'},
+  {en:'science', zh:'科学', cat:'subjects', pic:'🔬'},
+  {en:'music',   zh:'音乐', cat:'subjects', pic:'🎼'},
+  {en:'art',     zh:'美术', cat:'subjects', pic:'🎨'},
+
+  {en:'clean my room',            zh:'打扫我的房间',   cat:'weekend', pic:'🧹'},
+  {en:'go to the museum',         zh:'去博物馆',       cat:'weekend', pic:'🏛️'},
+  {en:'make New Year cards',      zh:'做新年贺卡',     cat:'weekend', pic:'💌'},
+  {en:'sing and dance',           zh:'唱歌跳舞',       cat:'weekend', pic:'💃'},
+  {en:'visit grandma and grandpa',zh:'看望爷爷奶奶',   cat:'weekend', pic:'👵'},
 
   {en:'orange', zh:'橙色', cat:'colours', swatch:'#F08A24'},
   {en:'pink',   zh:'粉色', cat:'colours', swatch:'#F49AC1'},
@@ -715,11 +745,11 @@ const WORDS = [
   {en:'nose', zh:'鼻子', cat:'body', pic:'👃'},
   {en:'hand', zh:'手',   cat:'body', pic:'✋'},
 
-  {en:'play football',  zh:'踢足球',   cat:'sports', pic:'⚽'},
+  {en:'jump rope',      zh:'跳绳',     cat:'sports', pic:'🤸'},
+  {en:'go swimming',    zh:'去游泳',   cat:'sports', pic:'🏊'},
   {en:'play ping-pong', zh:'打乒乓球', cat:'sports', pic:'🏓'},
-  {en:'ski',            zh:'滑雪',     cat:'sports', pic:'⛷️'},
-  {en:'skate',          zh:'滑冰',     cat:'sports', pic:'⛸️'},
-  {en:'swim',           zh:'游泳',     cat:'sports', pic:'🏊'},
+  {en:'go skating',     zh:'去滑冰',   cat:'sports', pic:'⛸️'},
+  {en:'play football',  zh:'踢足球',   cat:'sports', pic:'⚽'},
 
   {en:'ruler',  zh:'尺子',   cat:'schoolthings', pic:'📏'},
   {en:'marker', zh:'马克笔', cat:'schoolthings', pic:'🖍️'},
@@ -727,29 +757,87 @@ const WORDS = [
 ];
 
 const SENTENCES = [
-  {unit:'Unit 1', items:[
-    {en:'I have a toy truck.',        zh:'我有一辆玩具卡车。'},
-    {en:'I like toy trucks.',         zh:'我喜欢玩具卡车。'},
-    {en:'I want a pink doll.',        zh:'我想要一个粉色洋娃娃。'},
-    {en:'Look at my robot.',          zh:'看我的机器人。'},
-    {en:'Do you have a toy jeep?',    zh:'你有一辆玩具吉普车吗？'},
-    {en:'What colour is it?',         zh:'它是什么颜色？'},
-    {en:'How many balls?',            zh:'有多少个球？'},
-    {en:'What about some milk?',      zh:'来点牛奶怎么样？'},
-    {en:'Touch your nose, please.',   zh:'请摸摸你的鼻子。'}
+  {unit:'Unit 1 · Our school', items:[
+    {en:'Hello! Welcome to our school.',   zh:'你好！欢迎来到我们的学校。'},
+    {en:'Hi! Your school is beautiful.',   zh:'嗨！你的学校真漂亮。'},
+    {en:'This is our library.',            zh:'这是我们的图书馆。'},
+    {en:'Wow, it’s big!',                  zh:'哇，它好大！'},
+    {en:'Hello! I’m Li Tiantian.',         zh:'你好！我是李天甜。'},
+    {en:'Look, this is our music room.',   zh:'看，这是我们的音乐教室。'},
+    {en:'School day, happy day.',          zh:'上学日，快乐日。'},
+    {en:'Library, read all day.',          zh:'图书馆，读一整天。'},
+    {en:'Music room, sing and play.',      zh:'音乐教室，唱歌又弹奏。'},
+    {en:'Art room, draw today.',           zh:'美术教室，今天来画画。'},
+    {en:'Science room, fun we play.',      zh:'科学教室，玩得真开心。'},
+    {en:'Classroom, learn the happy way.', zh:'教室，快乐地学习。'}
   ]},
-  {unit:'Unit 2', items:[
-    {en:'It’s a diamond.',            zh:'这是一个菱形。'},
-    {en:'There are two squares.',     zh:'有两个正方形。'},
-    {en:'I can draw a heart.',        zh:'我会画心形。'},
-    {en:'What shape is it?',          zh:'它是什么形状？'},
-    {en:'How many triangles?',        zh:'有多少个三角形？'}
+  {unit:'Unit 2 · Our classroom', items:[
+    {en:'I clean the blackboard.',       zh:'我擦黑板。'},
+    {en:'Good job!',                     zh:'干得好！'},
+    {en:'I mop the floor.',              zh:'我拖地板。'},
+    {en:'Mia, please clean the desk.',   zh:'米娅，请擦书桌。'},
+    {en:'Clean the classroom.',          zh:'打扫教室。'},
+    {en:'Clean the door and the desk.',  zh:'擦门和书桌。'},
+    {en:'Clean the chair and the blackboard.', zh:'擦椅子和黑板。'},
+    {en:'All is clean. With great care.', zh:'都干净了，用心的成果。'}
   ]},
-  {unit:'Unit 3', items:[
-    {en:'This is our music room.',    zh:'这是我们的音乐教室。'},
-    {en:'Welcome to our classroom.',  zh:'欢迎来到我们的教室。'},
-    {en:'I like my school.',          zh:'我喜欢我的学校。'},
-    {en:'We love our library.',       zh:'我们喜爱我们的图书馆。'}
+  {unit:'Unit 3 · Our weekdays', items:[
+    {en:'It’s Friday. Let’s play football!', zh:'今天是星期五。我们踢足球吧！'},
+    {en:'OK! Let’s play together!',          zh:'好呀！我们一起玩吧！'},
+    {en:'It’s Monday.',                      zh:'今天是星期一。'},
+    {en:'Let’s jump rope.',                  zh:'我们跳绳吧。'},
+    {en:'Let’s go swimming.',                zh:'我们去游泳吧。'},
+    {en:'Let’s play ping-pong.',             zh:'我们打乒乓球吧。'},
+    {en:'Let’s go skating.',                 zh:'我们去滑冰吧。'},
+    {en:'Monday, Tuesday, Wednesday.',       zh:'星期一，星期二，星期三。'},
+    {en:'Thursday and Friday.',              zh:'星期四和星期五。'},
+    {en:'Weekdays, weekdays, weekdays!',     zh:'上学日，上学日，上学日！'},
+    {en:'Fine days, fine days!',             zh:'好天气，好天气！'}
+  ]},
+  {unit:'Unit 4 · Our subjects', items:[
+    {en:'What subject do you like best?', zh:'你最喜欢哪个学科？'},
+    {en:'I like Chinese best.',           zh:'我最喜欢语文。'},
+    {en:'How about you, Leo?',            zh:'你呢，利奥？'},
+    {en:'I like PE best.',                zh:'我最喜欢体育。'},
+    {en:'On Monday, I have maths.',       zh:'星期一我有数学课。'},
+    {en:'I like music best.',             zh:'我最喜欢音乐。'},
+    {en:'Read, write and say.',           zh:'读一读，写一写，说一说。'},
+    {en:'Sun, earth and ray.',            zh:'太阳、地球和光线。'},
+    {en:'Jump, run and play.',            zh:'跳一跳，跑一跑，玩一玩。'},
+    {en:'One, two, three! Hey!',          zh:'一、二、三！嘿！'}
+  ]},
+  {unit:'Unit 5 · Our weekends', items:[
+    {en:'What will you do this weekend?',                    zh:'这个周末你打算做什么？'},
+    {en:'I will visit my grandma and grandpa on Saturday.',   zh:'星期六我要去看望爷爷奶奶。'},
+    {en:'I will make New Year cards on Sunday.',              zh:'星期天我要做新年贺卡。'},
+    {en:'Hello! My name is Li Jinjin.',                      zh:'你好！我叫李津津。'},
+    {en:'This is my weekend plan.',                          zh:'这是我的周末计划。'},
+    {en:'I will clean my room on Saturday.',                 zh:'星期六我要打扫我的房间。'},
+    {en:'I will go to the museum on Sunday.',                zh:'星期天我要去博物馆。'},
+    {en:'Weekends! Weekends! What will you do?',             zh:'周末！周末！你要做什么？'},
+    {en:'Clean my room! Cool! Cool! Cool!',                  zh:'打扫我的房间！酷！酷！酷！'},
+    {en:'Sing and dance! Good! Good! Good!',                 zh:'唱歌跳舞！好！好！好！'},
+    {en:'Go to the museum! Go! Go! Go!',                     zh:'去博物馆！走！走！走！'},
+    {en:'Make New Year cards! Fun! Fun! Fun!',               zh:'做新年贺卡！好玩！好玩！好玩！'},
+    {en:'Visit grandma, grandpa too! Hooray!',               zh:'还要看望爷爷奶奶！好耶！'}
+  ]},
+  {unit:'Fun story · What is a pet dog for?', items:[
+    {en:'Bye! Tiantian.',                       zh:'再见！甜甜。'},
+    {en:'Be good, Lucky! Bye!',                 zh:'乖乖的，乐奇！再见！'},
+    {en:'We read books together.',              zh:'我们一起读书。'},
+    {en:'We play with building blocks together.', zh:'我们一起玩积木。'},
+    {en:'We draw pictures together.',           zh:'我们一起画画。'},
+    {en:'They go swimming. I play with toys.',  zh:'他们去游泳，我玩玩具。'},
+    {en:'We make New Year cards together.',     zh:'我们一起做新年贺卡。'},
+    {en:'We play football together.',           zh:'我们一起踢足球。'}
+  ]},
+  {unit:'Amazing Tianjin · Folk culture of Tianjin', items:[
+    {en:'Welcome to Yangliuqing Ancient Town.',                     zh:'欢迎来到杨柳青古镇。'},
+    {en:'They’re famous Yangliuqing Woodblock New Year Prints.',    zh:'它们是著名的杨柳青木版年画。'},
+    {en:'The prints are so beautiful!',                             zh:'这些画真漂亮！'},
+    {en:'This is Clay Figurine Zhang.',                             zh:'这是泥人张。'},
+    {en:'Look at the kite. It’s Kite Wei.',                         zh:'看这只风筝，是风筝魏。'},
+    {en:'Xiangsheng is fun.',                                       zh:'相声很有趣。'}
   ]}
 ];
 
@@ -1421,7 +1509,7 @@ function renderBook() {
       const list = WORDS.filter(w => w.cat === c);
       return `
         <div class="book-section">
-          <h3><span class="dot" style="background:${CATS[c].color}"></span>${CATS[c].name}<small>${list.length} 个单词</small></h3>
+          <h3><span class="dot" style="background:${CATS[c].color}"></span>${CATS[c].name}${CATS[c].unit ? `<em class="unit-tag">${CATS[c].unit}</em>` : ''}<small>${list.length} 个单词</small></h3>
           <div class="word-list">
             ${list.map(w => `
               <button class="word-chip" data-say="${esc(w.en)}">
